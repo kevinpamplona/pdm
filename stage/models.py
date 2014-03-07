@@ -16,6 +16,13 @@ class StageManager(models.Manager):
 # (The Django documentation does not recommend overwriting __init__ because it can create unexpected 
 #   bugs, so it suggested this method instead.)
 class Stage(models.Model):
+    """
+    Notes about general protocol for now:
+    - 'S': Start position. Must have only one.
+    - 'E': End position(s).
+    - ' ': Open space.
+    - '\n': Next row in the stage.
+    """
     MAX_SIZE = 65536 # Max size of stage, width * height must be less than or equal to this. Actual number is arbitrary
     width    = models.PositiveSmallIntegerField()
     height   = models.PositiveSmallIntegerField()
@@ -26,5 +33,12 @@ class Stage(models.Model):
                                 #  all the regular functionality
 
 class Block(models.Model):
+    """
+        We will mostly be editing this one ourselves by hardcoding blocks.
+        If the time comes such that users can use custom sprites, we will
+    need to change this such that it keeps track of the Stage it's attached
+    to so that a custom sprite can be loaded per stage. Until then, all
+    stages will have the same spriteset.
+    """
     ID = models.CharField(max_length = 1, primary_key = True)
     sprite = models.URLField()
