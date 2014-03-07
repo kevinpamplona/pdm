@@ -4,10 +4,10 @@ from django.core.exceptions import FieldError
 # Create your models here.
 
 class StageManager(models.Manager):
-    def make_stage(w, h, dat):
+    def make_stage(w, h, dat, user):
         if width <= 0 or height <= 0 or width*height > Stage.MAX_SIZE:
             raise FieldError()
-        return Poll(width = w, height = h, data = dat)
+        return Poll(width = w, height = h, data = dat, owner = user)
 
 # When creating new objects, please use Stage.objects.make_stage() instead of the standard Poll().
 # This allows the StageManager class above to do extra error checking when creating the stage.
@@ -18,6 +18,7 @@ class Stage(models.Model):
     width    = models.PositiveSmallIntegerField()
     height   = models.PositiveSmallIntegerField()
     data     = models.CharField(max_length = Stage.MAX_SIZE)
+    owner    = models.CharField(max_length = 255)
     objects  = StageManager()   # Redirects Stage.objects to be the custom StageManager instead of 
                                 #  traditional models.Manager, allowing for make_stage while keeping
                                 #  all the regular functionality
