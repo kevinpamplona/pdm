@@ -21,6 +21,7 @@ class Stage(models.Model):
     - 'S': Start position. Must have only one.
     - 'E': End position(s).
     - ' ': Open space.
+    - '#': Basic block (floor, wall)
     - '\n': Next row in the stage.
     """
     MAX_SIZE = 65536 # Max size of stage, width * height must be less than or equal to this. Actual number is arbitrary
