@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from views import HandlerView
+from game import views
 
 urlpatterns = patterns('',
     # Examples:
@@ -11,6 +12,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'\.(html|css|js)$', HandlerView.as_view(), name = 'get-page'),
+    url(r'^(?P<stage_id>\d+)\.json$', views.load_stage, name='load_stage'),
+    url(r'^\.json$', views.load_stage, name='load_stage'),
 
     # http://docs.djangoproject.com/en/dev/howto/static-files/
     # This method is inefficient and insecure. 

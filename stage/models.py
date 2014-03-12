@@ -2,6 +2,12 @@ from django.db import models
 from django.core.exceptions import FieldError
 
 # Create your models here.
+DEFAULT = """
+ 
+ S   #   E
+ #########
+ #########
+"""
 
 class StageManager(models.Manager):
     @staticmethod
@@ -10,6 +16,14 @@ class StageManager(models.Manager):
             raise FieldError("Invalid width or height")
 
         return Stage(width = w, height = h, data = dat, owner = user)
+
+    @staticmethod
+    def default_stage():
+        return Stage(
+            width = 11,
+            height = 5,
+            data = DEFAULT,
+            owner = '' )
 
 # When creating new objects, please use Stage.objects.make_stage() instead of the standard Stage().
 # This allows the StageManager class above to do extra error checking when creating the stage.
@@ -33,6 +47,16 @@ class Stage(models.Model):
                                 #  traditional models.Manager, allowing for make_stage while keeping
                                 #  all the regular functionality
 
+    def __unicode__(self):
+        return u'Stage: ' + unicode(self.width) + u'x' + unicode(self.height) + u'; Owner: ' + unicode(self.owner) + u'\n' + unicode(self.data)
+
+class BlockManager(models.Manager):
+    @staticmethod
+    def build_default(): # Call Block.objects.build_default() if there are no blocks yet
+        if len(Block.objects.all()) == 0:
+            Block(ID = '#', sprite = 'images/Block.gif').save()
+            Block(ID = Block.startID, sprite = 'images/Kirby.gif').save()
+
 class Block(models.Model):
     """
         We will mostly be editing this one ourselves by hardcoding blocks.
@@ -41,5 +65,11 @@ class Block(models.Model):
     to so that a custom sprite can be loaded per stage. Until then, all
     stages will have the same spriteset.
     """
+    startID = 'S'
+    endID = 'E'
     ID = models.CharField(max_length = 1, primary_key = True)
     sprite = models.URLField()
+    objects = BlockManager()
+
+    def __unicode__(self):
+        return unicode(self.ID) + u': ' + unicode(self.sprite)
