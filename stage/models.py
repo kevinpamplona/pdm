@@ -53,9 +53,12 @@ class Stage(models.Model):
 class BlockManager(models.Manager):
     @staticmethod
     def build_default(): # Call Block.objects.build_default() if there are no blocks yet
-        if len(Block.objects.all()) == 0:
+        if len(Block.objects.filter(ID = '#')) == 0:
             Block(ID = '#', sprite = 'images/Block.gif').save()
+        if len(Block.objects.filter(ID = Block.startID)) == 0:
             Block(ID = Block.startID, sprite = 'images/Kirby.gif').save()
+        if len(Block.objects.filter(ID = Block.endID)) == 0:
+            Block(ID = Block.endID, sprite = 'images/Chest.gif').save()
 
 class Block(models.Model):
     """
