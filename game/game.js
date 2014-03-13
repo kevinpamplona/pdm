@@ -26,17 +26,31 @@ $.getJSON(gup("stageid") + ".json", function(data) {
         value = "../".concat(value);
         loader.push(value);
         
-        if(key == data.start.ID)
+        if(key == data.end.ID)
         {
-            Q.Sprite.extend("Player", {
+            Q.Sprite.extend("Goal", {
                 init: function(p) {
                     this._super(p, {asset: value});
-                    this.add("2d, platformerControls");
                 },
             });
         }
-        else if (key == data.end.ID)
-        {} // TODO: Add Ending Goal
+        else if(key == data.start.ID)
+        {
+            Q.Sprite.extend("Player", {
+                init: function(p) {
+                    this._super(p, {asset: value, gravity:0.75});
+                    this.add("2d, platformerControls");
+
+                    this.on("hit.sprite", function(collision) {
+                        if(collision.obj.isA("Goal"))
+                        {
+                            Q.stageScene("endGame", 1, {label: "You won!"});
+                            this.destroy()
+                        }
+                    });
+                },
+            });
+        }
         else
         {
             Q.Sprite.extend("Block" + key.charCodeAt(0).toString(), {
@@ -48,6 +62,22 @@ $.getJSON(gup("stageid") + ".json", function(data) {
     });
 
     Q.load(loader, function() {
+        Q.scene('endGame',function(stage) {
+            var box = stage.insert(new Q.UI.Container({
+                x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
+            }));
+  
+            var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
+                                           label: "Play Again" }))         
+            var label = box.insert(new Q.UI.Text({x:10, y: -10 - button.p.h, 
+                                        label: stage.options.label }));
+            button.on("click",function() {
+                Q.clearStages();
+                Q.stageScene("level");
+            });
+            box.fit(20);
+        });
+
         Q.scene("level", function(stage) {
             $.each(data.blocks, function(index, value) {
                 var evalstr = "stage.insert(".concat(
@@ -58,10 +88,12 @@ $.getJSON(gup("stageid") + ".json", function(data) {
                     "));" );
                 (new Function('stage', 'Q', evalstr))(stage, Q);
             });
+
             player = new Q.Player({x:data.start.x*data.spsize, y:data.start.y*data.spsize});
             stage.insert(player);
 
-            // TODO: Insert ending goal (must have added information on it first)
+            goal = new Q.Goal({x:data.end.x*data.spsize, y:data.end.y*data.spsize});
+            stage.insert(goal);
         });
 
         Q.stageScene("level");
