@@ -1,0 +1,123 @@
+body {
+	margin: 30px;
+	font-family: "Georgia", serif;
+	line-height: 1.8em;
+	color: #333;
+	border-style: solid;
+	border-width:3px;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#editor-main {
+	width: 1234px;
+	height: 700px;
+	margin: 50px 70px;
+	text-align: center;
+	border-style: dotted;
+	border-width:1px;
+	position: relative;
+}
+
+#editor-canvas {
+	width: 950px;
+	height: 480px;
+	margin: 20px auto 0 auto;
+	background: #ddf;
+	border: 2px solid #333;
+	border-radius: 10px;
+	box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+
+#editor-palette {
+	width: 400px;
+	height: 120px;
+	margin: 0 auto;
+	background: #ffd;
+	border: 2px solid #333;
+	border-radius: 10px;
+	box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+}
+
+#editor-dashboard {
+	width: 400px;
+	height: 120px;
+	margin: 0 auto;
+	background: #fca9f3;
+	border: 2px solid #333;
+	border-radius: 10px;
+	box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+}
+
+#elements-start {
+	float: left;
+	width: 85px;
+	height: 85px;
+	border: 2px solid #333;
+	border-radius: 10px;
+	margin: 0px 0px 10px 0px;
+	background: #666;
+}
+
+#elements-goal {
+	float: left;
+	width: 85px;
+	height: 85px;
+	border: 2px solid #333;
+	border-radius: 10px;
+	margin: 0px 0px 10px 0px;
+	background: #666;
+}
+
+#elements-block {
+	float: left;
+	width: 85px;
+	height: 85px;
+	border: 2px solid #333;
+	border-radius: 10px;
+	margin: 0px 0px 10px 0px;
+	background: #666;
+}
+
+.elements-slot {
+	float: left;
+	width: 85px;
+	height: 85px;
+	border: 2px solid #333;
+	border-radius: 10px;
+	margin: 15px 0 0 33px;
+}
+
+.canvas-row {
+	height: 90px;
+	margin: 0px 0px 0px 342px;
+}
+
+.canvas-first-row {
+	margin-top:80px;
+}
+
+.canvas-droppable {
+	float: left;
+	width: 85px;
+	height: 85px;
+	border: 2px solid #333;
+	border-radius: 10px;
+	background: #fff;
+}
+
+.canvas-droppable.hovered {
+	background: : #aaa;
+}
+
+.elements.ui-draggable-dragging {
+	box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+}
