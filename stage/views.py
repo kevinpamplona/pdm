@@ -20,8 +20,10 @@ class RenderView(View):
 		owner = data_in['owner']
 		if request.path == '/stage/render':
 			data_out = models.pdm_stages.render(width, height, data, owner)
+			response = {"stageid" : data_out}
+			j_resp = json.dumps(response)
 			print "test test test test"
-			return HttpResponseRedirect("http://www.google.com")
+			return HttpResponse(content=j_resp, content_type='application/json', status=200)
 		else:
 			assert False
 
