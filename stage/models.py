@@ -86,7 +86,7 @@ class StageModel:
         print "rendering stage!"
         rendered_stage = Stage.objects.make_stage(width, height, data, owner)
         rendered_stage.save()
-        return Stage.objects.all().count()-1
+        return Stage.objects.all().count()
 
 pdm_stages = StageModel()
 

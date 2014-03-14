@@ -168,6 +168,8 @@ function renderStage() {
 
 function handle_render_response(data) {
 	alert(data.stageid);
+	var stage_link = 'http://limitless-scrubland-2940.herokuapp.com/game/game.html?stageid=' + data.stageid;
+	$("<form action='" + stage_link + "' method='get'> <button type='button'>Play stage!</button> </form>").appendTo( '#editor-dashboard' );
 }
 
 </script>
