@@ -86,5 +86,5 @@ STATIC_ROOT = os.path.join( os.path.dirname(os.path.dirname(__file__)), 'images'
 STATIC_URL = '/images/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'imagesß'),
+    os.path.join(BASE_DIR, 'images'),
 )
