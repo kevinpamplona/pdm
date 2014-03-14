@@ -89,5 +89,3 @@ class StageModel:
         return Stage.objects.all().count()
 
 pdm_stages = StageModel()
-
-

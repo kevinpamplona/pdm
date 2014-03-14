@@ -7,7 +7,6 @@ from users.views import TestView
 
 from stage.views import RenderView
 from stage.views import EditorView
-
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -27,4 +26,5 @@ urlpatterns = patterns('',
     url(r'^stage/render$', RenderView.as_view(), name='my-view'),
     url(r'^editor.html$', EditorView.as_view(), name='my-view'),
     url(r'^style.css$', EditorView.as_view(), name='my-view'),
+
 ) 
