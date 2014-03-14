@@ -156,7 +156,7 @@ function renderStage() {
 	json_request( "/stage/render", 
 				  { width: stage_width, height: stage_height, data: stage_data, owner: stage_owner }, 
 				  function(data) { 
-				      return handle_render_response(data, username);
+				      return handle_render_response(data);
 				  }, 
 				  function(xhr, status, error) { 
 				      //var err = eval("(" + xhr.responseText + ")");
