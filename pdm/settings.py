@@ -57,9 +57,10 @@ WSGI_APPLICATION = 'pdm.wsgi.application'
 
 import dj_database_url
 DATABASES = {'default': dj_database_url.config()}
-import sys
-if 'test' in sys.argv:
-    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
+if not DATABASES['default']:
+    default_engine = 'django.db.backends.sqlite3'
+    DATABASES['default'] = {'ENGINE': default_engine, 'NAME':os.path.join(BASE_DIR, 'db.sqlite3')}
+    print "Using default testing database (" + default_engine + ")."
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
