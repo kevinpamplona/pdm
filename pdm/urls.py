@@ -21,6 +21,6 @@ urlpatterns = patterns('',
     url(r'^client.css$', HandlerView.as_view(), name='my-view'),
 
     url(r'^stage/', include('stage.urls')),
-    url(r'^style.css$', EditorView.as_view(), name='my-view'),
+    url(r'^assets/', 'static_pages.views.static_asset'),
 
 ) 
