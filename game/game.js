@@ -53,7 +53,7 @@ $.getJSON(gup("stageid") + ".json", function(data) {
                 step: function(dt) {
                     if (this.p.y > Q.height + data.spsize)
                     {
-                        Q.stageScene("endGame", 1, {label: "You lost..."});
+                        Q.stageScene("endGame", 1, {label: "You died..."});
                         this.destroy();
                     }
                 }
