@@ -1,6 +1,7 @@
 from django.db import models
+from django import forms
 
-class User(models.Model):
+class User(models.Model): # Depreciated
 	user = models.CharField(max_length=128, primary_key=True)
 	password = models.CharField(max_length=128)
 	count = models.IntegerField(default=1)
@@ -8,7 +9,7 @@ class User(models.Model):
 	def __unicode__(self):
 		return "[un:" + self.user + ", pw:" + self.password + ", #:" + str(self.count) + "]"
 
-class UsersModel:
+class UsersModel: # Depreciated
 
 	def __init__(self):
 		print "UsersModel initiated"
@@ -55,3 +56,7 @@ class UsersModel:
 		return UsersModel.SUCCESS
 
 g_users = UsersModel()
+
+class UserForm(forms.Form):
+    username = forms.CharField()
+    passwd = forms.CharField(widget = forms.PasswordInput())
