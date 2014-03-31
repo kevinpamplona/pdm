@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^static_pages/', include('static_pages.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^game/', include('game.urls')), 
+    url(r'^game/', include('game.urls', namespace = 'game')), 
 
     #url(r'^client.html$', HandlerView.as_view(), name='my-view'),
     #url(r'^client.js$', HandlerView.as_view(), name='my-view'),

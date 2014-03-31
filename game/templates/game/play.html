@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>Play a Stage</title>
+</head>
+<body>
+    <div><a href="game.html">Default Stage</a></div>
+    <div>{{ message }}</div>
+    {% for stage in stages %}
+        <a href="game.html?stageid={{stage.pk}}">Stage {{stage.pk}}</a><br>
+    {% endfor %}
+    <div>
+        {% if logged_in %}
+            <a href="../stage/editor">Build a new stage</a>
+            <form action="{% url 'users:login' %}" method = "post">
+                <input type="submit" name="logout" value="Log Out">
+            </form>
+        {% else %}
+            <a href="{% url 'users:login' %}">Log in to load saved stages</a>
+        {% endif %}
+    </div>
+</body>
+</html>

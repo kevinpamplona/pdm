@@ -52,14 +52,14 @@ def get_login(request):
             result = None # This should never be reached
 
         if result == UsersModel.SUCCESS:
-            context['message'] = "User {0} successfully logged in".format(request.user)
+            context['message'] = "User {0} is logged in".format(request.user)
             return render(request, 'users/login.html', context)
         elif result == UsersModel.ERR_BAD_USERNAME:
             context['message'] = "ADD USER ERROR: Username is " + ("empty" if len(username) == 0 else "too long")
         else:
             context['message'] = errors[result]
     elif request.user.is_authenticated():
-        context['message'] = "User {0} successfully logged in".format(request.user)
+        context['message'] = "User {0} is logged in".format(request.user)
         return render(request, 'users/login.html', context)
     else:
         form = UserForm()
