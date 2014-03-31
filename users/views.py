@@ -20,14 +20,12 @@ errors = {
 # Create your views here.
 def get_login(request):
     context = {'message' : "Please enter your credentials below"}
-    if request.user.is_active:
-        if u'logout' in request.GET:
-            logout(request)
-        else:
-            context['message'] = "User {0} successfully logged in".format(request.user)
-            return render(request, 'users/login.html', context)
     if request.method == 'POST':
         form = UserForm(request.POST)
+        if u'logout' in form.data:
+            logout(request)
+            context['form'] = UserForm()
+            return render(request, 'users/login.html', context)
         username = form.data[u'username']
         password = form.data[u'passwd']
         if u'login' in form.data:
@@ -47,6 +45,7 @@ def get_login(request):
             else:
                 new_user = User.objects.create_user(username, '', password)
                 new_user.save()
+                new_user = authenticate(username = username, password = password)
                 login(request, new_user)
                 result = UsersModel.SUCCESS
         else:
@@ -59,6 +58,9 @@ def get_login(request):
             context['message'] = "ADD USER ERROR: Username is " + ("empty" if len(username) == 0 else "too long")
         else:
             context['message'] = errors[result]
+    elif request.user.is_authenticated():
+        context['message'] = "User {0} successfully logged in".format(request.user)
+        return render(request, 'users/login.html', context)
     else:
         form = UserForm()
     context['form'] = form

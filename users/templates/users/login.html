@@ -9,7 +9,7 @@
 	<input type="submit" name="adduser" value="Add User">
 </form>
 {% else %}
-<form action="{% url 'users:login' %}" method = "get">
+<form action="{% url 'users:login' %}" method = "post">
 	<input type="submit" name="logout" value="Log Out">
 </form>
 {% endif %}
