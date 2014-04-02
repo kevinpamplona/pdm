@@ -96,7 +96,6 @@ function handleElementDrop( event, ui ) {
     	alert("ERROR: incorrect element type has been dropped");
     }
 
-    //alert("you dropped " + element_type + " at " + coordinates);
 	canvas_directory.push(new canvas_node(element_type, coordinates));    
 }
 
@@ -117,9 +116,11 @@ function renderStage() {
 
 	for (var i = 0; i < 5; i++) {
 		for (var j = 0; j < 6; j++) {
+
 			stage_data_arr[i][j] = " ";
 		}
 	}
+
 
 	for (var i = 0; i < canvas_directory.length; i++) {
 		var element = canvas_directory[i].element_type;
@@ -136,18 +137,26 @@ function renderStage() {
 			alert("ERROR");
 		}
 
-		stage_data_arr[getX(coordinates)][getY(coordinates)] = elm;
+		var xcoord = getX(coordinates);
+		var ycoord = getY(coordinates);
+		//alert('adding element: ' + element  + ': ' + xcoord + ", " + ycoord);
+		//alert(stage_data_arr.length);
+		//alert(stage_data_arr[0].length);
+		stage_data_arr[ycoord][xcoord] = elm;
 	}
 
 	var string_out = "";
 	for (var y = 0; y < 5; y++) {
 		for (var x = 0; x < 6; x++) {
-			string_out += stage_data_arr[x][y];
+			string_out += stage_data_arr[y][x];
+			//alert(x + ", " + y);
+			//alert(stage_data_arr.length);
+			//alert(stage_data_arr[0].length);
 		}
 		string_out += "\n";
 	}
 
-	//alert(string_out);
+	alert(string_out);
 
 	var stage_width = 6;
 	var stage_height = 5;
