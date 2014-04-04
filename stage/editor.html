@@ -18,17 +18,21 @@
 			<div id="allrows"></div>
 		</div>
 		
-		<div id="editor-palette">
-			<div id="elements-start-slot" class="elements-slot"></div>
-			<div id="elements-goal-slot" class="elements-slot"></div>
-			<div id="elements-block-slot" class="elements-slot"></div>
-		</div>
+		<div id="editor-controls">
+
+			<div id="editor-palette" class="editor-control">
+				<div id="elements-start-slot" class="elements-slot"></div>
+				<div id="elements-goal-slot" class="elements-slot"></div>
+				<div id="elements-block-slot" class="elements-slot"></div>
+			</div>
 		
-		<div id="editor-dashboard">
-			<br><br>
-			<button id="savebutton" class="navbutton" type="button" onclick="alert('Stage has been saved!');">Save!</button>
-			<button id="renderbutton"class="navbutton" type="button" onclick="renderStage();">Render!</button>
-			<button id="restartbutton" class="navbutton" type="button" onclick="alert('Stage has been restarted!')">Restart!</button>
+			<div id="editor-dashboard" class="editor-control">
+				<button id="savebutton" class="navbutton" type="button" onclick="alert('Stage has been saved!');">Save!</button>
+				<button id="renderbutton"class="navbutton" type="button" onclick="renderStage();">Render!</button>
+				<button id="restartbutton" class="navbutton" type="button" onclick="alert('Stage has been restarted!')">Restart!</button>
+				<div id="play-button-position">
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

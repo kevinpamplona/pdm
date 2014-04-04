@@ -1,5 +1,4 @@
 html, body {
-	margin: 30px;
 	font-family: "Georgia", serif;
 	line-height: 1.8em;
 	background: #faf8ef;
@@ -21,60 +20,61 @@ h1, h2, h3, h4 {
 }
 
 #editor-main {
-	width: 1234px;
-	height: 700px;
-	margin: 50px 70px;
 	text-align: center;
-	position: relative;
 }
 
 #allrows {
-	left: 0px;
-	top: -62px;
-	position: absolute;
+	padding: 20px;
 }
 
 #editor-canvas {
-	width: 950px;
-	height: 480px;
+	max-width: 950px;
 	margin: 20px auto 0 auto;
 	background: #bbada0;
 	border: 2px solid #333;
 	border-radius: 10px;
 	box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-	position: relative;
+	display: block;
 }
 
 #editor-palette {
-	width: 400px;
 	height: 120px;
-	margin: 0 auto;
 	background: #ffd;
 	border: 2px solid #333;
 	border-radius: 10px;
 	box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-	position: absolute;
-	bottom: 20px;
-	left: 20px;
+	margin-right: 20px;
 }
 
 #editor-dashboard {
-	width: 400px;
 	height: 120px;
-	margin: 0 auto;
 	background: #fca9f3;
 	border: 2px solid #333;
 	border-radius: 10px;
 	box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-	position: absolute;
-	bottom: 20px;
-	right: 20px;
+	margin-left: 20px;
+}
+
+#editor-controls {
+	display: block;
+	margin: 0 auto;
+	min-width: 700px;
+	max-width: 1000px;
+	white-space: nowrap;
+}
+
+.editor-control {
+	margin: 10px 0;
+	display: inline-block;
+	vertical-align: top;
+	width: 45%;
+	min-width: 300px;
 }
 
 #elements-start {
-	float: left;
-	width: 85px;
-	height: 85px;
+	display: inline-block;
+	width: 60px;
+	height: 60px;
 	border: 2px solid #333;
 	border-radius: 10px;
 	margin: 0px 0px 10px 0px;
@@ -82,9 +82,9 @@ h1, h2, h3, h4 {
 }
 
 #elements-goal {
-	float: left;
-	width: 85px;
-	height: 85px;
+	display: inline-block;
+	width: 60px;
+	height: 60px;
 	border: 2px solid #333;
 	border-radius: 10px;
 	margin: 0px 0px 10px 0px;
@@ -92,70 +92,66 @@ h1, h2, h3, h4 {
 }
 
 #elements-block {
-	float: left;
-	width: 85px;
-	height: 85px;
+	display: inline-block;
+	width: 60px;
+	height: 60px;
 	border: 2px solid #333;
 	border-radius: 10px;
 	margin: 0px 0px 10px 0px;
 	background: #faf8ef;
 }
 
+#play-button {
+	display: block;
+	margin: 5px auto;
+}
+
 .elements-slot {
-	float: left;
-	width: 85px;
-	height: 85px;
-	border: 2px solid #333;
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	border: 1px solid #333;
 	border-radius: 10px;
-	margin: 15px 0 0 33px;
-}
-
-#savebutton {
-  left: 20px;
-  top: 40px;
-}
-
-#renderbutton {
-  left: 150px;
-  top: 40px;
-}
-
-#restartbutton {
-  left: 290px;
-  top: 40px;
+	margin: 15px;
 }
 
 .navbutton {
   display: inline-block;
   background: #8f7a66;
   border-radius: 3px;
-  padding: 0 20px;
+  padding: 0 10px;
   text-decoration: none;
   color: #f9f6f2;
   height: 40px;
-  line-height: 42px;
-  display: block;
   text-align: center;
-  position: absolute;
+  margin-top: 20px;
 }
 
 .canvas-row {
-	position: relative;
-	height: 90px;
-	margin: 0px 0px 0px 215px;
+	margin-left:auto;
+	margin-right:auto;
+	display: block;
 }
 
 .canvas-first-row {
-	margin-top:80px;
 }
 
 .canvas-droppable {
-	float: left;
-	width: 85px;
-	height: 85px;
-	border: 2px solid #333;
-	border-radius: 10px;
+	width: 60px;
+	height: 60px;
+	border: thin solid #333;
+	border-width: 0px 1px 1px 0px;
 	background: #fff;
+	display: inline-block;
+	font-size: 14px;
+}
+
+.canvas-first-col {
+	border-left-width: 1px;
+}
+
+.canvas-first-row .canvas-droppable {
+	border-top-width: 1px;
 }
 
 .canvas-droppable.hovered {

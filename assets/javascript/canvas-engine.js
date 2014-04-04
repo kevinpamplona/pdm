@@ -48,10 +48,15 @@ function init_canvas() {
 		for (var x = 0; x < CANVAS_WIDTH; x++) {
 
 			// text to be in the tile
-			var tile_text = "(" + x + " , " + y + " )";
+			var tile_text = "(" + x + " , " + y + ")";
+
+			var canvas_col_class = 'canvas-droppable';
+			if (x == 0) {
+				canvas_col_class += ' canvas-first-col';
+			}
 
 			// add the droppable div with the specified text
-			$("<div class='canvas-droppable'>" + tile_text + "</div>").data( {'coordinates': [x, y]} ).appendTo('#' + div_id).droppable({
+			$("<div class='" + canvas_col_class + "'>" + tile_text + "</div>").data( {'coordinates': [x, y]} ).appendTo('#' + div_id).droppable({
 				accept: '.elements',
 				hoverClass: 'hovered',
 				drop: handleElementDrop
@@ -221,8 +226,8 @@ function renderStage() {
 // add a button link to the playable stage -- should fix this
 function handle_render_response(data) {
 	alert(data.stageid);
-	var stage_link = 'http://limitless-scrubland-2940.herokuapp.com/game/game.html';
-	$("<form action='" + stage_link + "' method='get'><input type='hidden' name='stageid' value='" + data.stageid + "'/> <button>Play stage!</button> </form>").appendTo('#editor-dashboard');
+	var stage_link = '/game/game.html';
+	$("<form action='" + stage_link + "' method='get'><input type='hidden' name='stageid' value='" + data.stageid + "'/> <button id='play-button' class='navbutton'>Play stage!</button> </form>").appendTo('#play-button-position');
 }
 
 function json_request(page, dict, success, failure) {
