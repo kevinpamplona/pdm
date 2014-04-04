@@ -12,7 +12,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
     url(r'^$', include('static_pages.urls')),
-    url(r'^static_pages/', include('static_pages.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^game/', include('game.urls')),    

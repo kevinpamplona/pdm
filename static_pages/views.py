@@ -9,7 +9,6 @@ def static_page(request):
     return response
 
 def static_asset(request):
-    print(request.path)
     f = open(curdir + sep + request.path)
     if request.path.endswith(".html"):
             _content_type = 'text/html'
