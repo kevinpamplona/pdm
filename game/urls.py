@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'\.(html|css|js)$', HandlerView.as_view(), name = 'get-page'),
     url(r'^(?P<stage_id>\d+)\.json$', views.load_stage, name='load_stage'),
     url(r'^\.json$', views.load_stage, name='load_stage'),
+    url(r'^$', views.get_stage, name='get_stage'),
 
     # http://docs.djangoproject.com/en/dev/howto/static-files/
     # This method is inefficient and insecure. 

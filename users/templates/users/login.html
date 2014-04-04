@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>Log in</title>
+</head>
+<body>
+	<center>
+	<b> {{ message }} </b><br>
+	{% if form %}
+	<form action="{% url 'users:login' %}" method = "post">
+		{% csrf_token %}
+		Username: <input type="text" name="username"><br>
+		Password: <input type="password" name="passwd"><br>
+		<input type="submit" name="login" value="Log In">
+		<input type="submit" name="adduser" value="Add User">
+	</form>
+	{% else %}
+	<a href="{% url 'game:get_stage' %}">Play a saved stage</a>
+	<form action="{% url 'users:login' %}" method = "post">
+		<input type="submit" name="logout" value="Log Out">
+	</form>
+	{% endif %}
+</body>
+</html>

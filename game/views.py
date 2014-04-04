@@ -39,7 +39,8 @@ def load_stage(request, stage_id = 0):
         stage = Stage.objects.get(pk=stage_id)
     except ObjectDoesNotExist:
         stage = Stage.objects.default_stage()
-    except: # Shouldn't be reached
+    except Exception as e: # Shouldn't be reached
+        print e
         raise
 
     Block.objects.build_default() # JIC
@@ -77,3 +78,17 @@ def load_stage(request, stage_id = 0):
             x += 1
 
     return HttpResponse(json.dumps(response_data), content_type = 'application/json')
+
+def get_stage(request):
+    context = {}
+    if request.user.is_authenticated():
+        context['logged_in'] = True
+        stages = Stage.objects.filter(owner = request.user.username)
+        if stages:
+            context['stages'] = stages
+            context['message'] = "Choose one of your stages:"
+        else:
+            context['message'] = "You have no saved stages."
+    else:
+        context['message'] = 'You are not logged in!'
+    return render(request, 'game/play.html', context)
