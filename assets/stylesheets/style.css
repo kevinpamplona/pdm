@@ -1,18 +1,18 @@
 html, body {
-	font-family: "Georgia", serif;
-	line-height: 1.8em;
-	background: #faf8ef;
+  font-family: "Georgia", serif;
+  line-height: 1.8em;
+  background: #faf8ef;
 
-	color: #776e65;
-	font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-	font-size: 18px;
+  color: #776e65;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
 }
 
 h1.title {
-	font-size: 55px;
-	font-weight: bold;
-	margin: 0;
-	display: block;
+  font-size: 55px;
+  font-weight: bold;
+  margin: 0;
+  display: block;
 }
 
 h1, h2, h3, h4 {
@@ -20,99 +20,99 @@ h1, h2, h3, h4 {
 }
 
 #editor-main {
-	text-align: center;
+  text-align: center;
 }
 
 #allrows {
-	padding: 20px;
+  padding: 20px;
 }
 
 #editor-canvas {
-	max-width: 950px;
-	margin: 20px auto 0 auto;
-	background: #bbada0;
-	border: 2px solid #333;
-	border-radius: 10px;
-	box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-	display: block;
+  max-width: 950px;
+  margin: 20px auto 0 auto;
+  background: #bbada0;
+  border: 2px solid #333;
+  border-radius: 10px;
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  display: block;
 }
 
 #editor-palette {
-	height: 120px;
-	background: #ffd;
-	border: 2px solid #333;
-	border-radius: 10px;
-	box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-	margin-right: 20px;
+  height: 120px;
+  background: #ffd;
+  border: 2px solid #333;
+  border-radius: 10px;
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  margin-right: 20px;
 }
 
 #editor-dashboard {
-	height: 120px;
-	background: #fca9f3;
-	border: 2px solid #333;
-	border-radius: 10px;
-	box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-	margin-left: 20px;
+  height: 120px;
+  background: #fca9f3;
+  border: 2px solid #333;
+  border-radius: 10px;
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  margin-left: 20px;
 }
 
 #editor-controls {
-	display: block;
-	margin: 0 auto;
-	min-width: 700px;
-	max-width: 1000px;
-	white-space: nowrap;
+  display: block;
+  margin: 0 auto;
+  min-width: 700px;
+  max-width: 1000px;
+  white-space: nowrap;
 }
 
 .editor-control {
-	margin: 10px 0;
-	display: inline-block;
-	vertical-align: top;
-	width: 45%;
-	min-width: 300px;
+  margin: 10px 0;
+  display: inline-block;
+  vertical-align: top;
+  width: 45%;
+  min-width: 300px;
 }
 
 #elements-start {
-	display: inline-block;
-	width: 60px;
-	height: 60px;
-	border: 2px solid #333;
-	border-radius: 10px;
-	margin: 0px 0px 10px 0px;
-	background: #faf8ef;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  margin: 0px 0px 10px 0px;
+  background: #faf8ef;
 }
 
 #elements-goal {
-	display: inline-block;
-	width: 60px;
-	height: 60px;
-	border: 2px solid #333;
-	border-radius: 10px;
-	margin: 0px 0px 10px 0px;
-	background: #faf8ef;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  margin: 0px 0px 10px 0px;
+  background: #faf8ef;
 }
 
 #elements-block {
-	display: inline-block;
-	width: 60px;
-	height: 60px;
-	border: 2px solid #333;
-	border-radius: 10px;
-	margin: 0px 0px 10px 0px;
-	background: #faf8ef;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  margin: 0px 0px 10px 0px;
+  background: #faf8ef;
 }
 
 #play-button {
-	display: block;
-	margin: 5px auto;
+  display: block;
+  margin: 5px auto;
 }
 
 .elements-slot {
-	display: inline-block;
-	width: 60px;
-	height: 60px;
-	border: 1px solid #333;
-	border-radius: 10px;
-	margin: 15px;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  margin: 15px;
 }
 
 .navbutton {
@@ -128,36 +128,33 @@ h1, h2, h3, h4 {
 }
 
 .canvas-row {
-	margin-left:auto;
-	margin-right:auto;
-	display: block;
-}
-
-.canvas-first-row {
+  margin-left:auto;
+  margin-right:auto;
+  display: block;
 }
 
 .canvas-droppable {
-	width: 60px;
-	height: 60px;
-	border: thin solid #333;
-	border-width: 0px 1px 1px 0px;
-	background: #fff;
-	display: inline-block;
-	font-size: 14px;
+  width: 60px;
+  height: 60px;
+  border: thin solid #333;
+  border-width: 0px 1px 1px 0px;
+  background: #fff;
+  display: inline-block;
+  font-size: 14px;
 }
 
 .canvas-first-col {
-	border-left-width: 1px;
+  border-left-width: 1px;
 }
 
 .canvas-first-row .canvas-droppable {
-	border-top-width: 1px;
+  border-top-width: 1px;
 }
 
 .canvas-droppable.hovered {
-	background: : #aaa;
+  background: #aaa;
 }
 
 .elements.ui-draggable-dragging {
-	box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
 }
