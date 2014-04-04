@@ -8,9 +8,20 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../client.js"></script>
 
 <script type="text/javascript">
+
+function json_request(page, dict, success, failure) {
+    $.ajax({
+        type: 'POST',
+        url: page,
+        data: JSON.stringify(dict),
+        contentType: "application/json",
+        dataType: "json",
+        success: success,
+        error: failure
+    });
+}
 
 $ ( init )
 
@@ -162,16 +173,17 @@ function renderStage() {
 	var stage_height = 5;
 	var stage_data = string_out;
 	var stage_owner = "johndoe";
-	json_request( "/stage/render", 
-				  { width: stage_width, height: stage_height, data: stage_data, owner: stage_owner }, 
-				  function(data) { 
-				      return handle_render_response(data);
-				  }, 
-				  function(xhr, status, error) { 
-				      //var err = eval("(" + xhr.responseText + ")");
-				      //alert(xhr.responseText); 
-				      alert(status);
-				  });
+	var json_data = JSON.stringify({ width: stage_width, height: stage_height, data: stage_data, owner: stage_owner })
+ 	json_request( "/stage/render", 
+  		{ width: stage_width, height: stage_height, data: stage_data, owner: stage_owner }, 
+  		function(data) { 
+  			return handle_render_response(data);
+  		}, 
+  		function(xhr, status, error) { 
+  			//var err = eval("(" + xhr.responseText + ")");
+  			//alert(xhr.responseText); 
+  			alert(status);
+  		});
 	return false;
 }
 
