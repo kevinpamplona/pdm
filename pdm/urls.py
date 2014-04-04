@@ -14,9 +14,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^game/', include('game.urls', namespace = 'game')), 
 
-    #url(r'^client.html$', HandlerView.as_view(), name='my-view'),
-    #url(r'^client.js$', HandlerView.as_view(), name='my-view'),
-    #url(r'^client.css$', HandlerView.as_view(), name='my-view'),
     url(r'^login/', include('users.urls', namespace = 'users')),
 
     url(r'^stage/', include('stage.urls')),
