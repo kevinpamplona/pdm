@@ -173,17 +173,16 @@ function renderStage() {
 	var stage_height = 5;
 	var stage_data = string_out;
 	var stage_owner = "johndoe";
-	var json_data = JSON.stringify({ width: stage_width, height: stage_height, data: stage_data, owner: stage_owner })
- 	json_request( "/stage/render", 
-  		{ width: stage_width, height: stage_height, data: stage_data, owner: stage_owner }, 
-  		function(data) { 
-  			return handle_render_response(data);
-  		}, 
-  		function(xhr, status, error) { 
-  			//var err = eval("(" + xhr.responseText + ")");
-  			//alert(xhr.responseText); 
-  			alert(status);
-  		});
+	json_request( "/stage/render", 
+		{ width: stage_width, height: stage_height, data: stage_data, owner: stage_owner }, 
+		function(data) { 
+			return handle_render_response(data);
+		}, 
+		function(xhr, status, error) { 
+			//var err = eval("(" + xhr.responseText + ")");
+			//alert(xhr.responseText); 
+			alert(status);
+		});
 	return false;
 }
 
