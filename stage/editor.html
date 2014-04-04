@@ -2,210 +2,28 @@
 <html lang="en">
 
 <head>
-<title>platform design madness: stage editor</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<link rel="stylesheet" type="text/css" href="../assets/style.css">
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-
-<script type="text/javascript">
-
-function json_request(page, dict, success, failure) {
-    $.ajax({
-        type: 'POST',
-        url: page,
-        data: JSON.stringify(dict),
-        contentType: "application/json",
-        dataType: "json",
-        success: success,
-        error: failure
-    });
-}
-
-$ ( init )
-
-function init() {
-
-	$("<div id='elements-start' class='elements'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
-		cursor: 'move',
-		revert: true,
-		helper: 'clone'
-	});
-
-	$("<div id='elements-goal' class='elements'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
-		cursor: 'move',
-		revert: true,
-		helper: 'clone'
-	});
-
-	$("<div id='elements-block' class='elements'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
-		cursor: 'move',
-		revert: true,
-		helper: 'clone'
-	});
-
-	for (var y = 0; y < 5; y++) {
-		var div_id = "row_" + y
-		var canvas_row_class = 'canvas-row';
-		if (y == 0) {
-			canvas_row_class = 'canvas-row canvas-first-row'
-		} 
-		$("<div id='" + div_id + "' class='" + canvas_row_class + "'></div>").appendTo( '#allrows' );
-		for (var x = 0; x < 6; x++) {
-			$("<div class='canvas-droppable'>( " + x + " , " + y + " )</div>").data( {'coordinates': [x, y]} ).appendTo('#' + div_id).droppable({
-				accept: '.elements',
-				hoverClass: 'hovered',
-				drop: handleElementDrop
-			});
-		}
-	}
-
-}
-
-function canvas_node(element_type, coordinates) {
-	this.element_type = element_type;
-	this.coordinates = coordinates;
-}
-
-var canvas_directory = new Array();
-
-function handleElementDrop( event, ui ) {
-	var coordinates = $(this).data( 'coordinates' );
-	var element_type = ui.draggable.data ( 'element-type' );
-	ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
-    ui.draggable.draggable( 'option', 'revert', false );
-
-    if (element_type == 'start-type') {
-    	$( this ).addClass( "placed-elements-screen" ).html("start");
-    	$( this ).css( "background", "#666" );
-    	$('#elements-start-slot').html( '' );
-    	$("<div id='elements-start' class='elements'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
-			cursor: 'move',
-			revert: true,
-			helper: 'clone'
-		});
-    } else if (element_type == 'goal-type') {
-    	$( this ).addClass( "placed-elements-screen" ).html("goal");
-    	$( this ).css( "background", "#666" );
-    	$('#elements-goal-slot').html( '' );
-    	$("<div id='elements-goal' class='elements'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
-			cursor: 'move',
-			revert: true,
-			helper: 'clone'
-		});
-    } else if (element_type == 'block-type') {
-    	$( this ).addClass( "placed-elements-screen" ).html("block");
-    	$( this ).css( "background", "#666" );
-    	$('#elements-block-slot').html( '' );
-    	$("<div id='elements-block' class='elements'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
-			cursor: 'move',
-			revert: true,
-			helper: 'clone'
-		});
-    } else {
-    	alert("ERROR: incorrect element type has been dropped");
-    }
-
-	canvas_directory.push(new canvas_node(element_type, coordinates));    
-}
-
-function getX(coords) {
-	return coords[0];
-}
-
-function getY(coords) {	
-	return coords[1];
-}
-
-function renderStage() {
-
-	var stage_data_arr = new Array(5);
-	for (var i = 0; i < 5; i++) {
-		stage_data_arr[i] = new Array(6);
-	}
-
-	for (var i = 0; i < 5; i++) {
-		for (var j = 0; j < 6; j++) {
-
-			stage_data_arr[i][j] = " ";
-		}
-	}
-
-
-	for (var i = 0; i < canvas_directory.length; i++) {
-		var element = canvas_directory[i].element_type;
-		var coordinates = canvas_directory[i].coordinates;
-
-		elm = "";
-		if (element == "start-type") {
-			elm = "S";
-		} else if (element == "goal-type") {
-			elm = "E";
-		} else if (element == "block-type") {
-			elm = "#";
-		} else {
-			alert("ERROR");
-		}
-
-		var xcoord = getX(coordinates);
-		var ycoord = getY(coordinates);
-		//alert('adding element: ' + element  + ': ' + xcoord + ", " + ycoord);
-		//alert(stage_data_arr.length);
-		//alert(stage_data_arr[0].length);
-		stage_data_arr[ycoord][xcoord] = elm;
-	}
-
-	var string_out = "";
-	for (var y = 0; y < 5; y++) {
-		for (var x = 0; x < 6; x++) {
-			string_out += stage_data_arr[y][x];
-			//alert(x + ", " + y);
-			//alert(stage_data_arr.length);
-			//alert(stage_data_arr[0].length);
-		}
-		string_out += "\n";
-	}
-
-	alert(string_out);
-
-	var stage_width = 6;
-	var stage_height = 5;
-	var stage_data = string_out;
-	var stage_owner = "johndoe";
-	json_request( "/stage/render", 
-		{ width: stage_width, height: stage_height, data: stage_data, owner: stage_owner }, 
-		function(data) { 
-			return handle_render_response(data);
-		}, 
-		function(xhr, status, error) { 
-			//var err = eval("(" + xhr.responseText + ")");
-			//alert(xhr.responseText); 
-			alert(status);
-		});
-	return false;
-}
-
-function handle_render_response(data) {
-	alert(data.stageid);
-	var stage_link = 'http://limitless-scrubland-2940.herokuapp.com/game/game.html';
-	$("<form action='" + stage_link + "' method='get'><input type='hidden' name='stageid' value='" + data.stageid + "'/> <button>Play stage!</button> </form>").appendTo( '#editor-dashboard' );
-}
-
-</script>
+	<title>platform design madness: stage editor</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="../assets/style.css">
+	<script type="text/javascript" src="../js/canvas-engine.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 </head>
 
-<body>
+<body onload="init_canvas()">
 	<div id="editor-main">
-			<h1 class="title">stage editor</h1>
+		<h1 class="title">stage editor</h1>
+		
 		<div id="editor-canvas">
 			<div id="allrows"></div>
 		</div>
+		
 		<div id="editor-palette">
 			<div id="elements-start-slot" class="elements-slot"></div>
 			<div id="elements-goal-slot" class="elements-slot"></div>
 			<div id="elements-block-slot" class="elements-slot"></div>
 		</div>
+		
 		<div id="editor-dashboard">
 			<br><br>
 			<button id="savebutton" class="navbutton" type="button" onclick="alert('Stage has been saved!');">Save!</button>
