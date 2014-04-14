@@ -200,18 +200,15 @@ function renderStage() {
 
   // alert(string_out);
 
-  // default user for now, should be changed to whoever is currently logged in
-  var current_user = "johndoe";
-
-  // all data to be sent in the request: width, height, data, owner
+  // all data to be sent in the request: width, height, data
+  // stage owner managed by django, so we don't need it here
   var stage_width = CANVAS_WIDTH;
   var stage_height = CANVAS_HEIGHT;
   var stage_data = string_out;
-  var stage_owner = current_user;
 
   // fire of the json request to load the database
   json_request( "/stage/render", 
-    { width: stage_width, height: stage_height, data: stage_data, owner: stage_owner }, 
+    { width: stage_width, height: stage_height, data: stage_data }, 
     function(data) { 
       return handle_render_response(data);
     }, 

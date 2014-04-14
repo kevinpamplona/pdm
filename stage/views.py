@@ -17,7 +17,7 @@ class RenderView(View):
 		width = data_in['width']
 		height = data_in['height']
 		data = data_in['data']
-		owner = data_in['owner']
+		owner = request.user.username if request.user.is_authenticated() else ''
 		if request.path == '/stage/render':
 			data_out = models.pdm_stages.render(width, height, data, owner)
 			response = {"stageid" : data_out}
