@@ -7,25 +7,29 @@ var CANVAS_HEIGHT = 5;
 
 // initialize all the divs for the canvas
 function init_canvas() {
+  $( "#allrows" ).empty();
+  $( "#elements-start-slot" ).empty();
+  $( "#elements-goal-slot" ).empty();
+  $( "#elements-block-slot" ).empty();
+
   // initialtize draggable start tiles 
-  $("<div id='elements-start' class='elements'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
+  $("<div id='elements-start' class='elements ui-draggable'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
     cursor: 'move',
     revert: true,
-    helper: 'clone'
   });
 
   // initialize draggable goal tiles
-  $("<div id='elements-goal' class='elements'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
+  $("<div id='elements-goal' class='elements ui-draggable'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
     cursor: 'move',
     revert: true,
-    helper: 'clone'
   });
 
   // initialize draggable block tiles
-  $("<div id='elements-block' class='elements'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
+  $("<div id='elements-block' class='elements ui-draggable'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
     cursor: 'move',
     revert: true,
-    helper: 'clone'
+    //helper: 'clone',
+    stop: handleElementStop
   });
 
   // add the #canvas-row divs in '#allrows'
@@ -71,6 +75,15 @@ function canvas_node(element_type, coordinates) {
   this.coordinates = coordinates;
 }
 
+function handleElementStop(event, ui) {
+  //$("<div id='elements-block' class='wooo elements ui-draggable'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
+  //  cursor: 'move',
+  //  revert: true,
+  //  helper: 'clone',
+  //  stop: handleElementStop
+  //});
+}
+
 // called anytime a tile is dropped onto the canvas
 function handleElementDrop(event, ui) {
   // grab the coordinates and the element type of the dropped tile
@@ -90,10 +103,9 @@ function handleElementDrop(event, ui) {
     $('#elements-start-slot').html( '' );
 
     // create a new tile in the elements slots
-    $("<div id='elements-start' class='elements'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
+    $("<div id='elements-start' class='elements ui-draggable lalala'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
     cursor: 'move',
     revert: true,
-    helper: 'clone'
   });
   } else if (element_type == 'goal-type') {  // goal-type element
     // add tile to canvas slot with darkened color
@@ -104,10 +116,9 @@ function handleElementDrop(event, ui) {
     $('#elements-goal-slot').html( '' );
 
     // create a new tile in the elements slots
-    $("<div id='elements-goal' class='elements'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
+    $("<div id='elements-goal' class='elements ui-draggable lalala'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
     cursor: 'move',
     revert: true,
-    helper: 'clone'
   });
   } else if (element_type == 'block-type') { // block-type element
     // add tile to canvas slot with darkened color
@@ -118,10 +129,9 @@ function handleElementDrop(event, ui) {
     $('#elements-block-slot').html( '' );
 
     // create a new tile in the elements slots
-    $("<div id='elements-block' class='elements'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
+    $("<div id='elements-block' class='elements ui-draggable lalala'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
     cursor: 'move',
     revert: true,
-    helper: 'clone'
   });
   } else {
     // should NOT reach here
