@@ -240,7 +240,7 @@ function json_request(page, dict, success, failure) {
 }
 
 function rate(stage, rating, user) {
-  if !(user in stage.rated){
+  if (!(user in stage.rated)){
     stage.rating += rating;
     stage.rated[user] = rating;
   } else{
