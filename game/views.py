@@ -86,6 +86,7 @@ def get_stage(request):
         stages = Stage.objects.filter(owner = request.user.username)
         if stages:
             context['stages'] = stages
+            sorted(context['stages'], key=lambda Stage: Stage.rating)
             context['message'] = "Choose one of your stages:"
         else:
             context['message'] = "You have no saved stages."

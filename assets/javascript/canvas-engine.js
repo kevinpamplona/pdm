@@ -238,3 +238,8 @@ function json_request(page, dict, success, failure) {
     error: failure
   });
 }
+
+function rate(stage, rating) {
+  stage.rating += rating;
+  print(stage.rating);
+}
