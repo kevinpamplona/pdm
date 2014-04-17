@@ -142,3 +142,7 @@ h1.title {
 .elements.ui-draggable-dragging {
   box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
 }
+
+center {
+  margin: 20px auto;
+}
