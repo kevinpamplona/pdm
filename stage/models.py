@@ -43,6 +43,7 @@ class Stage(models.Model):
     height   = models.PositiveSmallIntegerField()
     data     = models.CharField(max_length = MAX_SIZE)
     owner    = models.CharField(max_length = 255)
+    rating   = 0
     objects  = StageManager()   # Redirects Stage.objects to be the custom StageManager instead of 
                                 #  traditional models.Manager, allowing for make_stage while keeping
                                 #  all the regular functionality

@@ -13,6 +13,11 @@
     </style>
 </head>
 <body>
-    <script type="text/javascript" src="game.js"></script>
+    {% if stageid %}
+        <script type="text/javascript" src="{% url 'game:load_stage' stageid %}"></script>
+    {% else %}
+        <script type="text/javascript" src="{% url 'game:load_stage' 0 %}"></script>
+    {% endif %}
+    <center><a href="{% url 'game:get_stage' %}">Back to My Stages</a></center>
 </body>
 </html>

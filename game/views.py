@@ -9,36 +9,18 @@ from stage.models import Stage, Block
 import json
 
 # Create your views here.
-class HandlerView(View):
-    def get(self, request, *args, **kwargs):
-        from django.conf import settings
-
-        from os import curdir, sep
-        try:
-            f = open(curdir + sep + request.path)
-        except (IOError):
-            raise Http404
-
-        if request.path.endswith(".html"):
-            _content_type = 'text/html'
-        elif request.path.endswith(".css"):
-            _content_type = 'text/css'
-        elif request.path.endswith(".js"):
-            _content_type = 'text/javascript'
-        else:
-            assert False
-
-        send_out = HttpResponse(content=f.read(), content_type=_content_type)
-        f.close()
-
-        return send_out
+def play_game(request):
+    return render(request, 'game/game.html', request.GET)
 
 def load_stage(request, stage_id = 0):
+    context = {}
     stage = None
     try:
         stage = Stage.objects.get(pk=stage_id)
     except ObjectDoesNotExist:
         stage = Stage.objects.default_stage()
+        if int(stage_id) != 0:
+            context['error'] = "Stage not found! Loading default stage"
     except Exception as e: # Shouldn't be reached
         print e
         raise
@@ -77,7 +59,9 @@ def load_stage(request, stage_id = 0):
                 pass
             x += 1
 
-    return HttpResponse(json.dumps(response_data), content_type = 'application/json')
+    context['data'] = json.dumps(response_data)
+
+    return render(request, 'game/game.js', context, content_type = 'text/javascript')
 
 def get_stage(request):
     context = {}
@@ -86,6 +70,7 @@ def get_stage(request):
         stages = Stage.objects.filter(owner = request.user.username)
         if stages:
             context['stages'] = stages
+            sorted(context['stages'], key=lambda Stage: Stage.rating)
             context['message'] = "Choose one of your stages:"
         else:
             context['message'] = "You have no saved stages."
