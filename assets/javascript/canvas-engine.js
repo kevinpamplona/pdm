@@ -9,21 +9,18 @@ var CANVAS_HEIGHT = 5;
 function init_canvas() {
   // initialtize draggable start tiles 
   $("<div id='elements-start' class='elements'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
-    cursor: 'move',
     revert: true,
     helper: 'clone'
   });
 
   // initialize draggable goal tiles
   $("<div id='elements-goal' class='elements'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
-    cursor: 'move',
     revert: true,
     helper: 'clone'
   });
 
   // initialize draggable block tiles
   $("<div id='elements-block' class='elements'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
-    cursor: 'move',
     revert: true,
     helper: 'clone'
   });
@@ -48,7 +45,8 @@ function init_canvas() {
     for (var x = 0; x < CANVAS_WIDTH; x++) {
 
       // text to be in the tile
-      var tile_text = "(" + x + " , " + y + ")";
+      //var tile_text = "(" + x + " , " + y + ")";
+      var tile_text = "";
 
       var canvas_col_class = 'canvas-droppable';
       if (x == 0) {
@@ -83,49 +81,43 @@ function handleElementDrop(event, ui) {
 
   if (element_type == 'start-type') {  // start-type element
     // add tile to canvas slot with darkened color
-    $( this ).addClass( "placed-elements-screen" ).html("start");
-    $( this ).css( "background", "#666" );
+    $( this ).addClass("placed-element-start");
 
     // empty the elements slot 
     $('#elements-start-slot').html( '' );
 
     // create a new tile in the elements slots
     $("<div id='elements-start' class='elements'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
-    cursor: 'move',
     revert: true,
     helper: 'clone'
   });
   } else if (element_type == 'goal-type') {  // goal-type element
     // add tile to canvas slot with darkened color
-    $( this ).addClass( "placed-elements-screen" ).html("goal");
-    $( this ).css( "background", "#666" );
+    $( this ).addClass( "placed-element-goal" );
 
     // empty the elements slot
     $('#elements-goal-slot').html( '' );
 
     // create a new tile in the elements slots
     $("<div id='elements-goal' class='elements'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
-    cursor: 'move',
     revert: true,
     helper: 'clone'
   });
   } else if (element_type == 'block-type') { // block-type element
     // add tile to canvas slot with darkened color
-    $( this ).addClass( "placed-elements-screen" ).html("block");
-    $( this ).css( "background", "#666" );
+    $( this ).addClass( "placed-element-block" );
 
     // empty the elements slot
     $('#elements-block-slot').html( '' );
 
     // create a new tile in the elements slots
     $("<div id='elements-block' class='elements'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
-    cursor: 'move',
     revert: true,
     helper: 'clone'
   });
   } else {
     // should NOT reach here
-    alert("ERROR: incorrect element type has been dropped");
+    console.log("ERROR: incorrect element type has been dropped");
   }
 
   // create a canvas_node object and add to the canvas directory
@@ -143,7 +135,8 @@ function getY(coords) {
 }
 
 // renders via loading the stage into the database 
-function renderStage() {
+// action is either "play" or "save"
+function renderStage(action) {
 
   // create two-dimensional array with dimensions: CANVAS_WIDTH x CANVAS_HEIGHT
   var stage_data_arr = new Array(CANVAS_HEIGHT);
@@ -175,7 +168,7 @@ function renderStage() {
     } else if (element == "block-type") {
       elm = "#";
     } else {
-      alert("ERROR");
+      console.log("ERROR");
     }
 
     // grab individual coordinates
@@ -198,7 +191,7 @@ function renderStage() {
     string_out += "\n";
   }
 
-  // alert(string_out);
+  // console.log(string_out);
 
   // all data to be sent in the request: width, height, data
   // stage owner managed by django, so we don't need it here
@@ -210,21 +203,20 @@ function renderStage() {
   json_request( "/stage/render", 
     { width: stage_width, height: stage_height, data: stage_data }, 
     function(data) { 
-      return handle_render_response(data);
+      return handle_render_response(data, action);
     }, 
     function(xhr, status, error) { 
       //var err = eval("(" + xhr.responseText + ")");
-      //alert(xhr.responseText); 
-      alert(status);
+      //console.log(xhr.responseText); 
+      //console.log(status);
     });
   return false;
 }
 
-// add a button link to the playable stage -- should fix this
-function handle_render_response(data) {
-  alert(data.stageid);
-  var stage_link = '/game/game.html';
-  $("<form action='" + stage_link + "' method='get'><input type='hidden' name='stageid' value='" + data.stageid + "'/> <button id='play-button' class='navbutton'>Play stage!</button> </form>").appendTo('#play-button-position');
+function handle_render_response(data, action) {
+  if (action == "play") {
+    location.href = '/game/game.html?stageid=' + data.stageid;
+  }
 }
 
 function json_request(page, dict, success, failure) {
@@ -238,3 +230,16 @@ function json_request(page, dict, success, failure) {
     error: failure
   });
 }
+
+function clearStage() {
+  $('.canvas-droppable').each( function() {
+    $(this).removeClass();
+    $(this).addClass("canvas-droppable ui-droppable");
+  });
+}
+
+$(function () {
+  $('#savebutton').click(function() { renderStage("save"); });
+  $('#renderbutton').click(function() { renderStage("play"); });
+  $('#restartbutton').click(function() { clearStage(); });
+});

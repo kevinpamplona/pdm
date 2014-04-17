@@ -3,7 +3,7 @@ html, body {
   line-height: 1.8em;
   background: #faf8ef;
 
-  color: #776e65;
+  color: #333333;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
 }
@@ -11,7 +11,7 @@ html, body {
 h1.title {
   font-size: 55px;
   font-weight: bold;
-  margin: 0;
+  margin: 20px 0;
   display: block;
 }
 
@@ -28,31 +28,12 @@ h1, h2, h3, h4 {
 }
 
 #editor-canvas {
-  max-width: 950px;
-  margin: 20px auto 0 auto;
-  background: #bbada0;
-  border: 2px solid #333;
-  border-radius: 10px;
-  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-  display: block;
 }
 
 #editor-palette {
-  height: 120px;
-  background: #ffd;
-  border: 2px solid #333;
-  border-radius: 10px;
-  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-  margin-right: 20px;
 }
 
 #editor-dashboard {
-  height: 120px;
-  background: #fca9f3;
-  border: 2px solid #333;
-  border-radius: 10px;
-  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-  margin-left: 20px;
 }
 
 #editor-controls {
@@ -64,41 +45,19 @@ h1, h2, h3, h4 {
 }
 
 .editor-control {
-  margin: 10px 0;
   display: inline-block;
-  vertical-align: top;
-  width: 45%;
-  min-width: 300px;
 }
 
-#elements-start {
-  display: inline-block;
-  width: 60px;
-  height: 60px;
-  border: 2px solid #333;
-  border-radius: 10px;
-  margin: 0px 0px 10px 0px;
-  background: #faf8ef;
+#elements-start-slot {
+  background-color: azure;
 }
 
-#elements-goal {
-  display: inline-block;
-  width: 60px;
-  height: 60px;
-  border: 2px solid #333;
-  border-radius: 10px;
-  margin: 0px 0px 10px 0px;
-  background: #faf8ef;
+#elements-goal-slot {
+  background-color: aquamarine;
 }
 
-#elements-block {
-  display: inline-block;
-  width: 60px;
-  height: 60px;
-  border: 2px solid #333;
-  border-radius: 10px;
-  margin: 0px 0px 10px 0px;
-  background: #faf8ef;
+#elements-block-slot {
+  background-color: sandybrown;
 }
 
 #play-button {
@@ -111,36 +70,33 @@ h1, h2, h3, h4 {
   width: 60px;
   height: 60px;
   border: 1px solid #333;
-  border-radius: 10px;
-  margin: 15px;
 }
 
 .navbutton {
-  display: inline-block;
-  background: #8f7a66;
-  border-radius: 3px;
-  padding: 0 10px;
-  text-decoration: none;
-  color: #f9f6f2;
-  height: 40px;
-  text-align: center;
-  margin-top: 20px;
 }
 
 .canvas-row {
-  margin-left:auto;
-  margin-right:auto;
-  display: block;
+  line-height: 0;
 }
 
 .canvas-droppable {
   width: 60px;
   height: 60px;
-  border: thin solid #333;
-  border-width: 0px 1px 1px 0px;
-  background: #fff;
+  border: 1px solid white;
+  background: #555555;
   display: inline-block;
-  font-size: 14px;
+}
+
+.placed-element-start {
+  background-color: azure;
+}
+
+.placed-element-goal {
+  background-color: aquamarine;
+}
+
+.placed-element-block {
+  background-color: sandybrown;
 }
 
 .canvas-first-col {
