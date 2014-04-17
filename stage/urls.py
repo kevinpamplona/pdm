@@ -7,7 +7,7 @@ from stage import views
 
 urlpatterns = patterns('',
 
-    url(r'^render$', RenderView.as_view(), name='my-view'),
-    url(r'^editor$', EditorView.as_view(), name='my-view'),
+    url(r'^render$', RenderView.as_view(), name='render'),
+    url(r'^editor$', EditorView.as_view(), name='editor'),
 
 )

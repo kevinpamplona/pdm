@@ -10,7 +10,7 @@
     {% endfor %}
     <div>
         {% if logged_in %}
-            <a href="../stage/editor">Build a new stage</a>
+            <a href="{% url 'stage:editor' %}">Build a new stage</a>
             <form action="{% url 'users:login' %}" method = "post">
                 <input type="submit" name="logout" value="Log Out">
             </form>

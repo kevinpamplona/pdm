@@ -16,6 +16,6 @@ urlpatterns = patterns('',
 
     url(r'^login/', include('users.urls', namespace = 'users')),
 
-    url(r'^stage/', include('stage.urls')),
+    url(r'^stage/', include('stage.urls', namespace = 'stage')),
     url(r'^assets/', 'static_pages.views.static_asset'),
 ) 
