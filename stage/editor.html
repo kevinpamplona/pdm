@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>platform design madness: stage editor</title>
+  <title>Platform Design Madness: Stage Editor</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
@@ -12,7 +12,7 @@
 
 <body onload="init_canvas()">
   <div id="editor-main">
-    <h1 class="title">stage editor</h1>
+    <h1 class="title">Stage Editor</h1>
     
     <div id="editor-canvas">
       <div id="allrows"></div>
@@ -20,10 +20,25 @@
     
     <div id="editor-controls">
 
+      Click on a block to set the kind of block you wish to put, then click on the stage to put it down. Click again to remove.
+
       <div id="editor-palette" class="editor-control">
-        <div id="elements-start-slot" class="elements-slot"></div>
-        <div id="elements-goal-slot" class="elements-slot"></div>
-        <div id="elements-block-slot" class="elements-slot"></div>
+        <div class="palette-slot palette-slot-current">
+          <div class="element-type">Current</div>
+          <div id="elements-current-block" class="elements-slot elements-slot-current"></div>
+        </div>
+        <div class="palette-slot">
+          <div class="element-type">Start</div>
+          <div id="elements-start-slot" class="elements-slot elements-slot-clickable"></div>
+        </div>
+        <div class="palette-slot">
+          <div class="element-type">Goal</div>
+          <div id="elements-goal-slot" class="elements-slot elements-slot-clickable"></div>
+        </div>
+        <div class="palette-slot">
+          <div class="element-type">Block</div>
+          <div id="elements-block-slot" class="elements-slot elements-slot-clickable"></div>
+        </div>
       </div>
     
       <div id="editor-dashboard" class="editor-control">

@@ -4,19 +4,14 @@ html, body {
   background: #faf8ef;
 
   color: #333333;
-  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "lucida grande", "Helvetica Neue", sans-serif;
   font-size: 18px;
 }
 
 h1.title {
-  font-size: 55px;
-  font-weight: bold;
+  font-size: 30px;
   margin: 20px 0;
-  display: block;
-}
-
-h1, h2, h3, h4 {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-weight: normal;
 }
 
 #editor-main {
@@ -37,6 +32,7 @@ h1, h2, h3, h4 {
 }
 
 #editor-controls {
+  font-size: 14px;
   display: block;
   margin: 0 auto;
   min-width: 700px;
@@ -45,18 +41,17 @@ h1, h2, h3, h4 {
 }
 
 .editor-control {
-  display: inline-block;
 }
 
-#elements-start-slot {
+#elements-start-slot, #elements-current-start {
   background-color: azure;
 }
 
-#elements-goal-slot {
+#elements-goal-slot, #elements-current-goal {
   background-color: aquamarine;
 }
 
-#elements-block-slot {
+#elements-block-slot, #elements-current-block {
   background-color: sandybrown;
 }
 
@@ -65,14 +60,47 @@ h1, h2, h3, h4 {
   margin: 5px auto;
 }
 
-.elements-slot {
+.palette-slot {
   display: inline-block;
   width: 60px;
-  height: 60px;
+  font-size: 12px;
+}
+
+.palette-slot-current {
+  margin-right: 40px;
+}
+
+.elements-slot {
+  width: 40px;
+  height: 40px;
   border: 1px solid #333;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.elements-slot-clickable:hover {
+  border-width: 3px;
 }
 
 .navbutton {
+  color: white;
+  font-weight: 200;
+  margin: 20px;
+  height: 40px;
+  width: 80px;
+  background-color: #333333;
+  border-color: #222222;
+  padding: 5px 8px;
+  font-size: 14px;
+  line-height: 1.33;
+  border-radius: 4px;
+  border-width: 1px;
+}
+
+.navbutton:hover {
+  background-color: white;
+  color: black;
+  border-color: black;
 }
 
 .canvas-row {

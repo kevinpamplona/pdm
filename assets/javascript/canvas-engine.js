@@ -5,25 +5,27 @@ var canvas_directory = new Array();
 var CANVAS_WIDTH = 6;
 var CANVAS_HEIGHT = 5;
 
+var currentElement = "block";
+
 // initialize all the divs for the canvas
 function init_canvas() {
   // initialtize draggable start tiles 
-  $("<div id='elements-start' class='elements'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
-    revert: true,
-    helper: 'clone'
-  });
+  // $("<div id='elements-start' class='elements'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
+  //   revert: true,
+  //   helper: 'clone'
+  // });
 
-  // initialize draggable goal tiles
-  $("<div id='elements-goal' class='elements'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
-    revert: true,
-    helper: 'clone'
-  });
+  // // initialize draggable goal tiles
+  // $("<div id='elements-goal' class='elements'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
+  //   revert: true,
+  //   helper: 'clone'
+  // });
 
-  // initialize draggable block tiles
-  $("<div id='elements-block' class='elements'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
-    revert: true,
-    helper: 'clone'
-  });
+  // // initialize draggable block tiles
+  // $("<div id='elements-block' class='elements'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
+  //   revert: true,
+  //   helper: 'clone'
+  // });
 
   // add the #canvas-row divs in '#allrows'
   for (var y = 0; y < CANVAS_HEIGHT; y++) {
@@ -57,10 +59,31 @@ function init_canvas() {
       $("<div class='" + canvas_col_class + "'>" + tile_text + "</div>").data( {'coordinates': [x, y]} ).appendTo('#' + div_id).droppable({
         accept: '.elements',
         hoverClass: 'hovered',
-        drop: handleElementDrop
+        // drop: handleElementDrop
       });
     }
   }
+
+  // add click event to each div
+  $('.canvas-droppable').click(function() {
+    var placedClass = "placed-element-" + currentElement;
+    var coordinates = $(this).data('coordinates');
+    if ($(this).hasClass(placedClass)) {
+      $(this).removeClass(placedClass);
+      $.each(canvas_directory, function(i){
+        if(canvas_directory[i].coordinates === coordinates) {
+          canvas_directory.splice(i,1);
+          return false;
+        }
+      });
+    } else {
+      $(this).removeClass();
+      $(this).addClass("canvas-droppable ui-droppable");
+      $(this).addClass(placedClass);
+      // create a canvas_node object and add to the canvas directory
+      canvas_directory.push(new canvas_node(currentElement + '-type', $(this).data('coordinates')));
+    }
+  });
 }
 
 // canvas node objects with a specified element type and its coordinate
@@ -250,10 +273,24 @@ function clearStage() {
     $(this).removeClass();
     $(this).addClass("canvas-droppable ui-droppable");
   });
+  canvas_directory = new Array();
 }
 
 $(function () {
   $('#savebutton').click(function() { renderStage("save"); });
   $('#renderbutton').click(function() { renderStage("play"); });
   $('#restartbutton').click(function() { clearStage(); });
+
+  $('#elements-start-slot').click(function() {
+    currentElement = "start";
+    $('.elements-slot-current').attr('id', 'elements-current-start');
+  });
+  $('#elements-goal-slot').click(function() {
+    currentElement = "goal";
+    $('.elements-slot-current').attr('id', 'elements-current-goal');
+  });
+  $('#elements-block-slot').click(function() {
+    currentElement = "block";
+    $('.elements-slot-current').attr('id', 'elements-current-block');
+  });
 });
