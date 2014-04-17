@@ -239,7 +239,16 @@ function json_request(page, dict, success, failure) {
   });
 }
 
-function rate(stage, rating) {
-  stage.rating += rating;
+function rate(stage, rating, user) {
+  if !(user in stage.rated){
+    stage.rating += rating;
+    stage.rated[user] = rating;
+  } else{
+    if (rating == stage.rated[user]){
+      stage.rated[user] = 0;
+    } else{
+      stage.rated[user] = rating;
+    }
+  }
   print(stage.rating);
 }
