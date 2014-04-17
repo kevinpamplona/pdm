@@ -3,10 +3,10 @@
 <title>Play a Stage</title>
 </head>
 <body>
-    <div><a href="game.html">Default Stage</a></div>
+    <div><a href="{% url 'game:play_game' %}">Default Stage</a></div>
     <div>{{ message }}</div>
     {% for stage in stages %}
-        <a href="game.html?stageid={{stage.pk}}">Stage {{stage.pk}}</a><br>
+        <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Stage {{stage.pk}}</a><br>
     {% endfor %}
     <div>
         {% if logged_in %}

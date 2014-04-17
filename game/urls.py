@@ -11,9 +11,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'pdm.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'\.(html|css|js)$', HandlerView.as_view(), name = 'get-page'),
-    url(r'^(?P<stage_id>\d+)\.json$', views.load_stage, name='load_stage'),
-    url(r'^\.json$', views.load_stage, name='load_stage'),
+    url(r'^game\.html$', views.play_game, name='play_game'),
+    url(r'^load/(?P<stage_id>\d+)/$', views.load_stage, name='load_stage'),
     url(r'^$', views.get_stage, name='get_stage'),
 
     # http://docs.djangoproject.com/en/dev/howto/static-files/
