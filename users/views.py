@@ -66,7 +66,7 @@ def get_login(request):
     context['form'] = form
     return render(request, 'users/login.html', context )
 
-class HandlerView(View): # Depreciated view
+class HandlerView(View): # Deprecated view
     def get(self, request, *args, **kwargs):
 
         from os import curdir, sep
