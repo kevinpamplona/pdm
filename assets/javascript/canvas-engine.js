@@ -98,25 +98,33 @@ function handleElementDrop(event, ui) {
     // add tile to canvas slot with darkened color
     $( this ).addClass( "placed-elements-screen" ).html("start");
     $( this ).css( "background", "#666" );
+    $( this ).draggable({
+      cursor: 'move',
+      revert: true,
+    });
 
     // empty the elements slot 
     $('#elements-start-slot').html( '' );
 
     // create a new tile in the elements slots
-    $("<div id='elements-start' class='elements ui-draggable lalala'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
-    cursor: 'move',
-    revert: true,
+    $("<div id='elements-start' class='elements ui-draggable'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
+      cursor: 'move',
+      revert: true,
   });
   } else if (element_type == 'goal-type') {  // goal-type element
     // add tile to canvas slot with darkened color
     $( this ).addClass( "placed-elements-screen" ).html("goal");
     $( this ).css( "background", "#666" );
+    $( this ).draggable({
+      cursor: 'move',
+      revert: true,
+    });
 
     // empty the elements slot
     $('#elements-goal-slot').html( '' );
 
     // create a new tile in the elements slots
-    $("<div id='elements-goal' class='elements ui-draggable lalala'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
+    $("<div id='elements-goal' class='elements ui-draggable'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
     cursor: 'move',
     revert: true,
   });
@@ -124,12 +132,16 @@ function handleElementDrop(event, ui) {
     // add tile to canvas slot with darkened color
     $( this ).addClass( "placed-elements-screen" ).html("block");
     $( this ).css( "background", "#666" );
+    $( this ).draggable({
+      cursor: 'move',
+      revert: true,
+    });
 
     // empty the elements slot
     $('#elements-block-slot').html( '' );
 
     // create a new tile in the elements slots
-    $("<div id='elements-block' class='elements ui-draggable lalala'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
+    $("<div id='elements-block' class='elements ui-draggable'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
     cursor: 'move',
     revert: true,
   });
