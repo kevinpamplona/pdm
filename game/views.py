@@ -30,7 +30,7 @@ def load_stage(request, stage_id = 0):
     response_data = {
         'width' : stage.width,
         'height': stage.height,
-        'spsize': 50,
+        'spsize': 32,
         'start' : {'x': 0, 'y': 0, 'ID': Block.startID}, # Only one start point
         'end'   : {'x': 0, 'y': 0, 'ID': Block.endID}, # Only one end point for now
         'assets': {},

@@ -6,6 +6,8 @@ alert("{{error}}")
 data = jQuery.parseJSON('{{data}}');
 {% endautoescape %}
 
+{% load staticfiles %}
+
     var Q = Quintus()
                     .include("Sprites, Scenes, Input, 2D, UI, Touch")
                     .setup({width: data.width*data.spsize, height: data.height*data.spsize})
@@ -13,7 +15,7 @@ data = jQuery.parseJSON('{{data}}');
 
     var loader = []
     $.each(data.assets, function(key, value) {
-        value = "../".concat(value);
+        value = "{{STATIC_URL}}".concat(value);
         loader.push(value);
         
         if(key == data.end.ID)
@@ -28,7 +30,7 @@ data = jQuery.parseJSON('{{data}}');
         {
             Q.Sprite.extend("Player", {
                 init: function(p) {
-                    this._super(p, {asset: value, gravity:0.75});
+                    this._super(p, {asset: value, gravity:1.25});
                     this.add("2d, platformerControls");
 
                     this.on("hit.sprite", function(collision) {
