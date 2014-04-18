@@ -18,15 +18,15 @@
         modal: true,
         buttons: {
           "Set the dimensions": function() {
-            alert("width: " + width.value + ", height: " + height.value);
             resizeCanvas(width.value, height.value);
+            $( this ).dialog( "close" );
           },
           Cancel: function() {
             $( this ).dialog( "close" );
           }
         },
         close: function() {
-          allFields.val( "" ).removeClass( "ui-state-error" );
+          //allFields.val( "" ).removeClass( "ui-state-error" );
         }
       });
 
