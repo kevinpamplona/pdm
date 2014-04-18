@@ -68,10 +68,15 @@ def get_stage(request):
     if request.user.is_authenticated():
         context['logged_in'] = True
         stages = Stage.objects.filter(owner = request.user.username)
+        allstages = Stage.objects.all()
+        totalCount = Stage.objects.count()
+        context['recentstage1'] = Stage.objects.get(pk=totalCount)
+        context['recentstage2'] = Stage.objects.get(pk=totalCount-1)
+        context['recentstage3'] = Stage.objects.get(pk=totalCount-2)
         if stages:
             context['stages'] = stages
             sorted(context['stages'], key=lambda Stage: Stage.rating)
-            context['message'] = "Choose one of your stages:"
+            context['message'] = "Your previously saved stages:"
         else:
             context['message'] = "You have no saved stages."
     else:
