@@ -5,6 +5,8 @@ var canvas_directory = new Array();
 var CANVAS_WIDTH = 6;
 var CANVAS_HEIGHT = 5;
 
+stageid = null;
+
 // stage named, to be chosen by the user
 var CANVAS_NAME = 'STAGE NOT NAMED';
 
@@ -99,6 +101,34 @@ function init_canvas() {
   });
 }
 
+// Loads a saved stage into memory via JSON data (passed in via Django templating)
+// Also saves the stage ID so that you don't create a new stage every time you save
+function load_stage(json_data) {
+  data = jQuery.parseJSON(json_data);
+  resizeCanvas(data.width, data.height);
+  var stage_data = (data.data).replace(/(\\n|\n)+/g, '');
+  stageid = data.stageid;
+  $('.canvas-droppable').each(function(i) {
+    $(this).removeClass();
+    $(this).addClass("canvas-droppable ui-droppable");
+    switch(stage_data.charAt(i)) {
+      case 'S':
+        $(this).addClass("placed-element-start");
+        canvas_directory.push(new canvas_node('start-type', $(this).data('coordinates')));
+        break;
+      case 'E':
+        $(this).addClass("placed-element-goal");
+        canvas_directory.push(new canvas_node('goal-type', $(this).data('coordinates')));
+        break;
+      case '#':
+        $(this).addClass("placed-element-block");
+        canvas_directory.push(new canvas_node('block-type', $(this).data('coordinates')));
+        break;
+    }
+  });
+}
+
+
 // canvas node objects with a specified element type and its coordinate
 function canvas_node(element_type, coordinates) {
   this.element_type = element_type;
@@ -175,7 +205,10 @@ function getY(coords) {
 
 function setStageName(action) {
   CURRENT_ACTION = action;
-  $( "#stagename-dialog-form" ).dialog( "open" );
+  if (stageid == null)
+    $( "#stagename-dialog-form" ).dialog( "open" );
+  else
+    renderStage(action);
 }
 
 function renderStage(action) {
@@ -244,7 +277,7 @@ function renderStage(action) {
 
   // fire of the json request to load the database
   json_request( "/stage/render", 
-    { width: stage_width, height: stage_height, name: stage_name, data: stage_data }, 
+    { width: stage_width, height: stage_height, name: stage_name, data: stage_data, id: stageid }, 
     function(data) { 
       return handle_render_response(data, action);
     }, 
