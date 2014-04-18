@@ -31,7 +31,9 @@
             <button onclick="castVote('down', {{stageid}})" id="downvote" class="navbutton" type="button">Downvote!</button>
         </center>
 
+        {% if correct_owner %}
         <center><a href="{% url 'stage:editor' %}?stageid={{stageid}}">Edit this stage</a></center>
+        {% endif %}
     {% else %}
         <p>Default Game Stage</p>
         <script type="text/javascript" src="{% url 'game:load_stage' 0 %}"></script>

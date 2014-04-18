@@ -13,22 +13,25 @@ def play_game(request):
     context = {}
     stage = None
 
-    stage_id = request.GET[u'stageid']
+    if u'stageid' in request.GET:
+        stage_id = request.GET[u'stageid']
     
-    try:
-        stage = Stage.objects.get(pk=request.GET[u'stageid'])
-    except ObjectDoesNotExist:
-        stage = Stage.objects.default_stage()
-        if int(stage_id) != 0:
-            context['error'] = "Stage not found! Loading default stage"
-    except Exception as e: # Shouldn't be reached
-        print e
-        raise
+        try:
+            stage = Stage.objects.get(pk=stage_id)
+        except ObjectDoesNotExist:
+            stage = Stage.objects.default_stage()
+            if int(stage_id) != 0:
+                context['error'] = "Stage not found! Loading default stage"
+        except Exception as e: # Shouldn't be reached
+            print e
+            raise
 
-    context['stageid'] = stage.pk
-    context['rating'] = stage.rating
-    context['name'] = stage.name
-    context['owner'] = stage.owner
+        context['stageid'] = stage.pk
+        context['rating'] = stage.rating
+        context['name'] = stage.name
+        context['owner'] = stage.owner
+        if request.user.is_authenticated() and stage.owner == request.user.username:
+            context['correct_owner'] = True
 
     return render(request, 'game/game.html', context)
 
@@ -90,12 +93,12 @@ def get_stage(request):
         stages = Stage.objects.filter(owner = request.user.username)
         allstages = Stage.objects.all()
         totalCount = Stage.objects.count()
-        context['recentstage1'] = Stage.objects.get(pk=totalCount)
-        context['recentstage2'] = Stage.objects.get(pk=totalCount-1)
-        context['recentstage3'] = Stage.objects.get(pk=totalCount-2)
-        if stages:
+        context['recentstages'] = []
+        for i in xrange(min(3, totalCount)):
+            context['recentstages'].append(Stage.objects.get(pk = totalCount - i))
+        if len(stages):
             context['stages'] = stages
-            sorted(context['stages'], key=lambda Stage: Stage.rating)
+            sorted(context['stages'], key=lambda st: st.rating)
             context['message'] = "Your previously saved stages:"
         else:
             context['message'] = "You have no saved stages."
