@@ -16,10 +16,11 @@ class RenderView(View):
 		data_in = json.loads(request.body)
 		width = int(data_in['width'])
 		height = int(data_in['height'])
+		name = data_in['name']
 		data = data_in['data']
 		owner = request.user.username if request.user.is_authenticated() else ''
 		if request.path == '/stage/render':
-			data_out = models.pdm_stages.render(width, height, data, owner)
+			data_out = models.pdm_stages.render(width, height, name, data, owner)
 			response = {"stageid" : data_out}
 			j_resp = json.dumps(response)
 			return HttpResponse(content=j_resp, content_type='application/json', status=200)
