@@ -55,11 +55,11 @@ class LoginTestCase(TestCase):
 
         # Test password too long
         too_long = 'x'*(UsersModel.MAX_PASSWORD_LENGTH+1)
-        response = self.client.post('/login/', {'username': 'x', 'passwd': 'oo'*UsersModel.MAX_PASSWORD_LENGTH, 'adduser': 'Add User'})
+        response = self.client.post('/login/', {'username': 'x', 'passwd': too_long, 'adduser': 'Add User'})
         self.assertTrue('ADD USER ERROR' in response.context['message'])
         self.assertFalse(response.context['user'].is_authenticated())
         with self.assertRaises(ObjectDoesNotExist):
-            User.objects.get(username = too_long)
+            User.objects.get(username = 'x')
 
         # Test user conflict
         response = self.client.post('/login/', {'username': 'add', 'passwd': '', 'adduser': 'Add User'})
