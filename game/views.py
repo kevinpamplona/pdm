@@ -10,7 +10,27 @@ import json
 
 # Create your views here.
 def play_game(request):
-    return render(request, 'game/game.html', request.GET)
+    context = {}
+    stage = None
+
+    stage_id = request.GET[u'stageid']
+    
+    try:
+        stage = Stage.objects.get(pk=request.GET[u'stageid'])
+    except ObjectDoesNotExist:
+        stage = Stage.objects.default_stage()
+        if int(stage_id) != 0:
+            context['error'] = "Stage not found! Loading default stage"
+    except Exception as e: # Shouldn't be reached
+        print e
+        raise
+
+    context['stageid'] = stage.pk
+    context['rating'] = stage.rating
+    context['name'] = stage.name
+    context['owner'] = stage.owner
+
+    return render(request, 'game/game.html', context)
 
 def load_stage(request, stage_id = 0):
     context = {}
@@ -26,11 +46,6 @@ def load_stage(request, stage_id = 0):
         raise
 
     Block.objects.build_default() # JIC
-
-    rating_context = {}
-    rating_context = {'rating' : stage.rating}
-
-    print stage.rating
 
     response_data = {
         'width' : stage.width,

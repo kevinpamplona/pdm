@@ -18,8 +18,8 @@
 <body>
     {% if stageid %}
         <center>
-            <p>~STAGE NAME HERE~</p>
-            <p>CREATED BY ~USERNAME HERE~</p>
+            <p>{{name}}</p>
+            <p>CREATED BY {{owner}}</p>
 
             <div id="rating">Points: {{rating}}</div>
         </center>
@@ -27,8 +27,8 @@
         <script type="text/javascript" src="{% url 'game:load_stage' stageid %}"></script>
 
         <center>
-            <button id="upvote" class="navbutton" type="button">Upvote!</button>
-            <button id="downvote" class="navbutton" type="button">Downvote!</button>
+            <button onclick="castVote('up', {{stageid}})" id="upvote" class="navbutton" type="button">Upvote!</button>
+            <button onclick="castVote('down', {{stageid}})" id="downvote" class="navbutton" type="button">Downvote!</button>
         </center>
 
         <center><a href="{% url 'stage:editor' %}?stageid={{stageid}}">Edit this stage</a></center>

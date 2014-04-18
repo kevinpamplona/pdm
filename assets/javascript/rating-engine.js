@@ -1,13 +1,13 @@
-$(function () {
-  $('#upvote').click(function() { castVote("up"); });
-  $('#downvote').click(function() { castVote("down"); });
-});
+// $(function () {
+//   $('#upvote').click(function() { castVote("up"); });
+//   $('#downvote').click(function() { castVote("down"); });
+// });
 
 
-function castVote(vote_dir) {
+function castVote(vote_dir, stageid) {
 
     // need to change this
-    var stage_id = 28;
+    var stage_id = stageid;
 
     json_request( "/stage/vote", 
     { stageid: stage_id, vote: vote_dir}, 
