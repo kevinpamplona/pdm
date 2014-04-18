@@ -15,6 +15,12 @@
         <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play Stage</a>
         <a href="{% url 'stage:editor' %}?stageid={{stage.pk}}">Edit Stage</a><br>
     {% endfor %}
+
+    <div>Recently created stages:</div>
+    <a href="{% url 'game:play_game' %}?stageid={{recentstage1.pk}}">{{recentstage1.name}}</a><br>
+    <a href="{% url 'game:play_game' %}?stageid={{recentstage2.pk}}">{{recentstage2.name}}</a><br>
+    <a href="{% url 'game:play_game' %}?stageid={{recentstage3.pk}}">{{recentstage3.name}}</a><br>
+
     <div>
         {% if logged_in %}
             <a href="{% url 'stage:editor' %}">Build a new stage</a>
