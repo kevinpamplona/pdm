@@ -17,9 +17,9 @@
     {% endfor %}
 
     <div>Recently created stages:</div>
-    <a href="{% url 'game:play_game' %}?stageid={{recentstage1.pk}}">{{recentstage1.name}}</a><br>
-    <a href="{% url 'game:play_game' %}?stageid={{recentstage2.pk}}">{{recentstage2.name}}</a><br>
-    <a href="{% url 'game:play_game' %}?stageid={{recentstage3.pk}}">{{recentstage3.name}}</a><br>
+    {% for stage in recentstages %}
+    <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a><br>
+    {% endfor %}
 
     <div>
         {% if logged_in %}

@@ -57,11 +57,11 @@ class EditorView(View):
 					response_data['data'] = stage.data.replace('\n', '\\n').replace('\r', '')
 					response_data['stageid'] = stage.pk
 					context['data'] = json.dumps(response_data)
-					print(stage.data)
+					#print(stage.data)
 				else:
 					context['error'] = "You can't edit another user's stage! Creating new stage"
 			except ObjectDoesNotExist:
-				context['error'] = "Cannot edit unexistant stage! Creating new stage"
+				context['error'] = "Cannot edit nonexistant stage! Creating new stage"
 			except Exception as e:
 				print e
 				raise
