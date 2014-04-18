@@ -27,6 +27,11 @@ def load_stage(request, stage_id = 0):
 
     Block.objects.build_default() # JIC
 
+    rating_context = {}
+    rating_context = {'rating' : stage.rating}
+
+    print stage.rating
+
     response_data = {
         'width' : stage.width,
         'height': stage.height,

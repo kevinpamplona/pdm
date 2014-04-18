@@ -10,6 +10,7 @@ import json
 import models
 
 # Create your views here.
+
 class RenderView(View):
 	def get(self, request, *args, **kwargs):
 		assert False
@@ -68,3 +69,24 @@ class EditorView(View):
 
 	def post(self, request, *args, **kwargs):
 		assert False
+
+class VoteView(View):
+	def get(self, request, *args, **kwargs):
+		assert False
+
+	def post(self, request, *args, **kwargs):
+		data_in = json.loads(request.body)
+
+		vote = data_in['vote']
+		stageid = int(data_in['stageid'])
+
+		if vote == 'up':
+			# upvote
+			new_rating = models.pdm_stages.upvote(stageid)
+		else:
+			# downvote
+			new_rating = models.pdm_stages.downvote(stageid)
+
+		response = {'new_rating' : new_rating}
+		j_resp = json.dumps(response)
+		return HttpResponse(content=j_resp, content_type='application/json', status=200)
