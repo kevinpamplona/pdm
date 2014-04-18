@@ -302,3 +302,32 @@ $(function () {
     $('.elements-slot-current').attr('id', 'elements-current-block');
   });
 });
+
+
+// this code is run to initialize dialog form for change stage dimensions
+$(function() {
+  $( "#dialog-form" ).dialog({
+    autoOpen: false,
+    height: 300,
+    width: 350,
+    modal: true,
+    buttons: {
+      "Set the dimensions": function() {
+        resizeCanvas(width.value, height.value);
+        $( this ).dialog( "close" );
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    },
+    close: function() {
+      //allFields.val( "" ).removeClass( "ui-state-error" );
+    }
+  });
+
+  $( "#set-dimensions" )
+    .button()
+    .click(function() {
+      $( "#dialog-form" ).dialog( "open" );
+  });
+});

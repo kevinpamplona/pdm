@@ -8,45 +8,6 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/assets/javascript/canvas-engine.js"></script>
-
-  <script>
-    $(function() {
-      $( "#dialog-form" ).dialog({
-        autoOpen: false,
-        height: 300,
-        width: 350,
-        modal: true,
-        buttons: {
-          "Set the dimensions": function() {
-            resizeCanvas(width.value, height.value);
-            $( this ).dialog( "close" );
-          },
-          Cancel: function() {
-            $( this ).dialog( "close" );
-          }
-        },
-        close: function() {
-          //allFields.val( "" ).removeClass( "ui-state-error" );
-        }
-      });
-
-      $( "#set-dimensions" )
-        .button()
-        .click(function() {
-          $( "#dialog-form" ).dialog( "open" );
-      });
-    });
-  </script>
-
-  <style>
-    label, input { display:block; }
-    input.text { margin-bottom:12px; width:95%; padding: .4em; }
-    fieldset { padding:0; border:0; margin-top:25px; }
-    h1 { font-size: 1.2em; margin: .6em 0; }
-    .ui-dialog .ui-state-error { padding: .3em; }
-    .validateTips { border: 1px solid transparent; padding: 0.3em; }
-  </style>
-
 </head>
 
 <body onload="init_canvas()">
