@@ -16,7 +16,7 @@
 <body>
     {% if stageid %}
         <script type="text/javascript" src="{% url 'game:load_stage' stageid %}"></script>
-        <center><a href="{% url 'stage:editor' %}">Edit this stage</a></center>
+        <center><a href="{% url 'stage:editor' %}?stageid={{stageid}}">Edit this stage</a></center>
     {% else %}
         <script type="text/javascript" src="{% url 'game:load_stage' 0 %}"></script>
     {% endif %}

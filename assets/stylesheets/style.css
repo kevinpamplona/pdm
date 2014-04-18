@@ -242,3 +242,5 @@ fieldset { padding:0; border:0; margin-top:25px; }
 h1 { font-size: 1.2em; margin: .6em 0; }
 .ui-dialog .ui-state-error { padding: .3em; }
 .validateTips { border: 1px solid transparent; padding: 0.3em; }
+
+.stage-name { font-weight: bold; display:inline-block; width:200px; }
