@@ -5,6 +5,11 @@ var canvas_directory = new Array();
 var CANVAS_WIDTH = 6;
 var CANVAS_HEIGHT = 5;
 
+// stage named, to be chosen by the user
+var CANVAS_NAME = 'STAGE NOT NAMED';
+
+var CURRENT_ACTION = '';
+
 var currentElement = "block";
 
 function resizeCanvas(width, height) {
@@ -167,6 +172,12 @@ function getY(coords) {
 
 // renders via loading the stage into the database 
 // action is either "play" or "save"
+
+function setStageName(action) {
+  CURRENT_ACTION = action;
+  $( "#stagename-dialog-form" ).dialog( "open" );
+}
+
 function renderStage(action) {
 
   // create two-dimensional array with dimensions: CANVAS_WIDTH x CANVAS_HEIGHT
@@ -229,10 +240,11 @@ function renderStage(action) {
   var stage_width = CANVAS_WIDTH;
   var stage_height = CANVAS_HEIGHT;
   var stage_data = string_out;
+  var stage_name = CANVAS_NAME;
 
   // fire of the json request to load the database
   json_request( "/stage/render", 
-    { width: stage_width, height: stage_height, data: stage_data }, 
+    { width: stage_width, height: stage_height, name: stage_name, data: stage_data }, 
     function(data) { 
       return handle_render_response(data, action);
     }, 
@@ -285,8 +297,8 @@ function clearStage() {
 }
 
 $(function () {
-  $('#savebutton').click(function() { renderStage("save"); });
-  $('#renderbutton').click(function() { renderStage("play"); });
+  $('#savebutton').click(function() { setStageName("save"); });
+  $('#renderbutton').click(function() { setStageName("play"); });
   $('#restartbutton').click(function() { clearStage(); });
 
   $('#elements-start-slot').click(function() {
@@ -306,6 +318,21 @@ $(function () {
 
 // this code is run to initialize dialog form for change stage dimensions
 $(function() {
+
+  $( "#stagename-dialog-form" ).dialog({
+    autoOpen: false,
+    height: 300,
+    width: 350,
+    modal: true,
+    buttons: {
+      "Submit": function() {
+        CANVAS_NAME = stagename.value;
+        $( this ).dialog( "close" );
+        renderStage(CURRENT_ACTION);
+      }
+    }
+  });
+
   $( "#dialog-form" ).dialog({
     autoOpen: false,
     height: 300,
