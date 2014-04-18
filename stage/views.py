@@ -14,8 +14,8 @@ class RenderView(View):
 
 	def post(self, request, *args, **kwargs):
 		data_in = json.loads(request.body)
-		width = data_in['width']
-		height = data_in['height']
+		width = int(data_in['width'])
+		height = int(data_in['height'])
 		data = data_in['data']
 		owner = request.user.username if request.user.is_authenticated() else ''
 		if request.path == '/stage/render':
