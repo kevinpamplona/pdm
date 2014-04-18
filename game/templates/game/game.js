@@ -79,11 +79,13 @@ data = jQuery.parseJSON('{{data}}');
             });
             stage.insert(player);
 
-            goal = new Q.Goal({
-                x:data.end.x*data.spsize + data.spsize/2, 
-                y:data.end.y*data.spsize + data.spsize/2
+            $.each(data.end.pos, function(index, value) {
+                goal = new Q.Goal({
+                    x:value.x*data.spsize + data.spsize/2, 
+                    y:value.y*data.spsize + data.spsize/2
+                });
+                stage.insert(goal);
             });
-            stage.insert(goal);
         });
 
         Q.scene('endGame',function(stage) {

@@ -32,7 +32,7 @@ def load_stage(request, stage_id = 0):
         'height': stage.height,
         'spsize': 32,
         'start' : {'x': 0, 'y': 0, 'ID': Block.startID}, # Only one start point
-        'end'   : {'x': 0, 'y': 0, 'ID': Block.endID}, # Only one end point for now
+        'end'   : {'ID': Block.endID, 'pos': []},
         'assets': {},
         'blocks': [],
     }
@@ -52,7 +52,7 @@ def load_stage(request, stage_id = 0):
                 if block.ID == Block.startID:
                     response_data['start'] = {'x': x, 'y': y, 'ID': Block.startID}
                 elif block.ID == Block.endID:
-                    response_data['end'] = {'x': x, 'y': y, 'ID': Block.endID}
+                    response_data['end']['pos'].append({'x': x, 'y': y})
                 else:
                     response_data['blocks'].append({'ID': block.ID, 'x': x, 'y': y})
             except ObjectDoesNotExist:
