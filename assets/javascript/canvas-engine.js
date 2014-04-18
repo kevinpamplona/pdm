@@ -7,6 +7,14 @@ var CANVAS_HEIGHT = 5;
 
 var currentElement = "block";
 
+function resizeCanvas(width, height) {
+  CANVAS_WIDTH = width;
+  CANVAS_HEIGHT = height;
+  $('#allrows').html( '' );
+  init_canvas();
+}
+
+
 // initialize all the divs for the canvas
 function init_canvas() {
   // initialtize draggable start tiles 

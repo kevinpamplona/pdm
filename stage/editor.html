@@ -8,6 +8,45 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/assets/javascript/canvas-engine.js"></script>
+
+  <script>
+    $(function() {
+      $( "#dialog-form" ).dialog({
+        autoOpen: false,
+        height: 300,
+        width: 350,
+        modal: true,
+        buttons: {
+          "Set the dimensions": function() {
+            alert("width: " + width.value + ", height: " + height.value);
+            resizeCanvas(width.value, height.value);
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+          }
+        },
+        close: function() {
+          allFields.val( "" ).removeClass( "ui-state-error" );
+        }
+      });
+
+      $( "#set-dimensions" )
+        .button()
+        .click(function() {
+          $( "#dialog-form" ).dialog( "open" );
+      });
+    });
+  </script>
+
+  <style>
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+    .validateTips { border: 1px solid transparent; padding: 0.3em; }
+  </style>
+
 </head>
 
 <body onload="init_canvas()">
@@ -21,6 +60,24 @@
     <div id="editor-controls">
 
       Click on a block to set the kind of block you wish to put, then click on the stage to put it down. Click again to remove.
+
+      <div id="editor-dimensions" class="editor-control">
+
+        <div id="dialog-form" title="Set dimensions">
+          <p class="validateTips">Set the width and height dimensions of the playing field.</p>
+          <form>
+            <fieldset>
+                <label for="width">Width</label>
+                <input type="number" name="width" id="width" class="text ui-widget-content ui-corner-all">
+                <label for="height">Height</label>
+                <input type="number" name="height" id="height" value="" class="text ui-widget-content ui-corner-all">
+            </fieldset>
+          </form>
+        </div>
+
+        <button id="set-dimensions">Set dimensions</button>
+
+      </div> 
 
       <div id="editor-palette" class="editor-control">
         <div class="palette-slot palette-slot-current">
@@ -47,6 +104,7 @@
         <button id="restartbutton" class="navbutton" type="button">Clear</button>
         <button id="rate" class="navbutton" type="button">Rate</button>
       </div>
+
     </div>
   </div>
 </body>
