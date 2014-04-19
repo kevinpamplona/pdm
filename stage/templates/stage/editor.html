@@ -8,9 +8,20 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/assets/javascript/canvas-engine.js"></script>
+  <script type="text/javascript">
+  // ALERT: Don't move this code to an external js!
+    function load_page() {
+      init_canvas();
+      {% autoescape off %}
+      {% if data %}load_stage('{{data}}');
+      {% elif error %}alert("{{error}}");{% endif %}
+      {% endautoescape %}
+    }
+  </script>
+
 </head>
 
-<body onload="init_canvas()">
+<body onload="load_page()">
   <div id="editor-main">
     <h1 class="title">Stage Editor</h1>
     
@@ -21,6 +32,37 @@
     <div id="editor-controls">
 
       Click on a block to set the kind of block you wish to put, then click on the stage to put it down. Click again to remove.
+
+      <div id="editor-name" class="editor-control">
+        <div id="stagename-dialog-form" title="Name your stage">
+          <p class="validateTips">Name your stage.</p>
+          <form>
+            <fieldset>
+              <label for="stagename">Stage Name</label>
+              <input type="text" name="stagename" id="stagename" class="text ui-widget-content ui-corner-all">
+            </fieldset>
+          </form>
+        </div>
+
+      </div>
+
+      <div id="editor-dimensions" class="editor-control">
+
+        <div id="dialog-form" title="Set dimensions">
+          <p class="validateTips">Set the width and height dimensions of the playing field.</p>
+          <form>
+            <fieldset>
+                <label for="width">Width</label>
+                <input type="number" name="width" id="width" class="text ui-widget-content ui-corner-all">
+                <label for="height">Height</label>
+                <input type="number" name="height" id="height" value="" class="text ui-widget-content ui-corner-all">
+            </fieldset>
+          </form>
+        </div>
+
+        <button id="set-dimensions">Set dimensions</button>
+
+      </div> 
 
       <div id="editor-palette" class="editor-control">
         <div class="palette-slot palette-slot-current">
@@ -45,8 +87,8 @@
         <!-- <button id="savebutton" class="navbutton" type="button">Save</button> -->
         <button id="renderbutton"class="navbutton" type="button">Play</button>
         <button id="restartbutton" class="navbutton" type="button">Clear</button>
-        <button id="rate" class="navbutton" type="button">Rate</button>
       </div>
+
     </div>
   </div>
 </body>

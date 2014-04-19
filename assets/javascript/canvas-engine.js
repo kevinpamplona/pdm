@@ -5,7 +5,22 @@ var canvas_directory = new Array();
 var CANVAS_WIDTH = 6;
 var CANVAS_HEIGHT = 5;
 
+stageid = null;
+
+// stage named, to be chosen by the user
+var CANVAS_NAME = 'STAGE NOT NAMED';
+
+var CURRENT_ACTION = '';
+
 var currentElement = "block";
+
+function resizeCanvas(width, height) {
+  CANVAS_WIDTH = width;
+  CANVAS_HEIGHT = height;
+  $('#allrows').html( '' );
+  init_canvas();
+}
+
 
 // initialize all the divs for the canvas
 function init_canvas() {
@@ -86,6 +101,34 @@ function init_canvas() {
   });
 }
 
+// Loads a saved stage into memory via JSON data (passed in via Django templating)
+// Also saves the stage ID so that you don't create a new stage every time you save
+function load_stage(json_data) {
+  data = jQuery.parseJSON(json_data);
+  resizeCanvas(data.width, data.height);
+  var stage_data = (data.data).replace(/(\\n|\n)+/g, '');
+  stageid = data.stageid;
+  $('.canvas-droppable').each(function(i) {
+    $(this).removeClass();
+    $(this).addClass("canvas-droppable ui-droppable");
+    switch(stage_data.charAt(i)) {
+      case 'S':
+        $(this).addClass("placed-element-start");
+        canvas_directory.push(new canvas_node('start-type', $(this).data('coordinates')));
+        break;
+      case 'E':
+        $(this).addClass("placed-element-goal");
+        canvas_directory.push(new canvas_node('goal-type', $(this).data('coordinates')));
+        break;
+      case '#':
+        $(this).addClass("placed-element-block");
+        canvas_directory.push(new canvas_node('block-type', $(this).data('coordinates')));
+        break;
+    }
+  });
+}
+
+
 // canvas node objects with a specified element type and its coordinate
 function canvas_node(element_type, coordinates) {
   this.element_type = element_type;
@@ -159,6 +202,15 @@ function getY(coords) {
 
 // renders via loading the stage into the database 
 // action is either "play" or "save"
+
+function setStageName(action) {
+  CURRENT_ACTION = action;
+  if (stageid == null)
+    $( "#stagename-dialog-form" ).dialog( "open" );
+  else
+    renderStage(action);
+}
+
 function renderStage(action) {
 
   // create two-dimensional array with dimensions: CANVAS_WIDTH x CANVAS_HEIGHT
@@ -221,10 +273,11 @@ function renderStage(action) {
   var stage_width = CANVAS_WIDTH;
   var stage_height = CANVAS_HEIGHT;
   var stage_data = string_out;
+  var stage_name = CANVAS_NAME;
 
   // fire of the json request to load the database
   json_request( "/stage/render", 
-    { width: stage_width, height: stage_height, data: stage_data }, 
+    { width: stage_width, height: stage_height, name: stage_name, data: stage_data, id: stageid }, 
     function(data) { 
       return handle_render_response(data, action);
     }, 
@@ -277,8 +330,8 @@ function clearStage() {
 }
 
 $(function () {
-  $('#savebutton').click(function() { renderStage("save"); });
-  $('#renderbutton').click(function() { renderStage("play"); });
+  $('#savebutton').click(function() { setStageName("save"); });
+  $('#renderbutton').click(function() { setStageName("play"); });
   $('#restartbutton').click(function() { clearStage(); });
 
   $('#elements-start-slot').click(function() {
@@ -292,5 +345,49 @@ $(function () {
   $('#elements-block-slot').click(function() {
     currentElement = "block";
     $('.elements-slot-current').attr('id', 'elements-current-block');
+  });
+});
+
+
+// this code is run to initialize dialog form for change stage dimensions
+$(function() {
+
+  $( "#stagename-dialog-form" ).dialog({
+    autoOpen: false,
+    height: 300,
+    width: 350,
+    modal: true,
+    buttons: {
+      "Submit": function() {
+        CANVAS_NAME = stagename.value;
+        $( this ).dialog( "close" );
+        renderStage(CURRENT_ACTION);
+      }
+    }
+  });
+
+  $( "#dialog-form" ).dialog({
+    autoOpen: false,
+    height: 300,
+    width: 350,
+    modal: true,
+    buttons: {
+      "Set the dimensions": function() {
+        resizeCanvas(width.value, height.value);
+        $( this ).dialog( "close" );
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    },
+    close: function() {
+      //allFields.val( "" ).removeClass( "ui-state-error" );
+    }
+  });
+
+  $( "#set-dimensions" )
+    .button()
+    .click(function() {
+      $( "#dialog-form" ).dialog( "open" );
   });
 });

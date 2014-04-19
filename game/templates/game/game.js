@@ -6,6 +6,8 @@ alert("{{error}}")
 data = jQuery.parseJSON('{{data}}');
 {% endautoescape %}
 
+{% load staticfiles %}
+
     var Q = Quintus()
                     .include("Sprites, Scenes, Input, 2D, UI, Touch")
                     .setup({width: data.width*data.spsize, height: data.height*data.spsize})
@@ -13,7 +15,7 @@ data = jQuery.parseJSON('{{data}}');
 
     var loader = []
     $.each(data.assets, function(key, value) {
-        value = "../".concat(value);
+        value = "{{STATIC_URL}}".concat(value);
         loader.push(value);
         
         if(key == data.end.ID)
@@ -28,7 +30,7 @@ data = jQuery.parseJSON('{{data}}');
         {
             Q.Sprite.extend("Player", {
                 init: function(p) {
-                    this._super(p, {asset: value, gravity:0.75});
+                    this._super(p, {asset: value, gravity:1.25});
                     this.add("2d, platformerControls");
 
                     this.on("hit.sprite", function(collision) {
@@ -77,11 +79,13 @@ data = jQuery.parseJSON('{{data}}');
             });
             stage.insert(player);
 
-            goal = new Q.Goal({
-                x:data.end.x*data.spsize + data.spsize/2, 
-                y:data.end.y*data.spsize + data.spsize/2
+            $.each(data.end.pos, function(index, value) {
+                goal = new Q.Goal({
+                    x:value.x*data.spsize + data.spsize/2, 
+                    y:value.y*data.spsize + data.spsize/2
+                });
+                stage.insert(goal);
             });
-            stage.insert(goal);
         });
 
         Q.scene('endGame',function(stage) {

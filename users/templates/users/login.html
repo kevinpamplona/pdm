@@ -8,6 +8,14 @@
 
 </head>
 <body>
+
+	<h1 align="center">
+    	Platform Design Madness</h1>
+
+    <center>
+    <img src="/assets/images/Banner.png">
+	</center>
+
 	<center>
 	<b> {{ message }} </b><br>
 	{% if form %}
@@ -19,7 +27,7 @@
 		<input type="submit" name="adduser" value="Add User">
 	</form>
 	{% else %}
-	<a href="{% url 'game:get_stage' %}">Play a saved stage</a>
+	<a href="{% url 'game:get_stage' %}">Go to your profile page.</a>
 	<form action="{% url 'users:login' %}" method = "post">
 		<input type="submit" name="logout" value="Log Out">
 	</form>

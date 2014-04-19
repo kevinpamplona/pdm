@@ -10,7 +10,30 @@ import json
 
 # Create your views here.
 def play_game(request):
-    return render(request, 'game/game.html', request.GET)
+    context = {}
+    stage = None
+
+    if u'stageid' in request.GET:
+        stage_id = request.GET[u'stageid']
+    
+        try:
+            stage = Stage.objects.get(pk=stage_id)
+        except ObjectDoesNotExist:
+            stage = Stage.objects.default_stage()
+            if int(stage_id) != 0:
+                context['error'] = "Stage not found! Loading default stage"
+        except Exception as e: # Shouldn't be reached
+            print e
+            raise
+
+        context['stageid'] = stage.pk
+        context['rating'] = stage.rating
+        context['name'] = stage.name
+        context['owner'] = stage.owner
+        if request.user.is_authenticated() and stage.owner == request.user.username:
+            context['correct_owner'] = True
+
+    return render(request, 'game/game.html', context)
 
 def load_stage(request, stage_id = 0):
     context = {}
@@ -30,9 +53,9 @@ def load_stage(request, stage_id = 0):
     response_data = {
         'width' : stage.width,
         'height': stage.height,
-        'spsize': 50,
+        'spsize': 32,
         'start' : {'x': 0, 'y': 0, 'ID': Block.startID}, # Only one start point
-        'end'   : {'x': 0, 'y': 0, 'ID': Block.endID}, # Only one end point for now
+        'end'   : {'ID': Block.endID, 'pos': []},
         'assets': {},
         'blocks': [],
     }
@@ -52,7 +75,7 @@ def load_stage(request, stage_id = 0):
                 if block.ID == Block.startID:
                     response_data['start'] = {'x': x, 'y': y, 'ID': Block.startID}
                 elif block.ID == Block.endID:
-                    response_data['end'] = {'x': x, 'y': y, 'ID': Block.endID}
+                    response_data['end']['pos'].append({'x': x, 'y': y})
                 else:
                     response_data['blocks'].append({'ID': block.ID, 'x': x, 'y': y})
             except ObjectDoesNotExist:
@@ -68,10 +91,15 @@ def get_stage(request):
     if request.user.is_authenticated():
         context['logged_in'] = True
         stages = Stage.objects.filter(owner = request.user.username)
-        if stages:
+        allstages = Stage.objects.all()
+        totalCount = Stage.objects.count()
+        context['recentstages'] = []
+        for i in xrange(min(3, totalCount)):
+            context['recentstages'].append(Stage.objects.get(pk = totalCount - i))
+        if len(stages):
             context['stages'] = stages
-            sorted(context['stages'], key=lambda Stage: Stage.rating)
-            context['message'] = "Choose one of your stages:"
+            sorted(context['stages'], key=lambda st: st.rating)
+            context['message'] = "Your previously saved stages:"
         else:
             context['message'] = "You have no saved stages."
     else:

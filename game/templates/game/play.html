@@ -11,8 +11,16 @@
     <div><a href="{% url 'game:play_game' %}">Default Stage</a></div>
     <div>{{ message }}</div>
     {% for stage in stages %}
-        <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Stage {{stage.pk}}</a><br>
+        <span class="stage-name">{{stage.name}}</span>
+        <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play Stage</a>
+        <a href="{% url 'stage:editor' %}?stageid={{stage.pk}}">Edit Stage</a><br>
     {% endfor %}
+
+    <div>Recently created stages:</div>
+    {% for stage in recentstages %}
+    <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a><br>
+    {% endfor %}
+
     <div>
         {% if logged_in %}
             <a href="{% url 'stage:editor' %}">Build a new stage</a>

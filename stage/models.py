@@ -11,18 +11,20 @@ DEFAULT = """
 
 class StageManager(models.Manager):
     @staticmethod
-    def make_stage(w, h, dat, user):
+    def make_stage(w, h, stagename, dat, user):
         if w <= 0 or h <= 0 or w*h > Stage.MAX_SIZE:
             raise FieldError("Invalid width or height")
 
-        return Stage(width = w, height = h, data = dat, owner = user)
+        return Stage(width = w, height = h, name = stagename, data = dat, rating = 1, owner = user)
 
     @staticmethod
     def default_stage():
         return Stage(
             width = 11,
             height = 5,
+            name = 'rainbow road',
             data = DEFAULT,
+            rating = 0,
             owner = '' )
 
 # When creating new objects, please use Stage.objects.make_stage() instead of the standard Stage().
@@ -41,15 +43,16 @@ class Stage(models.Model):
     MAX_SIZE = 65536 # Max size of stage, width * height must be less than or equal to this. Actual number is arbitrary
     width    = models.PositiveSmallIntegerField()
     height   = models.PositiveSmallIntegerField()
+    name     = models.CharField(max_length = 255)
     data     = models.CharField(max_length = MAX_SIZE)
     owner    = models.CharField(max_length = 255)
-    rating   = 0
+    rating   = models.SmallIntegerField(default = 0)
     objects  = StageManager()   # Redirects Stage.objects to be the custom StageManager instead of 
                                 #  traditional models.Manager, allowing for make_stage while keeping
                                 #  all the regular functionality
 
     def __unicode__(self):
-        return u'Stage: ' + unicode(self.width) + u'x' + unicode(self.height) + u'; Owner: ' + unicode(self.owner) + u'\n' + unicode(self.data)
+        return u'Stage: ' + unicode(self.name) + u'--' + unicode(self.width) + u'x' + unicode(self.height) + u'; Owner: ' + unicode(self.owner) + u', Rating: ' + unicode(self.rating) + u'\n' + unicode(self.data)
 
 class BlockManager(models.Manager):
     @staticmethod
@@ -83,10 +86,28 @@ class StageModel:
     def __init__(self):
         print "StageModel initiated"
 
-    def render(self, width, height, data, owner):
-        print "rendering stage!"
-        rendered_stage = Stage.objects.make_stage(width, height, data, owner)
+    def render(self, width, height, name, data, owner):
+        #print "rendering stage!"
+        rendered_stage = Stage.objects.make_stage(width, height, name, data, owner)
+        #print rendered_stage
         rendered_stage.save()
+        #print rendered_stage.pk
         return rendered_stage.pk
+
+    def upvote(self, stageid):
+        # upvote stage
+        stage = Stage.objects.get(pk=stageid)
+        new_rating = stage.rating + 1
+        stage.rating = new_rating
+        stage.save()
+        return stage.rating
+
+    def downvote(self, stageid):
+        # downvote stage
+        stage = Stage.objects.get(pk=stageid)
+        new_rating = stage.rating - 1
+        stage.rating = new_rating
+        stage.save()
+        return stage.rating
 
 pdm_stages = StageModel()

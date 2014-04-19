@@ -6,6 +6,8 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
+    <script type="text/javascript" src="/assets/javascript/rating-engine.js"></script>
+
     <!-- When releasing to public, un-comment the following code for the full quintus instead of production version
     <script type="text/javascript" src="http://cdn.html5quintus.com/v0.2.0/quintus-all.js"></script>  -->
     <script type="text/javascript" src="http://cdn.html5quintus.com/v0.2.0/quintus-all.min.js"></script>
@@ -15,8 +17,25 @@
 </head>
 <body>
     {% if stageid %}
+        <center>
+            <p>{{name}}</p>
+            <p>CREATED BY {{owner}}</p>
+
+            <div id="rating">Points: {{rating}}</div>
+        </center>
+
         <script type="text/javascript" src="{% url 'game:load_stage' stageid %}"></script>
+
+        <center>
+            <button onclick="castVote('up', {{stageid}})" id="upvote" class="navbutton" type="button">Upvote!</button>
+            <button onclick="castVote('down', {{stageid}})" id="downvote" class="navbutton" type="button">Downvote!</button>
+        </center>
+
+        {% if correct_owner %}
+        <center><a href="{% url 'stage:editor' %}?stageid={{stageid}}">Edit this stage</a></center>
+        {% endif %}
     {% else %}
+        <p>Default Game Stage</p>
         <script type="text/javascript" src="{% url 'game:load_stage' 0 %}"></script>
     {% endif %}
     <center><a href="{% url 'game:get_stage' %}">Back to My Stages</a></center>
