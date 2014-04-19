@@ -115,6 +115,10 @@ h1.title {
   display: inline-block;
 }
 
+.canvas-droppable:hover {
+  opacity: 0.7;
+}
+
 .placed-element-start {
   background-color: azure;
 }
