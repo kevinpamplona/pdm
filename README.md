@@ -8,14 +8,16 @@ Team Members
 ------------
 
 * Alex Ma
+* Joshua Tsubaki Wu
 * Kevin Ho-Yin Lau
 * Kevin Hui
 * Kevin Pamplona
 
-Iteration 1 Instructions:
+Details
+-------
 
-Visit http://limitless-scrubland-2940.herokuapp.com/editor.html to edit the stage. You must place a minimum of one start-element and one goal-element. Make sure that the start block rests on top of a block-element, or the user-sprite will fall to their bottom-less death.
+Our application is live at http://platformdesignmadness.herokuapp.com/ , which includes a stage editor and stage player. 
 
-Once done, hit 'Render!' and then hit 'Play Stage!'.
+From the homepage, you can click 'Log In or Register' to create an account and start creating stages. 
 
-A default stage can be played at http://limitless-scrubland-2940.herokuapp.com/game/game.html.
+Logging in takes you to your user profile page. The profile page displays the default stage, recently-created stages, and your saved stages. Each saved stage has an option to edit it or play it.
