@@ -1,8 +1,10 @@
 <html>
 <head>
-    <title>Platform Design Madness - Play Stage</title>
-
+    <title>Platform Design Madness</title>
+    <link rel="icon" type="image/png" href="/assets/images/pdm-favicon.ico">
     <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/flat-ui.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
@@ -16,6 +18,39 @@
     </style>
 </head>
 <body>
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-03">
+                </button>
+                <a href="/" class="brand">PDM</a>
+                <div class="nav-collapse collapse" id="nav-collapse-03">
+                  <form class="navbar-search form-search pull-right" action="" align="center">
+                    <div class="input-append">
+                        <input type="text" class="search-query span2" placeholder="Search">
+                        <button type="submit" class="btn btn-large">
+                            <i class="fui-search"></i>
+                        </button>
+                    </div>
+                  </form>
+
+                  <ul class="nav pull-right">
+                    <li class="">
+                      <a href="/game">
+                        <span class="fui-home"></span><span class="hidden-desktop">Home</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#fakelink">
+                        <span class="fui-cross"></span><span class="hidden-desktop">Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
     {% if stageid %}
         <center>
             <p>{{name}}</p>
