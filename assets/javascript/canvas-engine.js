@@ -228,6 +228,9 @@ function renderStage(action) {
     }
   }
 
+  var num_start = 0;
+  var num_end = 0;
+
   // for each element in the directory, overwrite the 2d-array
   for (var i = 0; i < canvas_directory.length; i++) {
     // grab the element-type and the coordinates
@@ -238,12 +241,14 @@ function renderStage(action) {
     elm = "";
     if (element == "start-type") {
       elm = "S";
+      num_start += 1;
     } else if (element == "goal-type") {
       elm = "E";
+      num_end += 1;
     } else if (element == "block-type") {
       elm = "#";
     } else {
-      console.log("ERROR");
+      console.log("ERROR: Invalid type on map");
     }
 
     // grab individual coordinates
@@ -268,24 +273,35 @@ function renderStage(action) {
 
   // console.log(string_out);
 
-  // all data to be sent in the request: width, height, data
-  // stage owner managed by django, so we don't need it here
-  var stage_width = CANVAS_WIDTH;
-  var stage_height = CANVAS_HEIGHT;
-  var stage_data = string_out;
-  var stage_name = CANVAS_NAME;
+  // Check that there is exactly one start position and at least one end position
+  if (num_start == 1 && num_end > 0) {
+    // all data to be sent in the request: width, height, data
+    // stage owner managed by django, so we don't need it here
+    var stage_width = CANVAS_WIDTH;
+    var stage_height = CANVAS_HEIGHT;
+    var stage_data = string_out;
+    var stage_name = CANVAS_NAME;
 
-  // fire of the json request to load the database
-  json_request( "/stage/render", 
-    { width: stage_width, height: stage_height, name: stage_name, data: stage_data, id: stageid }, 
-    function(data) { 
-      return handle_render_response(data, action);
-    }, 
-    function(xhr, status, error) { 
-      //var err = eval("(" + xhr.responseText + ")");
-      //console.log(xhr.responseText); 
-      //console.log(status);
-    });
+    // fire of the json request to load the database
+    json_request( "/stage/render", 
+      { width: stage_width, height: stage_height, name: stage_name, data: stage_data, id: stageid }, 
+      function(data) { 
+        return handle_render_response(data, action);
+      }, 
+      function(xhr, status, error) { 
+        //var err = eval("(" + xhr.responseText + ")");
+        //console.log(xhr.responseText); 
+        //console.log(status);
+      });
+  } else {
+    // If it doesn't, send an alert. (Make sure it's an alert and not console.log so a customer sees it)
+    if (num_start == 0) 
+      alert("You don't have a start element!");
+    else if (num_start > 1) 
+      alert("You can only have one start element!");
+    if (num_end == 0) 
+      alert("You don't have any goal elements!");
+  }
   return false;
 }
 
