@@ -1,11 +1,26 @@
 html, body {
   font-family: "Georgia", serif;
   line-height: 1.8em;
-  background: #faf8ef;
-
-  color: #333333;
-  font-family: "lucida grande", "Helvetica Neue", sans-serif;
+  background-color: #ffffff;
   font-size: 18px;
+
+  color: #34495e;
+  font-family: 'Lato', sans-serif;
+}
+
+#info {
+  font-size: 0.8em;
+}
+
+.pdm-headline {
+  color: #1abc9c;
+  font-size: 100px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 30px;
+  padding: 40px 0;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 h1.title {
@@ -247,4 +262,204 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 .ui-dialog .ui-state-error { padding: .3em; }
 .validateTips { border: 1px solid transparent; padding: 0.3em; }
 
-.stage-name { font-weight: bold; display:inline-block; width:200px; }
+.stage-name { font-weight: bold; display:inline-block; width:100px; }
+
+
+.signin {
+ width: 270px;
+ height: 45px;
+}
+
+
+.signin-submit {
+  width: 750px;
+}
+
+/* CSS used from licensed/purchased FLATUI library -- LOGIN BUTTON*/
+.btn.btn-primary {
+  background-color: #1abc9c;
+}
+
+.btn.btn-large {
+  font-size: 16.996px;
+  line-height: 20px;
+  padding: 12px 18px 13px;
+}
+
+.demo-buttons .btn, .demo-inputs .control-group {
+  margin-bottom: 20px;
+}
+
+.btn {
+  border: none;
+  background: #bdc3c7;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: none;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+  -webkit-backface-visibility: hidden;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.btn, .btn-group > .btn, .btn-group > .dropdown-menu, .btn-group > .popover {
+  font-weight: 500;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.btn-large {
+  -moz-border-radius: 6px;
+}
+
+
+/* CSS used from licensed/purchased FLATUI library -- LOGIN INPUT
+.dialog {
+  background-color: #edeff1;
+  border-top: 2px solid #d6dbdf;
+  font-size: 15.988px;
+  margin-bottom: 20px;
+  padding: 18px 0;
+  position: relative;
+  text-align: center;
+}
+
+.dialog form {
+margin-bottom: 0;
+}
+
+.control-group {
+position: relative;
+}
+
+form {
+margin: 0 0 20px;
+}
+
+form {
+display: block;
+}
+
+.dialog form input:first-child, .dialog form .btn:first-child {
+margin-left: 0;
+}
+.control-group textarea, .control-group input[type="text"], .control-group input[type="password"], .control-group input[type="datetime"], .control-group input[type="datetime-local"], .control-group input[type="date"], .control-group input[type="month"], .control-group input[type="time"], .control-group input[type="week"], .control-group input[type="number"], .control-group input[type="email"], .control-group input[type="url"], .control-group input[type="search"], .control-group input[type="tel"], .control-group input[type="color"], .control-group .uneditable-input {
+margin-bottom: 0;
+}
+textarea.flat, input[type="text"].flat, input[type="password"].flat, input[type="datetime"].flat, input[type="datetime-local"].flat, input[type="date"].flat, input[type="month"].flat, input[type="time"].flat, input[type="week"].flat, input[type="number"].flat, input[type="email"].flat, input[type="url"].flat, input[type="search"].flat, input[type="tel"].flat, input[type="color"].flat, .uneditable-input.flat {
+border-color: transparent;
+}
+.demo-dialog input.flat {
+width: 286px;
+}
+
+.dialog form input, .dialog form .btn {
+  margin-left: 20px;
+vertical-align: top;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+border: 2px solid #bdc3c7;
+color: #34495e;
+font-family: 'Lato', sans-serif;
+font-size: 14px;
+padding: 8px 5px;
+height: 21px;
+text-indent: 6px;
+-webkit-appearance: none;
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+-webkit-transition: border .25s linear, color .25s linear;
+-moz-transition: border .25s linear, color .25s linear;
+-o-transition: border .25s linear, color .25s linear;
+transition: border .25s linear, color .25s linear;
+-webkit-backface-visibility: hidden;
+background-color: #ffffff;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+display: inline-block;
+line-height: 20px;
+}
+
+label, input, button, select, textarea {
+font-weight: normal;
+}
+
+button, input, select, textarea {
+margin: 0;
+}
+
+input, input[type="password"], input[type="search"], isindex {
+-webkit-rtl-ordering: logical;
+-webkit-user-select: text;
+cursor: auto;
+}
+
+input, textarea, keygen, select, button, isindex {
+font: -webkit-small-control;
+letter-spacing: normal;
+word-spacing: normal;
+text-transform: none;
+text-shadow: none;
+text-align: start;
+}
+
+input, textarea, keygen, select, button, isindex, meter, progress {
+-webkit-writing-mode: horizontal-tb;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+border: 2px solid #bdc3c7;
+color: #34495e;
+font-family: 'Lato', sans-serif;
+font-size: 14px;
+padding: 8px 5px;
+height: 21px;
+text-indent: 6px;
+-webkit-appearance: none;
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+-webkit-transition: border .25s linear, color .25s linear;
+-moz-transition: border .25s linear, color .25s linear;
+-o-transition: border .25s linear, color .25s linear;
+transition: border .25s linear, color .25s linear;
+-webkit-backface-visibility: hidden;
+}
+
+input[type="password"] {
+-webkit-text-security: disc;
+}
+*/
+
+.search-query {
+  width: 168px;
+  height: 37px;
+}
+
+.btn-new-stage {
+  width: 300px;
+}

@@ -2,12 +2,16 @@
 <html lang="en">
 
 <head>
-  <title>Platform Design Madness: Stage Editor</title>
+  <title>Platform Design Madness</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/stylesheets/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/assets/stylesheets/flat-ui.css">
+
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/assets/javascript/canvas-engine.js"></script>
+
   <script type="text/javascript">
   // ALERT: Don't move this code to an external js!
     function load_page() {
@@ -22,6 +26,38 @@
 </head>
 
 <body onload="load_page()">
+  <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-03">
+                </button>
+                <a href="/" class="brand">PDM</a>
+                <div class="nav-collapse collapse" id="nav-collapse-03">
+                  <form class="navbar-search form-search pull-right" action="" align="center">
+                    <div class="input-append">
+                        <input type="text" class="search-query span2" placeholder="Search">
+                        <button type="submit" class="btn btn-large">
+                            <i class="fui-search"></i>
+                        </button>
+                    </div>
+                  </form>
+
+                  <ul class="nav pull-right">
+                    <li class="">
+                      <a href="/game">
+                        <span class="fui-home"></span><span class="hidden-desktop">Home</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#fakelink">
+                        <span class="fui-cross"></span><span class="hidden-desktop">Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
   <div id="editor-main">
     <h1 class="title">Stage Editor</h1>
     
