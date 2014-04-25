@@ -42,6 +42,9 @@ function init_canvas() {
   //   helper: 'clone'
   // });
 
+  // Clear the canvas_directory
+  canvas_directory = new Array();
+
   // add the #canvas-row divs in '#allrows'
   for (var y = 0; y < CANVAS_HEIGHT; y++) {
     // unique row id
