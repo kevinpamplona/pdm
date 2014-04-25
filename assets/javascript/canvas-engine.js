@@ -15,8 +15,12 @@ var CURRENT_ACTION = '';
 var currentElement = "block";
 
 function resizeCanvas(width, height) {
-  CANVAS_WIDTH = width;
-  CANVAS_HEIGHT = height;
+  // Process to verify use of integers
+  if (!isNaN(parseInt(width)))
+    CANVAS_WIDTH = parseInt(width);
+  if (!isNaN(parseInt(height)))
+    CANVAS_HEIGHT = parseInt(height);
+  console.log(CANVAS_WIDTH);
   $('#allrows').html( '' );
   init_canvas();
 }
@@ -209,7 +213,7 @@ function getY(coords) {
 function setStageName(action) {
   CURRENT_ACTION = action;
   if (stageid == null)
-    $( "#stagename-dialog-form" ).dialog( "open" );
+    $( "#stagename-dialog-form" ).modal( "show" );
   else
     renderStage(action);
 }
@@ -371,42 +375,59 @@ $(function () {
 // this code is run to initialize dialog form for change stage dimensions
 $(function() {
 
-  $( "#stagename-dialog-form" ).dialog({
-    autoOpen: false,
-    height: 300,
-    width: 350,
-    modal: true,
-    buttons: {
-      "Submit": function() {
-        CANVAS_NAME = stagename.value;
-        $( this ).dialog( "close" );
-        renderStage(CURRENT_ACTION);
-      }
-    }
+//  $( "#stagename-dialog-form" ).dialog({
+//    autoOpen: false,
+//    height: 300,
+//    width: 350,
+//    modal: true,
+//    buttons: {
+//      "Submit": function() {
+//        CANVAS_NAME = stagename.value;
+//        $( this ).dialog( "close" );
+//        renderStage(CURRENT_ACTION);
+//      }
+//    }
+//  });
+
+//  $( "#dialog-form" ).dialog({
+//    autoOpen: false,
+//    height: 300,
+//    width: 350,
+//    modal: true,
+//    buttons: {
+//      "Set the dimensions": function() {
+//        resizeCanvas(width.value, height.value);
+//        $( this ).dialog( "close" );
+//      },
+//      Cancel: function() {
+//        $( this ).dialog( "close" );
+//      }
+//    },
+//    close: function() {
+//      //allFields.val( "" ).removeClass( "ui-state-error" );
+//    }
+//  });
+
+//  $( "#set-dimensions" )
+//    .button()
+//    .click(function() {
+//      $( "#dialog-form" ).dialog( "open" );
+//  });
+
+  function hideModal(modalwindow){
+    $(modalwindow).modal('hide');
+  }
+
+  $("#resize").click(function(e) {
+    e.preventDefault();
+    resizeCanvas(width.value, height.value);
+    hideModal("#resizeModal");
   });
 
-  $( "#dialog-form" ).dialog({
-    autoOpen: false,
-    height: 300,
-    width: 350,
-    modal: true,
-    buttons: {
-      "Set the dimensions": function() {
-        resizeCanvas(width.value, height.value);
-        $( this ).dialog( "close" );
-      },
-      Cancel: function() {
-        $( this ).dialog( "close" );
-      }
-    },
-    close: function() {
-      //allFields.val( "" ).removeClass( "ui-state-error" );
-    }
-  });
-
-  $( "#set-dimensions" )
-    .button()
-    .click(function() {
-      $( "#dialog-form" ).dialog( "open" );
+  $("#setName").click(function(e) {
+    e.preventDefault();
+    CANVAS_NAME = stagename.value;
+    hideModal("#stagename-dialog-form");
+    renderStage(CURRENT_ACTION);
   });
 });
