@@ -3,17 +3,12 @@
 
     <title>Platform Design Madness</title>
     <link rel="icon" type="image/png" href="/assets/images/pdm-favicon.ico">
-    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/stylesheets/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/stylesheets/flat-ui.css">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
     <script type="text/javascript" src="/assets/javascript/util.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-    <script type="text/javascript">
-        function logout() {
-            document.getElementById("logout-form").submit();  
-        }
-    </script>
 
 </head>
 <body>
@@ -40,7 +35,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="#fakelink">
+                      <a onclick="logout()">
                         <span class="fui-cross"></span><span class="hidden-desktop">Logout</span>
                       </a>
                     </li>
@@ -51,11 +46,14 @@
     </div>
 
     <div class="profile-content">
-        <div><a href="{% url 'game:play_game' %}">Default Stage</a></div>
-        <div>{{ message }}</div>
-
         <div class="saved-stages alert alert-info">
-            <div>Saved Stages</div>
+            <div>
+                <span class="stage-name">Default Stage</span>
+                <span class="fui-play"></span>
+                <a href="{% url 'game:play_game' %}">Play</a>
+            </div>
+            <div class="message">{{ message }}</div>
+            <div class="stages">
             {% for stage in stages %}
                 <span class="stage-name">{{stage.name}}</span>
                 <span class="fui-play"></span>
@@ -65,10 +63,18 @@
                 <a href="{% url 'stage:editor' %}?stageid={{stage.pk}}">Edit</a>
                 <br>
             {% endfor %}
+            </div>
+            <div class="btn-new-stage">
+            {% if logged_in %}
+                <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">BUILD NEW STAGE</a>
+            {% else %}
+                <a href="{% url 'users:login' %}" class="btn btn-huge btn-block btn-primary">LOG IN</a>
+            {% endif %}
+            </div>
         </div>
 
         <div class="recent-stages alert alert-info">
-            <div>Recently Created</div>
+            <div class="message">Recently Created Stages</div>
                 {% for stage in recentstages %}
                     <span class="stage-name">{{stage.name}}</span>
                     <span class="fui-play"></span>
@@ -81,20 +87,5 @@
             </div>
         </div>
     </div>
-
-    <center>
-        <div>
-            {% if logged_in %}
-                <div class="btn-new-stage">
-                <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">BUILD NEW STAGE</a>
-                </div>
-                <form action="{% url 'users:login' %}" method="post">
-                    <input type="submit" name="logout" value="Log Out">
-                </form>
-            {% else %}
-                <a href="{% url 'users:login' %}">Log in to load saved stages</a>
-            {% endif %}
-        </div>
-    </center>
 </body>
 </html>
