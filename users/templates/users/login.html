@@ -1,21 +1,90 @@
 <html>
 <head>
 
-    <title>Log in</title>
+    <title>PDM - Login</title>
+    <link rel="icon" type="image/png" href="/assets/images/pdm-favicon.ico">
     <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/flat-ui.css">
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/assets/javascript/util.js"></script>
 
 </head>
 <body>
+	<div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-03">
+                </button>
+                <a href="/" class="brand">PDM</a>
+                <div class="nav-collapse collapse" id="nav-collapse-03">
+                  <form class="navbar-search form-search pull-right" action="" align="center">
+                    <div class="input-append">
+                    	<input type="text" class="search-query span2" placeholder="Search">
+                      	<button type="submit" class="btn btn-large">
+                        	<i class="fui-search"></i>
+                      	</button>
+                    </div>
+                  </form>
 
-	<h1 align="center">
-    	Platform Design Madness</h1>
+                  <ul class="nav pull-right">
+                    <li class="">
+                      <a href="/game">
+                        <span class="fui-home"></span><span class="hidden-desktop">Home</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a onclick="logout()">
+                        <span class="fui-cross"></span><span class="hidden-desktop">Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+	<p class="pdm-headline">Platform Design Madness</p>
 
     <center>
     <img src="/assets/images/Banner.png">
 	</center>
 
+
+    <p class="pdm-info" align="center">
+        <b>What is Platform Design Madness?</b>
+        <br>
+        Short and simple, Platform Design Madness (PDM) is an <b>editor</b> for <i>two-dimensional platform stages</i>.
+        <br>
+        Users can easily create 2D game levels by specifying a start point, end point, and environment blocks. 
+        <br>
+        Stages can be saved for later (to be edited or played), as well as be upvoted by other users.  
+    </p>
+
+    <center>
+    <b> {{ message }} </b><br>
+    <div class="signin-submit dialog demo-dialog">
+      {% if form %}
+	      <form class="control-group" action="{% url 'users:login' %}" method = "post">
+	      	{% csrf_token %}
+	        <input type="text" placeholder="Username" class="flat" name="username">
+	        <input type="password" placeholder="Password" class="flat" name="passwd">
+	        <button class="btn btn-primary btn-wide" name="login">Login</button>
+	        <button class="btn btn-warning btn-wide" name="adduser">Register</button>
+	      </form>
+	  {% else %}
+	  	<a href="{% url 'game:get_stage' %}"> You are logged in. Go to your <b><u>profile page</b></u>.</a>
+	  	<br>
+		<form action="{% url 'users:login' %}" method = "post">
+			<button class="btn btn-danger btn-wide" name="logout">Logout</button>
+		</form>
+	  {% endif %}
+    </div>
+	</center>
+
+	<!--
 	<center>
 	<b> {{ message }} </b><br>
 	{% if form %}
@@ -32,5 +101,6 @@
 		<input type="submit" name="logout" value="Log Out">
 	</form>
 	{% endif %}
+	-->
 </body>
 </html>

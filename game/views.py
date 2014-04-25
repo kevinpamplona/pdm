@@ -91,17 +91,18 @@ def get_stage(request):
     if request.user.is_authenticated():
         context['logged_in'] = True
         stages = Stage.objects.filter(owner = request.user.username)
-        allstages = Stage.objects.all()
-        totalCount = Stage.objects.count()
-        context['recentstages'] = []
-        for i in xrange(min(3, totalCount)):
-            context['recentstages'].append(Stage.objects.get(pk = totalCount - i))
         if len(stages):
             context['stages'] = stages
             sorted(context['stages'], key=lambda st: st.rating)
-            context['message'] = "Your previously saved stages:"
+            context['message'] = "Saved Stages"
         else:
             context['message'] = "You have no saved stages."
     else:
         context['message'] = 'You are not logged in!'
+
+    totalCount = Stage.objects.count()
+    context['recentstages'] = []
+    for i in xrange(min(7, totalCount)):
+        context['recentstages'].append(Stage.objects.get(pk = totalCount - i))
+
     return render(request, 'game/play.html', context)

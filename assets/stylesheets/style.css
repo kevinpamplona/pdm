@@ -1,11 +1,26 @@
 html, body {
   font-family: "Georgia", serif;
   line-height: 1.8em;
-  background: #faf8ef;
-
-  color: #333333;
-  font-family: "lucida grande", "Helvetica Neue", sans-serif;
+  background-color: #ffffff;
   font-size: 18px;
+
+  color: #34495e;
+  font-family: 'Lato', sans-serif;
+}
+
+#info {
+  font-size: 0.8em;
+}
+
+.pdm-headline {
+  color: #1abc9c;
+  font-size: 100px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 30px;
+  padding: 40px 0;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 h1.title {
@@ -113,6 +128,10 @@ h1.title {
   border: 1px solid white;
   background: #555555;
   display: inline-block;
+}
+
+.canvas-droppable:hover {
+  opacity: 0.7;
 }
 
 .placed-element-start {
@@ -243,4 +262,99 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 .ui-dialog .ui-state-error { padding: .3em; }
 .validateTips { border: 1px solid transparent; padding: 0.3em; }
 
-.stage-name { font-weight: bold; display:inline-block; width:200px; }
+.stage-name { 
+  font-weight: bold; 
+  display:inline-block; 
+  width:170px; 
+  white-space: nowrap;
+}
+
+.signin {
+ width: 270px;
+ height: 45px;
+}
+
+
+.signin-submit {
+  width: 750px;
+}
+
+/* CSS used from licensed/purchased FLATUI library -- LOGIN BUTTON*/
+.btn.btn-primary {
+  background-color: #1abc9c;
+}
+
+.btn.btn-large {
+  font-size: 16.996px;
+  line-height: 20px;
+  padding: 12px 18px 13px;
+}
+
+.demo-buttons .btn, .demo-inputs .control-group {
+  margin-bottom: 20px;
+}
+
+.btn {
+  border: none;
+  background: #bdc3c7;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: none;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+  -webkit-backface-visibility: hidden;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.btn, .btn-group > .btn, .btn-group > .dropdown-menu, .btn-group > .popover {
+  font-weight: 500;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.btn-large {
+  -moz-border-radius: 6px;
+}
+
+.search-query {
+  width: 168px;
+  height: 37px;
+}
+
+.btn-new-stage {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.saved-stages, .recent-stages {
+  width: 370px;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.message {
+  margin-top: 0.5em;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.stages {
+  height:150px;
+  overflow: auto;
+}
