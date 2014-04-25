@@ -66,6 +66,22 @@ def get_login(request):
     context['form'] = form
     return render(request, 'users/login.html', context )
 
+
+def search(request):
+    print "lalalalaala"
+    if request.method == 'GET':
+        form = UserForm(request.GET)
+        query = form.data[u'query']
+        print query
+
+        context = {}
+        return render(request, 'users/search.html', context)
+    else:
+        context = {}
+        return render(request, 'users/search.html', context)
+        # should not be reached
+
+
 class HandlerView(View): # Deprecated view
     def get(self, request, *args, **kwargs):
 

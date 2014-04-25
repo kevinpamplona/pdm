@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^game/', include('game.urls', namespace = 'game')), 
 
     url(r'^login/', include('users.urls', namespace = 'users')),
+    url(r'^search/', include('users.urls', namespace = 'users')),
 
     url(r'^stage/', include('stage.urls', namespace = 'stage')),
     url(r'^assets/', 'static_pages.views.static_asset'),
