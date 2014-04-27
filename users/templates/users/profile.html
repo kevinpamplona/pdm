@@ -5,10 +5,10 @@
     <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/stylesheets/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/stylesheets/flat-ui.css">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/demo.css">
     <script type="text/javascript" src="/assets/javascript/util.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-
 </head>
 
 <body>
@@ -20,15 +20,9 @@
                 </button>
                 <a href="/" class="brand">PDM</a>
                 <div class="nav-collapse collapse" id="nav-collapse-03">
-
-                  <form class="navbar-search form-search pull-right" action="/search/" method="get" align="center">
-
+                  <form class="navbar-search form-search pull-right" action="{% url 'search' %}" method="get" align="center">
                     <div class="input-append">
-<<<<<<< HEAD
-                        <input type="text" class="search-query span2" placeholder="Search" id="search-bar">
-=======
                         <input type="text" class="search-query span2" placeholder="Search" name="query">
->>>>>>> kpam-iter4
                         <button type="submit" class="btn btn-large">
                             <i class="fui-search"></i>
                         </button>
@@ -52,27 +46,23 @@
         </div>
     </div>
 
-    <p class="pdm-headline">Platform Design Madness</p>
+    
 
-    <center>
-    <img src="/assets/images/Banner.png">
-	</center>
-
-    <p class="pdm-info" align="center">
-        <b>What is Platform Design Madness?</b>
-        <br>
-        Short and simple, Platform Design Madness (PDM) is an <b>editor</b> for <i>two-dimensional platform stages</i>.
-        <br>
-        Users can easily create 2D game levels by specifying a start point, end point, and environment blocks. 
-        <br>
-        Stages can be saved for later (to be edited or played), as well as be upvoted by other users.  
-    </p>
-
-    <center>
-    <div class="signin" style="text-align:center">    
-        <a href="/login" class="btn btn-large btn-block btn-primary">login OR register</a>
-	</div>
-</center>
+    {% if user_exists == "true" %}
+        <p class="pdm-search-headline">{{user}}</p>
+        <div class="search-results">
+            <b>username:</b> {{user_name}} <br><br>
+            <b>{{user}} has created {{user_stagecount}} stage(s)</b> <br><br>
+            {% for stage in user_stages %}
+                <span class="stage-name">{{stage.name}}</span>
+                <span class="fui-play"></span>
+                <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
+                <br><br>
+            {% endfor %}
+        </div>
+    {% else %}
+         <p class="pdm-search-headline">No such user {{user}}...</p>
+    {% endif %}
 
 </body>
 

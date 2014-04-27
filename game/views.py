@@ -105,4 +105,6 @@ def get_stage(request):
     for i in xrange(min(7, totalCount)):
         context['recentstages'].append(Stage.objects.get(pk = totalCount - i))
 
+    context['username'] = request.user.username 
+
     return render(request, 'game/play.html', context)

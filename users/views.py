@@ -7,6 +7,7 @@ from subprocess import CalledProcessError
 import re
 #import models
 from users.models import UserForm, UsersModel
+from stage.models import Stage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -65,6 +66,72 @@ def get_login(request):
         form = UserForm()
     context['form'] = form
     return render(request, 'users/login.html', context )
+
+
+def search(request):
+    if request.method == 'GET':
+        form = UserForm(request.GET)
+        query = form.data[u'query']
+
+        context = {}
+        context = {'query' : query}
+
+        if User.objects.filter(username=query):
+            context['user_exists'] = "true"
+            context['user_name'] = query
+            context['user_stagecount'] = Stage.objects.filter(owner=query).count() 
+
+            context['user_stages'] = []
+            for stage in Stage.objects.filter(owner=query):
+                context['user_stages'].append(stage)
+            #context['user_result'] = "USER EXISTS"
+        else:
+            context['user_exists'] = "false"
+            #context['user_result'] = "USER DOES NOT EXIST"
+
+        if Stage.objects.filter(name=query):
+            context['stages_exists'] = "true"
+            context['stages_stagecount'] = Stage.objects.filter(name=query).count()
+
+            context['stages_stages'] = []
+            for stage in Stage.objects.filter(name=query):
+                 context['stages_stages'].append(stage)
+
+        else:
+            context['stages_exists'] = "false"
+
+        return render(request, 'users/search.html', context)
+    else:
+        context = {}
+        return render(request, 'users/search.html', context)
+        # should not be reached
+
+def profile(request):
+    if request.method == 'GET':
+        form = UserForm(request.GET)
+        user = form.data[u'user']
+
+        context = {}
+        context = {'user' : user}
+
+        if User.objects.filter(username=user):
+            context['user_exists'] = "true"
+            context['user_name'] = user
+            context['user_stagecount'] = Stage.objects.filter(owner=user).count() 
+
+            context['user_stages'] = []
+            for stage in Stage.objects.filter(owner=user):
+                context['user_stages'].append(stage)
+            #context['user_result'] = "USER EXISTS"
+        else:
+            context['user_exists'] = "false"
+            #context['user_result'] = "USER DOES NOT EXIST"
+
+        return render(request, 'users/profile.html', context)
+    else:
+        context = {}
+        return render(request, 'users/profile.html', context)
+        # should not be reached
 
 class HandlerView(View): # Deprecated view
     def get(self, request, *args, **kwargs):

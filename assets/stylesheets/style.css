@@ -12,9 +12,26 @@ html, body {
   font-size: 0.8em;
 }
 
+.search-results {
+  border:2px solid;
+  padding: 20px;
+  border-color: #34495e;
+}
+
 .pdm-headline {
   color: #1abc9c;
   font-size: 100px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 30px;
+  padding: 40px 0;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.pdm-search-headline {
+  color: #1abc9c;
+  font-size: 40px !important;
   font-weight: 600;
   line-height: 1.1;
   margin-bottom: 30px;
@@ -340,15 +357,31 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 .btn-new-stage {
   width: 300px;
   margin: 0 auto;
+  position: relative;
+  top: 400px;
 }
 
-.saved-stages, .recent-stages {
-  padding: 16px 45px 16px 30px;
+.profile-content {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.saved-stages {
+  width: 370px;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  float: left;
+}
+
+.recent-stages {
   width: 370px;
   height: 300px;
   display: inline-block;
   vertical-align: top;
   white-space: nowrap;
+  float:right;
 }
 
 .message {
