@@ -303,7 +303,7 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 
 .btn.btn-large {
   font-size: 16.996px;
-  line-height: 20px;
+  /*line-height: 20px;*/
   padding: 12px 18px 13px;
 }
 
@@ -348,9 +348,10 @@ h1 { font-size: 1.2em; margin: .6em 0; }
   -moz-border-radius: 6px;
 }
 
-.search-query {
-  width: 168px;
-  height: 37px;
+#search-bar {
+  height: auto !important;
+  line-height: 18px !important;
+  padding: 8px 8px 7px !important;
 }
 
 .btn-new-stage {
@@ -376,6 +377,7 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 
 .recent-stages {
   width: 370px;
+  height: 300px;
   display: inline-block;
   vertical-align: top;
   white-space: nowrap;
@@ -391,4 +393,9 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 .stages {
   height:150px;
   overflow: auto;
+}
+
+div.navbar-inner, div.navbar-inner form {
+  height: 55px !important;
+  overflow: hidden;
 }
