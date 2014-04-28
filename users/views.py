@@ -133,6 +133,15 @@ def profile(request):
         return render(request, 'users/profile.html', context)
         # should not be reached
 
+def browse(request):
+    if request.method == 'GET':
+        context = {}
+        return render(request, 'users/browse.html', context)
+    else:
+        context = {}
+        return render(request, 'users/browse.html', context)
+        # should not be reached
+
 class HandlerView(View): # Deprecated view
     def get(self, request, *args, **kwargs):
 

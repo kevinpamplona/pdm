@@ -5768,6 +5768,16 @@ input.search-query {
   position: relative;
   text-align: center;
 }
+.special-dialog {
+  background-color: #edeff1;
+  border-top: 2px solid #d6dbdf;
+  font-size: 15.988px;
+  /* 16px */
+  padding: 18px 0;
+  position: relative;
+  text-align: center;
+}
+
 .dialog .btn {
   vertical-align: baseline;
 }
