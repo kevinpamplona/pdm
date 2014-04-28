@@ -65,6 +65,7 @@ class EditorView(View):
 			except Exception as e:
 				print e
 				raise
+		context['username'] = request.user.username
 		return render(request, 'stage/editor.html', context)
 
 	def post(self, request, *args, **kwargs):

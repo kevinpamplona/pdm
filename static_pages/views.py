@@ -26,7 +26,6 @@ def static_asset(request):
 
 def static_page(request):
     context = {}
-    context['message'] = "Whats up, dawg?"
     if request.method == 'GET':
         if request.user.is_authenticated():
             context['logged_in'] = True
@@ -36,6 +35,7 @@ def static_page(request):
         # should not reach here
         context['message'] = "Yo, you wrong!"
 
-    render(request, 'static_pages/index.html', context)
+    context['username'] = request.user.username 
+    return render(request, 'static_pages/index.html', context)
 
         

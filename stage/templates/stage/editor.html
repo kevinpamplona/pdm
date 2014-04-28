@@ -4,6 +4,7 @@
 <head>
   <title>Platform Design Madness</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <link rel="icon" type="image/png" href="/assets/images/pdm-favicon.ico">
   <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
   <link rel="stylesheet" type="text/css" href="/assets/stylesheets/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="/assets/stylesheets/flat-ui.css">
@@ -47,7 +48,7 @@
                   <ul class="nav pull-right">
                     <li class="">
                       <a href="/game">
-                        <span class="fui-home"></span><span class="hidden-desktop">Home</span>
+                        <span class="fui-home"></span><span class="hidden-desktop">{{username}}</span>
                       </a>
                     </li>
                     <li>
@@ -69,8 +70,8 @@
     
     <div id="editor-controls">
 
-      Click on a block to set the kind of block you wish to put, then click on the stage to put it down. Click again to remove.
-
+      <b>Click on a block to set the kind of block you wish to put, then click on the stage to put it down. Click again to remove.</b>
+      <br><br>
       <div id="editor-name" class="editor-control">
         <div id="stagename-dialog-form" class="modal hide fade" role="dialog" aria-labelledby="nameStage" aria-hidden="true">
           <div class="modal-header"><h3>Name your stage</h3></div>

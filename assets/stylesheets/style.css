@@ -3,9 +3,19 @@ html, body {
   line-height: 1.8em;
   background-color: #ffffff;
   font-size: 18px;
-
+  word-spacing:5px;
   color: #34495e;
   font-family: 'Lato', sans-serif;
+}
+
+
+.btn-space {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.login-msg {
+  color: #e74c3c;
 }
 
 #info {
@@ -23,10 +33,14 @@ html, body {
   font-size: 100px !important;
   font-weight: 600;
   line-height: 1.1;
-  margin-bottom: 30px;
-  padding: 40px 0;
+  margin-bottom: 0px;
+  padding: 10px 0;
   text-align: center;
   word-wrap: break-word;
+}
+
+.highlight-green {
+  color: #1abc9c;
 }
 
 .pdm-search-headline {
