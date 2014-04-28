@@ -12,21 +12,21 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 errors = {
-    UsersModel.ERR_BAD_CREDENTIALS: "LOGIN ERROR: Username/password not found",
-    UsersModel.ERR_USER_EXISTS:  "ADD USER ERROR: Username already exists",
-    UsersModel.ERR_BAD_PASSWORD: "ADD USER ERROR: Password is too long",
+    UsersModel.ERR_BAD_CREDENTIALS: "The username and/or password you entered is incorrect.",
+    UsersModel.ERR_USER_EXISTS:  "The username already exists",
+    UsersModel.ERR_BAD_PASSWORD: "Your password exceeds 256 characters.",
     None: "Please enter your credentials below", # This one should never appear
 }
 
 # Create your views here.
 def get_login(request):
-    context = {'message' : "Please enter your credentials below"}
+    context = {'message' : ""}
     if request.method == 'POST':
         form = UserForm(request.POST)
         if u'logout' in form.data:
             logout(request)
             context['form'] = UserForm()
-            return render(request, 'users/login.html', context)
+            return render(request, 'static_pages/index.html', context)
         username = form.data[u'username']
         password = form.data[u'passwd']
         if u'login' in form.data:
@@ -54,18 +54,40 @@ def get_login(request):
 
         if result == UsersModel.SUCCESS:
             context['message'] = "User {0} is logged in".format(request.user)
-            return render(request, 'users/login.html', context)
+            #return render(request, 'users/login.html', context)
+
+            home_context = {}
+            home_context['logged_in'] = True 
+            stages = Stage.objects.filter(owner = request.user.username)
+            if len(stages):
+                home_context['stages'] = stages
+                sorted(home_context['stages'], key=lambda st: st.rating)
+                home_context['message'] = "Saved Stages"
+            else:
+                home_context['message'] = "You have no saved stages."
+
+            totalCount = Stage.objects.count()
+            home_context['recentstages'] = []
+            for i in xrange(min(7, totalCount)):
+                home_context['recentstages'].append(Stage.objects.get(pk = totalCount - i))
+
+            home_context['username'] = request.user.username 
+
+            return render(request, 'game/play.html', home_context)
         elif result == UsersModel.ERR_BAD_USERNAME:
             context['message'] = "ADD USER ERROR: Username is " + ("empty" if len(username) == 0 else "too long")
         else:
+            print "klfdjafds"
             context['message'] = errors[result]
+            #context['message'] = "you fucked up"
     elif request.user.is_authenticated():
         context['message'] = "User {0} is logged in".format(request.user)
         return render(request, 'users/login.html', context)
     else:
         form = UserForm()
+
     context['form'] = form
-    return render(request, 'users/login.html', context )
+    return render(request, 'static_pages/index.html', context )
 
 
 def search(request):
@@ -131,6 +153,15 @@ def profile(request):
     else:
         context = {}
         return render(request, 'users/profile.html', context)
+        # should not be reached
+
+def browse(request):
+    if request.method == 'GET':
+        context = {}
+        return render(request, 'users/browse.html', context)
+    else:
+        context = {}
+        return render(request, 'users/browse.html', context)
         # should not be reached
 
 class HandlerView(View): # Deprecated view
