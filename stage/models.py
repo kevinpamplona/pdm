@@ -63,6 +63,8 @@ class BlockManager(models.Manager):
             Block(ID = Block.startID, sprite = 'images/Kirby.gif').save()
         if len(Block.objects.filter(ID = Block.endID)) == 0:
             Block(ID = Block.endID, sprite = 'images/Chest.gif').save()
+        if len(Block.objects.filter(ID = 'x')) == 0:
+            Block(ID = 'x', sprite = 'images/Enemy.gif').save()
 
 class Block(models.Model):
     """

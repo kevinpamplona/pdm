@@ -29,6 +29,8 @@
             <button onclick="castVote('down', {{stageid}})" id="downvote" class="navbutton" type="button">Downvote!</button>
         </center>
 
+        <center id="gameOver"><button onclick="restartStage()" class="navbutton" type="button">Restart</button></center>
+
         {% if correct_owner %}
         <center><a href="{% url 'stage:editor' %}?stageid={{stageid}}">Edit this stage</a></center>
         {% endif %}

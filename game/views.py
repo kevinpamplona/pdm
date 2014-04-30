@@ -5,6 +5,7 @@ from django.http import HttpResponse, Http404
 from django.core.exceptions import ObjectDoesNotExist
 
 from stage.models import Stage, Block
+from pdm.settings import STATIC_URL
 
 import json
 
@@ -54,12 +55,19 @@ def load_stage(request, stage_id = 0):
         'width' : stage.width,
         'height': stage.height,
         'spsize': 32,
-        'start' : {'x': 0, 'y': 0, 'ID': Block.startID}, # Only one start point
-        'end'   : {'ID': Block.endID, 'pos': []},
-        'assets': {},
+        'start' : {'x': 0, 'y': 0}, # Only one start point
+        'end'   : [],
         'blocks': [],
+        'enemies':[],
     }
-    assets = set() # For quicker access than re-iterating through an array
+
+    assets = {
+        'start': Block.objects.get(ID=Block.startID).sprite,
+        'goal':  Block.objects.get(ID=Block.endID).sprite,
+        'block': Block.objects.get(ID='#').sprite,
+        'enemy': Block.objects.get(ID='x').sprite, }
+    response_data['assets'] = {key: STATIC_URL + assets[key] for key in assets}
+
     x, y = 0, 0
     for c in stage.data:
         if c == '\r': 
@@ -69,15 +77,14 @@ def load_stage(request, stage_id = 0):
         else:
             try:
                 block = Block.objects.get(ID=c)
-                if block.ID not in assets:
-                    assets.add(block.ID)
-                    response_data['assets'][block.ID] = block.sprite
                 if block.ID == Block.startID:
-                    response_data['start'] = {'x': x, 'y': y, 'ID': Block.startID}
+                    response_data['start'] = {'x': x, 'y': y}
                 elif block.ID == Block.endID:
-                    response_data['end']['pos'].append({'x': x, 'y': y})
-                else:
-                    response_data['blocks'].append({'ID': block.ID, 'x': x, 'y': y})
+                    response_data['end'].append({'x': x, 'y': y})
+                elif block.ID == '#':
+                    response_data['blocks'].append({'x': x, 'y': y})
+                elif block.ID == 'x':
+                    response_data['enemies'].append({'x': x, 'y': y})
             except ObjectDoesNotExist:
                 pass
             x += 1

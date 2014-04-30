@@ -414,3 +414,7 @@ div.navbar-inner, div.navbar-inner form {
   height: 55px !important;
   overflow: hidden;
 }
+
+#gameOver {
+  display:none;
+}
