@@ -79,7 +79,6 @@ def get_login(request):
         else:
             print "klfdjafds"
             context['message'] = errors[result]
-            #context['message'] = "you fucked up"
     elif request.user.is_authenticated():
         context['message'] = "User {0} is logged in".format(request.user)
         return render(request, 'users/login.html', context)

@@ -34,16 +34,17 @@
                     </form>
 
                     <ul class="nav pull-right">
-                      <li></li>
                       <li class="">
                         <a href="/game">
                           <span class="fui-home"></span><span class="hidden-desktop">{{username}}</span>
                         </a>
                       </li>
                       <li>
-                        <a onclick="logout()">
-                          <span class="fui-cross"></span><span class="hidden-desktop">Logout</span>
-                        </a>
+                        <form accept-charset="UTF-8" action="/login/" method="post">
+                          <button class="btn btn-lg btn-block btn-primary" type="submit" name="logout">
+                              <span class="fui-cross"></span> Logout
+                          </button>
+                        </form>
                       </li>
                     </ul>
                   </div><!--/.nav-collapse -->
