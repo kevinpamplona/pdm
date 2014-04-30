@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.http import HttpResponse
 import json
@@ -25,8 +25,7 @@ def get_login(request):
         form = UserForm(request.POST)
         if u'logout' in form.data:
             logout(request)
-            context['form'] = UserForm()
-            return render(request, 'static_pages/index.html', context)
+            return redirect('/')
         username = form.data[u'username']
         password = form.data[u'passwd']
         if u'login' in form.data:
@@ -53,40 +52,18 @@ def get_login(request):
             result = None # This should never be reached
 
         if result == UsersModel.SUCCESS:
-            context['message'] = "User {0} is logged in".format(request.user)
-            #return render(request, 'users/login.html', context)
-
-            home_context = {}
-            home_context['logged_in'] = True 
-            stages = Stage.objects.filter(owner = request.user.username)
-            if len(stages):
-                home_context['stages'] = stages
-                sorted(home_context['stages'], key=lambda st: st.rating)
-                home_context['message'] = "Saved Stages"
-            else:
-                home_context['message'] = "You have no saved stages."
-
-            totalCount = Stage.objects.count()
-            home_context['recentstages'] = []
-            for i in xrange(min(7, totalCount)):
-                home_context['recentstages'].append(Stage.objects.get(pk = totalCount - i))
-
-            home_context['username'] = request.user.username 
-
-            return render(request, 'game/play.html', home_context)
+            return redirect('/game')
         elif result == UsersModel.ERR_BAD_USERNAME:
             context['message'] = "ADD USER ERROR: Username is " + ("empty" if len(username) == 0 else "too long")
         else:
-            print "klfdjafds"
             context['message'] = errors[result]
     elif request.user.is_authenticated():
-        context['message'] = "User {0} is logged in".format(request.user)
-        return render(request, 'users/login.html', context)
+        return redirect('/')
     else:
         form = UserForm()
 
     context['form'] = form
-    return render(request, 'static_pages/index.html', context )
+    return render(request, 'static_pages/index.html', context)
 
 
 def search(request):
@@ -99,7 +76,7 @@ def search(request):
 
         if User.objects.filter(username=query):
             context['user_exists'] = "true"
-            context['user_name'] = query
+            context['username'] = query
             context['user_stagecount'] = Stage.objects.filter(owner=query).count() 
 
             context['user_stages'] = []
@@ -132,12 +109,11 @@ def profile(request):
         form = UserForm(request.GET)
         user = form.data[u'user']
 
-        context = {}
-        context = {'user' : user}
+        context = {'user' : user, 'logged_in': True}
 
         if User.objects.filter(username=user):
             context['user_exists'] = "true"
-            context['user_name'] = user
+            context['username'] = user
             context['user_stagecount'] = Stage.objects.filter(owner=user).count() 
 
             context['user_stages'] = []

@@ -10,7 +10,7 @@ import json
 
 # Create your views here.
 def play_game(request):
-    context = {}
+    context = {'logged_in': True}
     stage = None
 
     if u'stageid' in request.GET:

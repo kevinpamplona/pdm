@@ -46,7 +46,7 @@ class RenderView(View):
 
 class EditorView(View):
 	def get(self, request, *args, **kwargs):
-		context = {}
+                context = {'logged_in': True}
 		if u'stageid' in request.GET:
 			try:
 				stage = Stage.objects.get(pk=request.GET[u'stageid'])

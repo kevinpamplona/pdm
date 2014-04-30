@@ -1,100 +1,55 @@
-<html>
-<head>
-    <title>Platform Design Madness</title>
-    <link rel="icon" type="image/png" href="/assets/images/pdm-favicon.ico">
-    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/flat-ui.css">
-    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/demo.css">
-    <script type="text/javascript" src="/assets/javascript/util.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block primary %}
 
-    <div class="navbar navbar-inverse">
-        <div class="navbar-inner">
-            <div class="container">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-03">
-                </button>
-                <a href="/" class="brand">PDM</a>
-                <div class="nav-collapse collapse" id="nav-collapse-03">
-                  <form class="navbar-search form-search pull-right" action="{% url 'search' %}" method="get" align="center">
-                    <div class="input-append">
-                        <input type="text" class="search-query span2" placeholder="Search" name="query">
-                        <button type="submit" class="btn btn-large">
-                            <i class="fui-search"></i>
-                        </button>
-                    </div>
-                  </form>
+<p class="pdm-search-headline">Search results for '{{query}}':</p>
 
-                  <ul class="nav pull-right">
-                    <li class="">
-                      <a href="/game">
-                        <span class="fui-home"></span><span class="hidden-desktop">Home</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a onclick="logout()">
-                        <span class="fui-cross"></span><span class="hidden-desktop">Logout</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </div>
+<div class="container">
+  <div class="demo-row">
+    <div class="demo-title">
+      <h4>User Results:</h4>
     </div>
-
-    <p class="pdm-search-headline">Search results for '{{query}}':</p>
-
-    <div class="container">
-      <div class="demo-row">
-        <div class="demo-title">
-          <h4>User Results:</h4>
+    <div class="demo-content demo-content-article">
+      {% if user_exists == "true" %}
+        <div class="search-results">
+          <h6><b>1 user named '{{query}}' found</b></h6> <br>
+          <b>username:</b> {{username}} <br><br>
+          <b>Found user has created {{user_stagecount}} stage(s)</b> <br><br>
+            {% for stage in user_stages %}
+              <span class="stage-name">{{stage.name}}</span>
+              <span class="fui-play"></span>
+              <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
+              <br><br>
+            {% endfor %}
         </div>
-        <div class="demo-content demo-content-article">
-          {% if user_exists == "true" %}
-            <div class="search-results">
-              <h6><b>1 user named '{{query}}' found</b></h6> <br>
-              <b>username:</b> {{user_name}} <br><br>
-              <b>Found user has created {{user_stagecount}} stage(s)</b> <br><br>
-                {% for stage in user_stages %}
-                  <span class="stage-name">{{stage.name}}</span>
-                  <span class="fui-play"></span>
-                  <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
-                  <br><br>
-                {% endfor %}
-            </div>
-          {% else %}
-            0 users found
-          {% endif %}
-        </div>
-      </div>
-      <div class="demo-row">
-        <div class="demo-title">
-          <h4>Stage Results:</h4>
-        </div>
-        <div class="demo-content demo-content-article">
-          {% if stages_exists = "true" %}
-            <div class="search-results">
-              <h6><b>{{ stages_stagecount }} stage(s) named '{{query}}' found</b></h6> <br>
-              {% for stage in stages_stages %}
-                <span class="stage-name">{{stage.name}}</span>
-                <span class="fui-play"></span>
-                <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
-                &nbsp; &nbsp; &nbsp; 
-                <span class="fui-user"></span>
-                <a href="/profile/?user={{stage.owner}}">{{stage.owner}}</a>
-                <br>
-              {% endfor %}
-            </div>
-          {% else %}
-            0 stages found
-          {% endif %}
-        </div>
-      </div>
+      {% else %}
+        0 users found
+      {% endif %}
     </div>
-</body>
+  </div>
+  <div class="demo-row">
+    <div class="demo-title">
+      <h4>Stage Results:</h4>
+    </div>
+    <div class="demo-content demo-content-article">
+      {% if stages_exists = "true" %}
+        <div class="search-results">
+          <h6><b>{{ stages_stagecount }} stage(s) named '{{query}}' found</b></h6> <br>
+          {% for stage in stages_stages %}
+            <span class="stage-name">{{stage.name}}</span>
+            <span class="fui-play"></span>
+            <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
+            &nbsp; &nbsp; &nbsp; 
+            <span class="fui-user"></span>
+            <a href="/profile/?user={{stage.owner}}">{{stage.owner}}</a>
+            <br>
+          {% endfor %}
+        </div>
+      {% else %}
+        0 stages found
+      {% endif %}
+    </div>
+  </div>
+</div>
 
-</html>
+{% endblock %}
