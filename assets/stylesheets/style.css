@@ -101,6 +101,10 @@ h1.title {
   background-color: sandybrown;
 }
 
+#elements-enemy-slot, #elements-current-enemy {
+  background-color: tomato;
+}
+
 #play-button {
   display: block;
   margin: 5px auto;
@@ -176,6 +180,10 @@ h1.title {
 
 .placed-element-block {
   background-color: sandybrown;
+}
+
+.placed-element-enemy {
+  background-color: tomato;
 }
 
 .canvas-first-col {
