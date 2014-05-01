@@ -426,3 +426,11 @@ div.navbar-inner, div.navbar-inner form {
 #gameOver {
   display:none;
 }
+
+.btn-transparent {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+}
