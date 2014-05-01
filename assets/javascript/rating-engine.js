@@ -22,7 +22,7 @@ function castVote(vote_dir, stageid) {
 }
 
 function handle_vote_response(data) {
-  var new_score = "Points: " + data.new_rating;
+  var new_score = "<span class='fui-heart'></span> " + data.new_rating;
   $( '#rating' ).html(new_score);
 }
 

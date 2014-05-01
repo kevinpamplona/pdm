@@ -16,28 +16,51 @@
 
     {% if stageid %}
         <center>
-            <p>{{name}}</p>
-            <p>CREATED BY {{owner}}</p>
+            <p class="title-headline">{{name}}</p>
+            <p class="user-headline"> <span class="fui-user"></span>
+                <a href="/profile/?user={{owner}}">{{owner}}</a>
+            </p>
 
-            <div id="rating">Points: {{rating}}</div>
+
+            <div id="rating"><span class="fui-heart"></span> {{rating}}</div>
         </center>
 
         <script type="text/javascript" src="{% url 'game:load_stage' stageid %}"></script>
 
         <center>
-            <button onclick="castVote('up', {{stageid}})" id="upvote" class="navbutton" type="button">Upvote!</button>
-            <button onclick="castVote('down', {{stageid}})" id="downvote" class="navbutton" type="button">Downvote!</button>
+            <button onclick="castVote('up', {{stageid}})" id="upvote" class="btn-transparent-vote-up" type="button">
+                <i class="fui-triangle-up"></i>
+            </button>
+            
+            <button onclick="castVote('down', {{stageid}})" id="downvote" class="btn-transparent-vote-down" type="button">
+                <i class="fui-triangle-down"></i>
+            </button>
         </center>
 
-        <center id="gameOver"><button onclick="restartStage()" class="navbutton" type="button">Restart</button></center>
+        <center id="gameOver">
+            <button onclick="restartStage()" class="btn btn-success previous" type="button">
+                <i class="fui-loop"></i>
+                play again
+            </button>
+        </center>
 
         {% if correct_owner %}
-        <center><a href="{% url 'stage:editor' %}?stageid={{stageid}}">Edit this stage</a></center>
+        <center>
+            <a href="{% url 'stage:editor' %}?stageid={{stageid}}" class="btn btn-warning next">
+                edit
+                <i class="fui-new"></i>
+              </a>
+        </center>
         {% endif %}
     {% else %}
         <p>Default Game Stage</p>
         <script type="text/javascript" src="{% url 'game:load_stage' 0 %}"></script>
     {% endif %}
-    <center><a href="{% url 'game:get_stage' %}">Back to My Stages</a></center>
+    <center>
+        <a href="{% url 'game:get_stage' %}" class="btn btn-info previous">
+                <i class="fui-arrow-left"></i>
+                my stages
+              </a>
+    </center>
 
 {% endblock %}
