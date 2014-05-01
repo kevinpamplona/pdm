@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.http import HttpResponse
 import json
@@ -7,25 +7,25 @@ from subprocess import CalledProcessError
 import re
 #import models
 from users.models import UserForm, UsersModel
+from stage.models import Stage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 errors = {
-    UsersModel.ERR_BAD_CREDENTIALS: "LOGIN ERROR: Username/password not found",
-    UsersModel.ERR_USER_EXISTS:  "ADD USER ERROR: Username already exists",
-    UsersModel.ERR_BAD_PASSWORD: "ADD USER ERROR: Password is too long",
+    UsersModel.ERR_BAD_CREDENTIALS: "The username and/or password you entered is incorrect.",
+    UsersModel.ERR_USER_EXISTS:  "The username already exists",
+    UsersModel.ERR_BAD_PASSWORD: "Your password exceeds 256 characters.",
     None: "Please enter your credentials below", # This one should never appear
 }
 
 # Create your views here.
 def get_login(request):
-    context = {'message' : "Please enter your credentials below"}
+    context = {'message' : ""}
     if request.method == 'POST':
         form = UserForm(request.POST)
         if u'logout' in form.data:
             logout(request)
-            context['form'] = UserForm()
-            return render(request, 'users/login.html', context)
+            return redirect('/')
         username = form.data[u'username']
         password = form.data[u'passwd']
         if u'login' in form.data:
@@ -52,19 +52,92 @@ def get_login(request):
             result = None # This should never be reached
 
         if result == UsersModel.SUCCESS:
-            context['message'] = "User {0} is logged in".format(request.user)
-            return render(request, 'users/login.html', context)
+            return redirect('/game')
         elif result == UsersModel.ERR_BAD_USERNAME:
             context['message'] = "ADD USER ERROR: Username is " + ("empty" if len(username) == 0 else "too long")
         else:
             context['message'] = errors[result]
     elif request.user.is_authenticated():
-        context['message'] = "User {0} is logged in".format(request.user)
-        return render(request, 'users/login.html', context)
+        return redirect('/')
     else:
         form = UserForm()
+
     context['form'] = form
-    return render(request, 'users/login.html', context )
+    return render(request, 'static_pages/index.html', context)
+
+
+def search(request):
+    if request.method == 'GET':
+        form = UserForm(request.GET)
+        query = form.data[u'query']
+
+        context = {}
+        context = {'query' : query}
+
+        if User.objects.filter(username=query):
+            context['user_exists'] = "true"
+            context['username'] = query
+            context['user_stagecount'] = Stage.objects.filter(owner=query).count() 
+
+            context['user_stages'] = []
+            for stage in Stage.objects.filter(owner=query):
+                context['user_stages'].append(stage)
+            #context['user_result'] = "USER EXISTS"
+        else:
+            context['user_exists'] = "false"
+            #context['user_result'] = "USER DOES NOT EXIST"
+
+        if Stage.objects.filter(name=query):
+            context['stages_exists'] = "true"
+            context['stages_stagecount'] = Stage.objects.filter(name=query).count()
+
+            context['stages_stages'] = []
+            for stage in Stage.objects.filter(name=query):
+                 context['stages_stages'].append(stage)
+
+        else:
+            context['stages_exists'] = "false"
+
+        return render(request, 'users/search.html', context)
+    else:
+        context = {}
+        return render(request, 'users/search.html', context)
+        # should not be reached
+
+def profile(request):
+    if request.method == 'GET':
+        form = UserForm(request.GET)
+        user = form.data[u'user']
+
+        context = {'user' : user, 'logged_in': True}
+
+        if User.objects.filter(username=user):
+            context['user_exists'] = "true"
+            context['username'] = user
+            context['user_stagecount'] = Stage.objects.filter(owner=user).count() 
+
+            context['user_stages'] = []
+            for stage in Stage.objects.filter(owner=user):
+                context['user_stages'].append(stage)
+            #context['user_result'] = "USER EXISTS"
+        else:
+            context['user_exists'] = "false"
+            #context['user_result'] = "USER DOES NOT EXIST"
+
+        return render(request, 'users/profile.html', context)
+    else:
+        context = {}
+        return render(request, 'users/profile.html', context)
+        # should not be reached
+
+def browse(request):
+    if request.method == 'GET':
+        context = {}
+        return render(request, 'users/browse.html', context)
+    else:
+        context = {}
+        return render(request, 'users/browse.html', context)
+        # should not be reached
 
 class HandlerView(View): # Deprecated view
     def get(self, request, *args, **kwargs):

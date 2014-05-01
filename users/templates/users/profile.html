@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+    
+{% block primary %}
+    {% if user_exists == "true" %}
+        <p class="pdm-search-headline">{{user}}</p>
+        <div class="search-results">
+            <b>username:</b> {{username}} <br><br>
+            <b>{{user}} has created {{user_stagecount}} stage(s)</b> <br><br>
+            {% for stage in user_stages %}
+                <span class="stage-name">{{stage.name}}</span>
+                <span class="fui-play"></span>
+                <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
+                <br><br>
+            {% endfor %}
+        </div>
+    {% else %}
+         <p class="pdm-search-headline">No such user {{user}}...</p>
+    {% endif %}
+
+{% endblock %}

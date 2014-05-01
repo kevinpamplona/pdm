@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block primary %}
+    <p class="pdm-headline">platformy</p>
+
+    <center>
+      <img src="/assets/images/Banner.png">
+    </center>
+
+    <p class="pdm-info" align="center">
+        <b>What is <font color="#1abc9c">platformy</font>?</b>
+        <br>
+        <b><font color="#1abc9c">platformy</font></b> is an <b>editor</b> for <i>two-dimensional platform stages</i>.
+        <br>
+        Create 2D platform stages in the canvas editor and play them! 
+        <br>
+        You can save for later editing or playing, as well browse stages created by others.
+    </p>
+
+    {% if logged_in %}
+      <center>
+        <div class="signin" style="text-align:center">    
+          <a href="/game" class="btn btn-large btn-block btn-primary btn-space">You are logged in, <b><font color="#f1c40f">{{username}}</font></b>. Go to your dashboard.</a>
+          <br>
+          <form action="{% url 'users:login' %}" method = "post">
+            <button class="btn btn-large btn-block btn-danger" name="logout">Not <b><font color="#f1c40f">{{username}}</font></b>? Logout.</button>
+          </form>
+        </div>
+      </center>
+    {% else %}
+      <div class="special-dialog demo-dialog">
+        <div class="login-msg">
+        {{message}}
+        </div>
+        <br>
+        <form class="control-group" action="{% url 'users:login' %}" method = "post">
+          {% csrf_token %}
+          <input type="text" placeholder="Username" class="flat" name="username">
+          <input type="password" placeholder="Password" class="flat" name="passwd">
+          <button class="btn btn-primary btn-wide" name="login">Login</button>
+          <button class="btn btn-danger btn-wide" name="adduser">Register</button>
+        </form>
+      </div>
+    {% endif %}
+
+{% endblock %}

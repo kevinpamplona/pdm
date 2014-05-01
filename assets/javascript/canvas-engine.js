@@ -15,8 +15,11 @@ var CURRENT_ACTION = '';
 var currentElement = "block";
 
 function resizeCanvas(width, height) {
-  CANVAS_WIDTH = width;
-  CANVAS_HEIGHT = height;
+  // Process to verify use of integers
+  if (!isNaN(parseInt(width)))
+    CANVAS_WIDTH = parseInt(width);
+  if (!isNaN(parseInt(height)))
+    CANVAS_HEIGHT = parseInt(height);
   $('#allrows').html( '' );
   init_canvas();
 }
@@ -44,6 +47,9 @@ function init_canvas() {
 
   // Clear the canvas_directory
   canvas_directory = new Array();
+
+  var row_width = $("#allrows").width();
+  var box_width = row_width / CANVAS_WIDTH;
 
   // add the #canvas-row divs in '#allrows'
   for (var y = 0; y < CANVAS_HEIGHT; y++) {
@@ -74,10 +80,9 @@ function init_canvas() {
       }
 
       // add the droppable div with the specified text
-      $("<div class='" + canvas_col_class + "'>" + tile_text + "</div>").data( {'coordinates': [x, y]} ).appendTo('#' + div_id).droppable({
+      $("<div class='" + canvas_col_class + "' style='width:" + box_width + "px;height:" + box_width + "px;'>" + tile_text + "</div>").data( {'coordinates': [x, y]} ).appendTo('#' + div_id).droppable({
         accept: '.elements',
         hoverClass: 'hovered',
-        // drop: handleElementDrop
       });
     }
   }
@@ -91,11 +96,14 @@ function init_canvas() {
       $.each(canvas_directory, function(i){
         if(canvas_directory[i].coordinates === coordinates) {
           canvas_directory.splice(i,1);
-          return false;
         }
       });
     } else {
       $(this).removeClass();
+      $.each(canvas_directory, function(i){
+        if(canvas_directory[i].coordinates === coordinates)
+          canvas_directory.splice(i,1);
+      });
       $(this).addClass("canvas-droppable ui-droppable");
       $(this).addClass(placedClass);
       // create a canvas_node object and add to the canvas directory
@@ -127,6 +135,10 @@ function load_stage(json_data) {
         $(this).addClass("placed-element-block");
         canvas_directory.push(new canvas_node('block-type', $(this).data('coordinates')));
         break;
+      case 'x':
+        $(this).addClass("placed-element-enemy");
+        canvas_directory.push(new canvas_node('enemy-type', $(this).data('coordinates')));
+        break;
     }
   });
 }
@@ -136,61 +148,6 @@ function load_stage(json_data) {
 function canvas_node(element_type, coordinates) {
   this.element_type = element_type;
   this.coordinates = coordinates;
-}
-
-// called anytime a tile is dropped onto the canvas
-function handleElementDrop(event, ui) {
-  // grab the coordinates and the element type of the dropped tile
-  var coordinates = $(this).data( 'coordinates' );
-  var element_type = ui.draggable.data ( 'element-type' );
-
-  // draggable features
-  ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
-  ui.draggable.draggable( 'option', 'revert', false );
-
-  if (element_type == 'start-type') {  // start-type element
-    // add tile to canvas slot with darkened color
-    $( this ).addClass("placed-element-start");
-
-    // empty the elements slot 
-    $('#elements-start-slot').html( '' );
-
-    // create a new tile in the elements slots
-    $("<div id='elements-start' class='elements'>start</div>").data('element-type', 'start-type').appendTo( '#elements-start-slot' ).draggable({
-    revert: true,
-    helper: 'clone'
-  });
-  } else if (element_type == 'goal-type') {  // goal-type element
-    // add tile to canvas slot with darkened color
-    $( this ).addClass( "placed-element-goal" );
-
-    // empty the elements slot
-    $('#elements-goal-slot').html( '' );
-
-    // create a new tile in the elements slots
-    $("<div id='elements-goal' class='elements'>goal</div>").data('element-type', 'goal-type').appendTo( '#elements-goal-slot' ).draggable({
-    revert: true,
-    helper: 'clone'
-  });
-  } else if (element_type == 'block-type') { // block-type element
-    // add tile to canvas slot with darkened color
-    $( this ).addClass( "placed-element-block" );
-
-    // empty the elements slot
-    $('#elements-block-slot').html( '' );
-
-    // create a new tile in the elements slots
-    $("<div id='elements-block' class='elements'>block</div>").data('element-type', 'block-type').appendTo( '#elements-block-slot' ).draggable({
-    revert: true,
-    helper: 'clone'
-  });
-  } else {
-    // should NOT reach here
-    console.log("ERROR: incorrect element type has been dropped");
-  }
-
-  // create a canvas_node object and add to the canvas directory
-  canvas_directory.push(new canvas_node(element_type, coordinates));    
 }
 
 // grab the x-coordinate of the given coordinates
@@ -209,7 +166,7 @@ function getY(coords) {
 function setStageName(action) {
   CURRENT_ACTION = action;
   if (stageid == null)
-    $( "#stagename-dialog-form" ).dialog( "open" );
+    $( "#stagename-dialog-form" ).modal( "show" );
   else
     renderStage(action);
 }
@@ -250,6 +207,8 @@ function renderStage(action) {
       num_end += 1;
     } else if (element == "block-type") {
       elm = "#";
+    } else if (element == "enemy-type") {
+      elm = "x";
     } else {
       console.log("ERROR: Invalid type on map");
     }
@@ -365,48 +324,69 @@ $(function () {
     currentElement = "block";
     $('.elements-slot-current').attr('id', 'elements-current-block');
   });
+  $('#elements-enemy-slot').click(function() {
+    currentElement = "enemy";
+    $('.elements-slot-current').attr('id', 'elements-current-enemy');
+  });
 });
 
 
 // this code is run to initialize dialog form for change stage dimensions
 $(function() {
 
-  $( "#stagename-dialog-form" ).dialog({
-    autoOpen: false,
-    height: 300,
-    width: 350,
-    modal: true,
-    buttons: {
-      "Submit": function() {
-        CANVAS_NAME = stagename.value;
-        $( this ).dialog( "close" );
-        renderStage(CURRENT_ACTION);
-      }
-    }
+//  $( "#stagename-dialog-form" ).dialog({
+//    autoOpen: false,
+//    height: 300,
+//    width: 350,
+//    modal: true,
+//    buttons: {
+//      "Submit": function() {
+//        CANVAS_NAME = stagename.value;
+//        $( this ).dialog( "close" );
+//        renderStage(CURRENT_ACTION);
+//      }
+//    }
+//  });
+
+//  $( "#dialog-form" ).dialog({
+//    autoOpen: false,
+//    height: 300,
+//    width: 350,
+//    modal: true,
+//    buttons: {
+//      "Set the dimensions": function() {
+//        resizeCanvas(width.value, height.value);
+//        $( this ).dialog( "close" );
+//      },
+//      Cancel: function() {
+//        $( this ).dialog( "close" );
+//      }
+//    },
+//    close: function() {
+//      //allFields.val( "" ).removeClass( "ui-state-error" );
+//    }
+//  });
+
+//  $( "#set-dimensions" )
+//    .button()
+//    .click(function() {
+//      $( "#dialog-form" ).dialog( "open" );
+//  });
+
+  function hideModal(modalwindow){
+    $(modalwindow).modal('hide');
+  }
+
+  $("#resize").click(function(e) {
+    e.preventDefault();
+    resizeCanvas(width.value, height.value);
+    hideModal("#resizeModal");
   });
 
-  $( "#dialog-form" ).dialog({
-    autoOpen: false,
-    height: 300,
-    width: 350,
-    modal: true,
-    buttons: {
-      "Set the dimensions": function() {
-        resizeCanvas(width.value, height.value);
-        $( this ).dialog( "close" );
-      },
-      Cancel: function() {
-        $( this ).dialog( "close" );
-      }
-    },
-    close: function() {
-      //allFields.val( "" ).removeClass( "ui-state-error" );
-    }
-  });
-
-  $( "#set-dimensions" )
-    .button()
-    .click(function() {
-      $( "#dialog-form" ).dialog( "open" );
+  $("#setName").click(function(e) {
+    e.preventDefault();
+    CANVAS_NAME = stagename.value;
+    hideModal("#stagename-dialog-form");
+    renderStage(CURRENT_ACTION);
   });
 });

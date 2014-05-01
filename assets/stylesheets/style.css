@@ -3,18 +3,49 @@ html, body {
   line-height: 1.8em;
   background-color: #ffffff;
   font-size: 18px;
-
+  word-spacing:5px;
   color: #34495e;
   font-family: 'Lato', sans-serif;
+}
+
+
+.btn-space {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.login-msg {
+  color: #e74c3c;
 }
 
 #info {
   font-size: 0.8em;
 }
 
+.search-results {
+  border:2px solid;
+  padding: 20px;
+  border-color: #34495e;
+}
+
 .pdm-headline {
   color: #1abc9c;
   font-size: 100px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 0px;
+  padding: 10px 0;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.highlight-green {
+  color: #1abc9c;
+}
+
+.pdm-search-headline {
+  color: #1abc9c;
+  font-size: 40px !important;
   font-weight: 600;
   line-height: 1.1;
   margin-bottom: 30px;
@@ -70,6 +101,10 @@ h1.title {
   background-color: sandybrown;
 }
 
+#elements-enemy-slot, #elements-current-enemy {
+  background-color: tomato;
+}
+
 #play-button {
   display: block;
   margin: 5px auto;
@@ -123,9 +158,10 @@ h1.title {
 }
 
 .canvas-droppable {
-  width: 60px;
-  height: 60px;
+  max-width: 60px;
+  max-height: 60px;
   border: 1px solid white;
+  box-sizing: border-box;
   background: #555555;
   display: inline-block;
 }
@@ -144,6 +180,10 @@ h1.title {
 
 .placed-element-block {
   background-color: sandybrown;
+}
+
+.placed-element-enemy {
+  background-color: tomato;
 }
 
 .canvas-first-col {
@@ -286,7 +326,7 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 
 .btn.btn-large {
   font-size: 16.996px;
-  line-height: 20px;
+  /*line-height: 20px;*/
   padding: 12px 18px 13px;
 }
 
@@ -331,21 +371,40 @@ h1 { font-size: 1.2em; margin: .6em 0; }
   -moz-border-radius: 6px;
 }
 
-.search-query {
-  width: 168px;
-  height: 37px;
+#search-bar {
+  height: auto !important;
+  line-height: 18px !important;
+  padding: 8px 8px 7px !important;
 }
 
 .btn-new-stage {
   width: 300px;
   margin: 0 auto;
+  position: relative;
+  top: 400px;
 }
 
-.saved-stages, .recent-stages {
+.profile-content {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.saved-stages {
   width: 370px;
   display: inline-block;
   vertical-align: top;
   white-space: nowrap;
+  float: left;
+}
+
+.recent-stages {
+  width: 370px;
+  height: 300px;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  float:right;
 }
 
 .message {
@@ -357,4 +416,13 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 .stages {
   height:150px;
   overflow: auto;
+}
+
+div.navbar-inner, div.navbar-inner form {
+  height: 55px !important;
+  overflow: hidden;
+}
+
+#gameOver {
+  display:none;
 }

@@ -16,9 +16,10 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^game/', include('game.urls', namespace = 'game')), 
-
     url(r'^login/', include('users.urls', namespace = 'users')),
-
+    url(r'^search/$', 'users.views.search', name = 'search'),
+    url(r'^browse/$', 'users.views.browse', name = 'browse'),
+    url(r'^profile/$', 'users.views.profile', name = 'profile'),
     url(r'^stage/', include('stage.urls', namespace = 'stage')),
     url(r'^assets/', 'static_pages.views.static_asset'),
 )

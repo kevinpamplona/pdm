@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <title>Platform Design Madness</title>
+    <link rel="icon" type="image/png" href="/assets/images/pdm-favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/flat-ui.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/assets/javascript/bootstrap.min.js"></script>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+    {% if logged_in %}
+      <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+              <div class="container">
+                  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-03">
+                  </button>
+                  <a href="/" class="brand">platformy</a>
+                  <div class="nav-collapse collapse" id="nav-collapse-03">
+
+                    <form class="navbar-search form-search pull-right" action="/search/" method="get" align="center">
+
+                      <div class="input-append">
+                          <input type="text" class="search-query span2" placeholder="Search" id="search-bar" name="query">
+                          <button type="submit" class="btn btn-large">
+                              <i class="fui-search"></i>
+                          </button>
+                      </div>
+                    </form>
+
+                    <ul class="nav pull-right">
+                      <li class="">
+                        <a href="/game">
+                          <span class="fui-home"></span><span class="hidden-desktop">{{username}}</span>
+                        </a>
+                      </li>
+                      <li>
+                        <form accept-charset="UTF-8" action="/login/" method="post">
+                          <button class="btn btn-lg btn-block btn-primary" type="submit" name="logout">
+                              <span class="fui-cross"></span> Logout
+                          </button>
+                        </form>
+                      </li>
+                    </ul>
+                  </div><!--/.nav-collapse -->
+              </div>
+          </div>
+      </div>
+    {% else %}
+      <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+              <div class="container">
+                  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-03">
+                  </button>
+                  <a href="/" class="brand">platformy</a>
+                  <div class="nav-collapse collapse" id="nav-collapse-03">
+
+                    <form class="navbar-search form-search pull-right" action="/search/" method="get" align="center">
+
+                      <div class="input-append">
+                          <input type="text" class="search-query span2" placeholder="Search" id="search-bar" name="query">
+                          <button type="submit" class="btn btn-large">
+                              <i class="fui-search"></i>
+                          </button>
+                      </div>
+                    </form>
+                  </div><!--/.nav-collapse -->
+              </div>
+          </div>
+      </div>
+    {% endif %}
+
+    {% block primary %}{% endblock %}
+
+
+</body>
+
+</html>

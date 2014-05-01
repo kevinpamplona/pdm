@@ -13,30 +13,23 @@ data = jQuery.parseJSON('{{data}}');
                     .setup({width: data.width*data.spsize, height: data.height*data.spsize})
                     .controls().touch();
 
-    var loader = []
-    $.each(data.assets, function(key, value) {
-        value = "{{STATIC_URL}}".concat(value);
-        loader.push(value);
-        
-        if(key == data.end.ID)
-        {
+    var loader = $.map(data.assets, function(value, key) {return value;})
+
             Q.Sprite.extend("Goal", {
                 init: function(p) {
-                    this._super(p, {asset: value});
+                    this._super(p, {asset: data.assets.goal});
                 },
             });
-        }
-        else if(key == data.start.ID)
-        {
+
             Q.Sprite.extend("Player", {
                 init: function(p) {
-                    this._super(p, {asset: value, gravity:1.25});
+                    this._super(p, {asset: data.assets.start, gravity:1.25});
                     this.add("2d, platformerControls");
 
                     this.on("hit.sprite", function(collision) {
                         if(collision.obj.isA("Goal"))
                         {
-                            Q.stageScene("endGame", 1, {label: "You won!"});
+                            endGame("You Won!");
                             this.destroy();
                         }
                     });
@@ -45,32 +38,46 @@ data = jQuery.parseJSON('{{data}}');
                 step: function(dt) {
                     if (this.p.y > Q.height + data.spsize)
                     {
-                        Q.stageScene("endGame", 1, {label: "You died..."});
+                        endGame("You Died...");
                         this.destroy();
                     }
                 }
             });
-        }
-        else
-        {
-            Q.Sprite.extend("Block" + key.charCodeAt(0).toString(), {
+
+            Q.Sprite.extend("Block", {
                 init: function(p) {
-                    this._super(p, {asset: value})
+                    this._super(p, {asset: data.assets.block});
                 },
             });
-        }
-    });
+
+            Q.Sprite.extend("Enemy", {
+                init: function(p) {
+                    this._super(p, {asset: data.assets.enemy, vx: 50,});
+                    this.add("2d, aiBounce");
+
+                    this.on("hit.sprite", function(collision) {
+                        if(collision.obj.isA("Player")) {
+                            endGame("You Died...");
+                            collision.obj.destroy();
+                        }
+                    });
+                },
+            });
 
     Q.load(loader, function() {
         Q.scene("level", function(stage) {
             $.each(data.blocks, function(index, value) {
-                var evalstr = "stage.insert(".concat(
-                    "new Q.Block", value.ID.charCodeAt(0).toString(), "(",
-                        "{x:", (value.x * data.spsize + data.spsize/2).toString(),
-                        ",y:", (value.y * data.spsize + data.spsize/2).toString(),
-                        "}",
-                    "));" );
-                (new Function('stage', 'Q', evalstr))(stage, Q);
+                stage.insert(new Q.Block({
+                    x: (value.x * data.spsize + data.spsize/2),
+                    y: (value.y * data.spsize + data.spsize/2)
+                }));
+            });
+
+            $.each(data.enemies, function(index, value) {
+                stage.insert(new Q.Enemy({
+                    x: (value.x * data.spsize + data.spsize/2),
+                    y: (value.y * data.spsize + data.spsize/2)
+                }));
             });
 
             player = new Q.Player({
@@ -79,7 +86,7 @@ data = jQuery.parseJSON('{{data}}');
             });
             stage.insert(player);
 
-            $.each(data.end.pos, function(index, value) {
+            $.each(data.end, function(index, value) {
                 goal = new Q.Goal({
                     x:value.x*data.spsize + data.spsize/2, 
                     y:value.y*data.spsize + data.spsize/2
@@ -88,25 +95,19 @@ data = jQuery.parseJSON('{{data}}');
             });
         });
 
-        Q.scene('endGame',function(stage) {
-            var box = stage.insert(new Q.UI.Container({
-                x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
-            }));
-  
-            var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
-                                           label: "Play Again" }))         
-            var label = box.insert(new Q.UI.Text({x:10, y: -10 - button.p.h, 
-                                        label: stage.options.label }));
-            button.on("click",function() {
-                Q.clearStages();
-                Q.stageScene("level");
-            });
-            box.fit(20);
-        });
-
         Q.stageScene("level");
     });
 
+function endGame(message) {
+    alert(message);
+    $('#gameOver').show();
+}
+
+function restartStage() {
+    Q.clearStages();
+    Q.stageScene("level");
+    $('#gameOver').hide();
+}
 
 /*
 Q.Sprite.extend("Block", {
