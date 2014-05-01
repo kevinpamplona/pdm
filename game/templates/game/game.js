@@ -107,6 +107,7 @@ function restartStage() {
     Q.clearStages();
     Q.stageScene("level");
     $('#gameOver').hide();
+    $('#quintus').focus();
 }
 
 /*
