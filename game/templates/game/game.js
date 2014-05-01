@@ -29,8 +29,8 @@ data = jQuery.parseJSON('{{data}}');
                     this.on("hit.sprite", function(collision) {
                         if(collision.obj.isA("Goal"))
                         {
-                            endGame("You Won!");
                             this.destroy();
+                            endGame("You Won!");
                         }
                     });
                 },
@@ -38,8 +38,8 @@ data = jQuery.parseJSON('{{data}}');
                 step: function(dt) {
                     if (this.p.y > Q.height + data.spsize)
                     {
-                        endGame("You Died...");
                         this.destroy();
+                        endGame("You Died...");
                     }
                 }
             });
@@ -57,8 +57,8 @@ data = jQuery.parseJSON('{{data}}');
 
                     this.on("hit.sprite", function(collision) {
                         if(collision.obj.isA("Player")) {
-                            endGame("You Died...");
                             collision.obj.destroy();
+                            endGame("You Died...");
                         }
                     });
                 },
