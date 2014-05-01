@@ -96,6 +96,7 @@ data = jQuery.parseJSON('{{data}}');
         });
 
         Q.stageScene("level");
+        $('#quintus').focus();
     });
 
 function endGame(message) {
