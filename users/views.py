@@ -87,13 +87,15 @@ def search(request):
             context['user_exists'] = "false"
             #context['user_result'] = "USER DOES NOT EXIST"
 
-        if Stage.objects.filter(name=query):
+        if Stage.objects.filter(name__icontains=query):
             context['stages_exists'] = "true"
-            context['stages_stagecount'] = Stage.objects.filter(name=query).count()
+            #context['stages_stagecount'] = Stage.objects.filter(name=query).count()
+            context['stages_stagecount'] = Stage.objects.filter(name__icontains=query).count()
 
             context['stages_stages'] = []
-            for stage in Stage.objects.filter(name=query):
+            for stage in Stage.objects.filter(name__icontains=query):
                  context['stages_stages'].append(stage)
+
 
         else:
             context['stages_exists'] = "false"

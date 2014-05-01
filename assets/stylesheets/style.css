@@ -39,6 +39,17 @@ html, body {
   word-wrap: break-word;
 }
 
+.pdm-headline-sad {
+  color: #1abc9c;
+  font-size: 70px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 0px;
+  padding: 10px 0;
+  text-align: center;
+  word-wrap: break-word;
+}
+
 .highlight-green {
   color: #1abc9c;
 }
@@ -383,6 +394,13 @@ h1 { font-size: 1.2em; margin: .6em 0; }
   margin: 0 auto;
   position: relative;
   top: 400px;
+}
+
+.btn-pikachu {
+  width: 300px;
+  margin: 0 auto;
+  position: relative;
+  top: 20px;
 }
 
 .profile-content {

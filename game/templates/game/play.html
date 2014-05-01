@@ -2,10 +2,22 @@
 
 {% block primary %}
 
-<p class="pdm-headline">Welcome, {{username}}!</p>
-
+{% if logged_in %}
+    <p class="pdm-headline">Welcome, {{username}}!</p>
+{% else %}
+<p class="pdm-headline-sad">sad pikachu is sad</p>
+    <br> <br>
+    <center>
+        <img src="../assets/images/pikachu.png">
+        <br>
+        <div class="btn-pikachu">
+        <a href="{% url 'users:login' %}" class="btn btn-huge btn-block btn-primary">LOG IN!</a>
+        </div>
+    </center>
+{% endif %}
 
 <div class="profile-content">
+    {% if logged_in %}
     <div class="saved-stages alert alert-info">
         <div>
             <span class="stage-name">Default Stage</span>
@@ -41,12 +53,11 @@
     </div>
 
     <div class="btn-new-stage">
-        {% if logged_in %}
-            <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">BUILD NEW STAGE</a>
-        {% else %}
-            <a href="{% url 'users:login' %}" class="btn btn-huge btn-block btn-primary">LOG IN</a>
-        {% endif %}
-        </div>
+        <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">BUILD NEW STAGE</a>
+    </div>
+    {% else %}
+    {% endif %}
+
 </div>
 
 {% endblock %}

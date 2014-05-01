@@ -23,10 +23,11 @@
             {% endfor %}
         </div>
       {% else %}
-        0 users found
+        0 users named '{{query}}' found
       {% endif %}
     </div>
   </div>
+  <br>
   <div class="demo-row">
     <div class="demo-title">
       <h4>Stage Results:</h4>
@@ -34,7 +35,7 @@
     <div class="demo-content demo-content-article">
       {% if stages_exists = "true" %}
         <div class="search-results">
-          <h6><b>{{ stages_stagecount }} stage(s) named '{{query}}' found</b></h6> <br>
+          <h6><b>{{ stages_stagecount }} stage(s) matching '{{query}}' found</b></h6> <br>
           {% for stage in stages_stages %}
             <span class="stage-name">{{stage.name}}</span>
             <span class="fui-play"></span>
