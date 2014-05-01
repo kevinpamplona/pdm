@@ -155,6 +155,7 @@ h1.title {
 
 .canvas-row {
   line-height: 0;
+  white-space: nowrap;
 }
 
 .canvas-droppable {
