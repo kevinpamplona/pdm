@@ -22,6 +22,22 @@ html, body {
   font-size: 0.8em;
 }
 
+#rating {
+  color: #FF0000;
+}
+
+.heart {
+  color: #FF0000;
+}
+
+.user {
+  color: #1abc9c;
+}
+
+.edit {
+  color: #662D00;
+}
+
 .search-results {
   border:2px solid;
   padding: 20px;
@@ -30,7 +46,7 @@ html, body {
 
 .pdm-headline {
   color: #1abc9c;
-  font-size: 100px !important;
+  font-size: 80px !important;
   font-weight: 600;
   line-height: 1.1;
   margin-bottom: 0px;
@@ -42,6 +58,28 @@ html, body {
 .pdm-headline-sad {
   color: #1abc9c;
   font-size: 70px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 0px;
+  padding: 10px 0;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.title-headline {
+  color: #662D00;
+  font-size: 55px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 0px;
+  padding: 10px 0;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.user-headline {
+  color: #1abc9c;
+  font-size: 18px !important;
   font-weight: 600;
   line-height: 1.1;
   margin-bottom: 0px;
@@ -319,6 +357,7 @@ h1 { font-size: 1.2em; margin: .6em 0; }
   display:inline-block; 
   width:170px; 
   white-space: nowrap;
+  color: #1abc9c;
 }
 
 .signin {
@@ -452,4 +491,24 @@ div.navbar-inner, div.navbar-inner form {
   color: inherit;
   font: inherit;
   text-shadow: inherit;
+}
+
+.btn-transparent-vote-up {
+  background: none;
+  border: none;
+  color: inherit;
+  /*font: inherit;*/
+  text-shadow: inherit;
+  font-size: 45px;
+  color: #1abc9c;
+}
+
+.btn-transparent-vote-down {
+  background: none;
+  border: none;
+  color: inherit;
+  /*font: inherit;*/
+  text-shadow: inherit;
+  font-size: 45px;
+  color: #FF0000;
 }

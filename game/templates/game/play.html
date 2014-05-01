@@ -31,8 +31,10 @@
             <span class="fui-play"></span>
             <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
             &nbsp; &nbsp; &nbsp; 
-            <span class="fui-new"></span>
+            <span class="fui-new edit"></span>
             <a href="{% url 'stage:editor' %}?stageid={{stage.pk}}">Edit</a>
+            <span class="fui-trash"></span>
+            <a href="{% url 'stage:editor' %}?stageid={{stage.pk}}"></a>
             <br>
         {% endfor %}
         </div>
@@ -45,8 +47,10 @@
                 <span class="fui-play"></span>
                 <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
                 &nbsp; &nbsp; &nbsp; 
-                <span class="fui-user"></span>
+                <span class="fui-user user"></span>
                 <a href="/profile/?user={{stage.owner}}">{{stage.owner}}</a>
+                <span class="fui-heart heart"></span>
+                {{stage.rating}}
                 <br>
             {% endfor %}
         </div>
