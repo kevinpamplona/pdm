@@ -3,6 +3,7 @@
 {% block head %}
 
   <script type="text/javascript" src="/assets/javascript/canvas-engine.js"></script>
+  <script type="text/javascript" src="/assets/javascript/delete-stage.js"></script>
   <script type="text/javascript">
       $(function() {
           init_canvas();
@@ -18,6 +19,11 @@
 {% block primary %}
   <div id="editor-main">
     <h1 class="title">Stage Editor</h1>
+
+    {% if saved %}
+      Currently editing stage: <b>"<font color="#f1c40f">{{title}}</font>"</b>
+    {% else %}
+    {% endif %}
     
     <div id="editor-canvas">
       <div id="allrows"></div>
@@ -94,13 +100,25 @@
           <div id="elements-enemy-slot" class="elements-slot elements-slot-clickable"></div>
         </div>
       </div>
-    
+
+      {% if saved %}
       <div id="editor-dashboard" class="editor-control">
         <!-- <button id="savebutton" class="navbutton" type="button">Save</button> -->
-        <button id="renderbutton"class="navbutton" type="button">Play</button>
-        <button id="resizebutton" class="navbutton" data-toggle="modal" data-target="#resizeModal">Resize</button>
-        <button id="restartbutton" class="navbutton" type="button">Clear</button>
+        <button id="renderbutton"class="btn btn-huge btn-primary mlm" type="button"><i class="fui-play"></i></button>
+        <button id="resizebutton" class="btn btn-huge btn-warning mlm" data-toggle="modal" data-target="#resizeModal"><i class="fui-export"></i></button>
+        <button id="restartbutton" class="btn btn-huge btn-danger mlm" type="button"><i class="fui-cross"></i></button>
+        <br>
+        <button id="deletebutton" class="btn btn-huge btn-delete mlm" type="button" value="{{stageid}}"><i class="fui-trash"></i></button>
       </div>
+      {% else %}
+              <div id="editor-dashboard" class="editor-control">
+        <!-- <button id="savebutton" class="navbutton" type="button">Save</button> -->
+        <button id="renderbutton"class="btn btn-huge btn-primary mlm" type="button"><i class="fui-play"></i></button>
+        <button id="resizebutton" class="btn btn-huge btn-warning mlm" data-toggle="modal" data-target="#resizeModal"><i class="fui-export"></i></button>
+        <button id="restartbutton" class="btn btn-huge btn-danger mlm" type="button"><i class="fui-cross"></i></button>
+      </div>
+
+      {% endif %}
 
     </div>
   </div>

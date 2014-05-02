@@ -14,7 +14,6 @@
 </head>
 
 <body>
-
     {% if logged_in %}
       <div class="navbar navbar-inverse">
           <div class="navbar-inner">
@@ -41,11 +40,13 @@
                         </a>
                       </li>
                       <li>
+                        <a>
                         <form accept-charset="UTF-8" action="/login/" method="post">
-                          <button class="btn btn-lg btn-block btn-primary" type="submit" name="logout">
-                              <span class="fui-cross"></span> Logout
+                          <button class="btn-transparent" type="submit" name="logout">
+                              <span class="fui-cross"></span> <span class="hidden-desktop">Logout</span>
                           </button>
                         </form>
+                        </a>
                       </li>
                     </ul>
                   </div><!--/.nav-collapse -->
