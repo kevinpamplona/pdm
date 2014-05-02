@@ -31,4 +31,19 @@ $(function () {
         function() { 
         	delete_stage(stageid); 
         });
+
+    $(".tab-your").click(function() {
+        $(".tab-recent").removeClass("active");
+        $("#tab-recent").removeClass("active");
+        $(this).addClass("active");
+        $("#tab-your").addClass("active");
+
+    });
+
+    $(".tab-recent").click(function() {
+        $(".tab-your").removeClass("active");
+        $("#tab-your").removeClass("active");
+        $(this).addClass("active");
+        $("#tab-recent").addClass("active");
+    });
 });

@@ -21,26 +21,54 @@
 {% endif %}
 
 {% if logged_in %}
-<div class="profile-content">
-    <div class="saved-stages alert alert-info">
-        <div class="stages">
-            <div class="demo-content-wide">
+<center>
+    <div class="dashboard">
+    <ul class="nav nav-tabs nav-append-content">
+        <li class="tab-your active"><a href="#tab-your">Your Stages</a></li>
+        <li class="tab-recent"><a href="#tab-recent">Recently Created</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane tab-your-content active" id="tab-your">
+          <div class="demo-content-wide">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th><span class="fui-heart heart"></span></th>
+                                <th>Name</th>
+                                <th><span class="fui-new edit-header"></span></th>
+                                <th><span class="fui-trash cross-header"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for stage in stages %}
+                                <tr>
+                                    <td class="tb-rating">{{stage.rating}}</td>
+                                    <td class="tb-name"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
+                                    <th><a href="{% url 'stage:editor' %}?stageid={{stage.pk}}"><span class="fui-new edit"></span></a></th>
+                                    <th><a href="javascript:delete_stage({{stage.pk}});"><span class="fui-trash trash"></span></th>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        <div class="tab-pane tab-recent-content" id="tab-recent">
+          <div class="demo-content-wide">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th><span class="fui-heart heart"></span></th>
                             <th>Name</th>
-                            <th><span class="fui-new edit-header"></span></th>
-                            <th><span class="fui-trash cross-header"></span></th>
+                            <th><span class="fui-user user"></span></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for stage in stages %}
+                        {% for stage in recentstages %}
                             <tr>
                                 <td class="tb-rating">{{stage.rating}}</td>
                                 <td class="tb-name"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
-                                <th><a href="{% url 'stage:editor' %}?stageid={{stage.pk}}"><span class="fui-new edit"></span></a></th>
-                                <th><a href="javascript:delete_stage({{stage.pk}});"><span class="fui-trash trash"></span></th>
+                                <td class="tb-owner"><a href="/profile/?user={{stage.owner}}"><font color="#f1c40f">{{stage.owner}}</font></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -48,38 +76,18 @@
             </div>
         </div>
     </div>
-
-    <div class="recent-stages alert alert-info">
-        <div class="demo-content-wide">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th><span class="fui-heart heart"></span></th>
-                        <th>Name</th>
-                        <th><span class="fui-user user"></span></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for stage in recentstages %}
-                        <tr>
-                            <td class="tb-rating">{{stage.rating}}</td>
-                            <td class="tb-name"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
-                            <td class="tb-owner"><a href="/profile/?user={{stage.owner}}"><font color="#f1c40f">{{stage.owner}}</font></a></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
-</div>
 
-<div class="btn-new-stage">
-    <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">BUILD NEW STAGE</a>
-</div>
+    <div class="btn-new-stage">
+        <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">BUILD NEW STAGE</a>
+    </div>
+
+</center>
 
 {% else %}
 {% endif %}
-    
+
+
 <!-- {% if logged_in %}
 <div class="demo-content-wide">
     <table class="table table-striped table-hover">
@@ -107,3 +115,5 @@
 {% endif %} -->
 
 {% endblock %}
+
+

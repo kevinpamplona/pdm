@@ -5368,6 +5368,8 @@ input.search-query {
   padding: 20px 20px 10px;
   position: relative;
   z-index: 1;
+  width: 450px;
+  height: 500px;
 }
 .nav-list {
   padding-left: 13px;
