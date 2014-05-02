@@ -48,8 +48,7 @@ function init_canvas() {
   // Clear the canvas_directory
   canvas_directory = new Array();
 
-  var row_width = $("#allrows").width();
-  var box_width = row_width / CANVAS_WIDTH;
+  var box_width = 100 / CANVAS_WIDTH;
 
   // add the #canvas-row divs in '#allrows'
   for (var y = 0; y < CANVAS_HEIGHT; y++) {
@@ -80,10 +79,13 @@ function init_canvas() {
       }
 
       // add the droppable div with the specified text
-      $("<div class='" + canvas_col_class + "' style='width:" + box_width + "px;height:" + box_width + "px;'>" + tile_text + "</div>").data( {'coordinates': [x, y]} ).appendTo('#' + div_id).droppable({
+      $("<div class='" + canvas_col_class + "' style='width:" + box_width + "%;'>" + tile_text + "</div>").data( {'coordinates': [x, y]} ).appendTo('#' + div_id).droppable({
         accept: '.elements',
         hoverClass: 'hovered',
       });
+
+      // Set height equal to width
+      $(".canvas-droppable").height($(".canvas-droppable").width());
     }
   }
 
@@ -111,6 +113,9 @@ function init_canvas() {
     }
   });
 }
+
+// Set height equal to width every tim
+window.addEventListener("resize", function(e) { $(".canvas-droppable").height($(".canvas-droppable").width()); });
 
 // Loads a saved stage into memory via JSON data (passed in via Django templating)
 // Also saves the stage ID so that you don't create a new stage every time you save

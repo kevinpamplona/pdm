@@ -8,6 +8,17 @@ html, body {
   font-family: 'Lato', sans-serif;
 }
 
+.tb-name {
+  width: 200px;
+}
+
+.tb-rating {
+  width: 30px;
+}
+
+.tb-owner {
+  width: 200px;
+}
 
 .btn-space {
   padding-bottom: 10px;
@@ -36,6 +47,14 @@ html, body {
 
 .edit {
   color: #662D00;
+}
+
+.edit-header {
+  color: #FFC90D;
+}
+
+.cross-header {
+  color: #A50CE8;
 }
 
 .search-results {
@@ -204,6 +223,7 @@ h1.title {
 
 .canvas-row {
   line-height: 0;
+  white-space: nowrap;
 }
 
 .canvas-droppable {
@@ -448,6 +468,7 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 }
 
 .saved-stages {
+  height: 320px;
   width: 370px;
   display: inline-block;
   vertical-align: top;
@@ -471,7 +492,8 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 }
 
 .stages {
-  height:150px;
+  width:423px;
+  height:310px;
   overflow: auto;
 }
 
