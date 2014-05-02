@@ -8,6 +8,10 @@ html, body {
   font-family: 'Lato', sans-serif;
 }
 
+.dashboard {
+  width: 400px;
+}
+
 .delete-stage {
   width: 580px;
 }
@@ -458,7 +462,6 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 .btn-new-stage {
   width: 300px;
   margin: 0 auto;
-  position: relative;
   top: 400px;
 }
 
