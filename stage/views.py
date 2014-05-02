@@ -44,6 +44,34 @@ class RenderView(View):
 		else:
 			assert False
 
+class DeleteView(View):
+	def get(self, request, *args, **kwargs):
+		assert False
+
+	def post(self, request, *args, **kwargs):
+		print "heyyou"
+		data_in = json.loads(request.body)
+		print "whatsup"
+		stage_id = int(data_in['stage_id'])
+		print "nothing much"
+
+		# should exist
+		if not(Stage.objects.filter(pk=stage_id).exists()):
+			assert False
+		else:
+			# delete stage
+			Stage.objects.filter(pk=stage_id).delete()
+
+		# should not exist anymore
+		if not(Stage.objects.filter(pk=stage_id).exists()):
+			# do something
+			response = {"result" : "success"}
+			j_resp = json.dumps(response)
+			return HttpResponse(content=j_resp, content_type='application/json', status=200)
+		else:
+			assert False
+
+
 class EditorView(View):
 	def get(self, request, *args, **kwargs):
                 context = {'logged_in': True}
@@ -56,15 +84,22 @@ class EditorView(View):
 					response_data['height'] = stage.height
 					response_data['data'] = stage.data.replace('\n', '\\n').replace('\r', '')
 					response_data['stageid'] = stage.pk
+					context['stageid'] = stage.pk
 					context['data'] = json.dumps(response_data)
+					context['saved'] = True
+					context['title'] = stage.name
 					#print(stage.data)
 				else:
+					context['saved'] = False
 					context['error'] = "You can't edit another user's stage! Creating new stage"
 			except ObjectDoesNotExist:
 				context['error'] = "Cannot edit nonexistant stage! Creating new stage"
 			except Exception as e:
 				print e
 				raise
+		else:
+			context['saved'] = False
+
 		context['username'] = request.user.username
 		return render(request, 'stage/editor.html', context)
 

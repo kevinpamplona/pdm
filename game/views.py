@@ -109,8 +109,18 @@ def get_stage(request):
 
     totalCount = Stage.objects.count()
     context['recentstages'] = []
-    for i in xrange(min(7, totalCount)):
-        context['recentstages'].append(Stage.objects.get(pk = totalCount - i))
+
+    amountAdded = 0
+    currentStage = totalCount
+    while amountAdded < min(7, totalCount):
+        if currentStage < 0:
+            break
+
+        if Stage.objects.filter(pk = currentStage).exists():
+            context['recentstages'].append(Stage.objects.get(pk = currentStage))
+            amountAdded = amountAdded + 1
+
+        currentStage = currentStage - 1
 
     context['username'] = request.user.username 
 
