@@ -8,6 +8,10 @@ html, body {
   font-family: 'Lato', sans-serif;
 }
 
+.delete-stage {
+  width: 580px;
+}
+
 .tb-name {
   width: 200px;
 }
@@ -47,6 +51,10 @@ html, body {
 
 .edit {
   color: #662D00;
+}
+
+.trash {
+  color: #0D0401;
 }
 
 .edit-header {

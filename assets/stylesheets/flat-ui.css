@@ -776,6 +776,26 @@ a.muted:focus {
 .btn.btn-danger.active {
   background-color: #c44133;
 }
+
+
+
+.btn.btn-black {
+  background-color: #000000;
+}
+.btn.btn-black:hover,
+.btn.btn-black:focus,
+.btn-group:focus .btn.btn-black.dropdown-toggle {
+  background-color: #ec7063;
+}
+.btn.btn-black:active,
+.btn-group.open .btn.btn-black.dropdown-toggle,
+.btn.btn-black.active {
+  background-color: #c44133;
+}
+
+
+
+
 .btn.btn-success {
   background-color: #2ecc71;
 }
