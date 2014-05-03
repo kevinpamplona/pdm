@@ -544,3 +544,8 @@ div.navbar-inner, div.navbar-inner form {
   font-size: 45px;
   color: #FF0000;
 }
+
+.fui-replay:before, .fui-replay::before {
+  content: "\21BA ";
+  font-weight: bolder;
+}

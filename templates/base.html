@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    {% if logged_in %}
+    {% if user.is_authenticated %}
       <div class="navbar navbar-inverse">
           <div class="navbar-inner">
               <div class="container">
@@ -36,7 +36,7 @@
                     <ul class="nav pull-right">
                       <li class="">
                         <a href="/game">
-                          <span class="fui-home"></span><span class="hidden-desktop">{{username}}</span>
+                          <span class="fui-home"></span><span class="hidden-desktop">{{user.username}}</span>
                         </a>
                       </li>
                       <li>
