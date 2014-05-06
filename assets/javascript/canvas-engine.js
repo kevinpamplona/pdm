@@ -50,6 +50,9 @@ function init_canvas() {
 
   var row_width = $("#allrows").width();
   var box_width = row_width / CANVAS_WIDTH;
+  if (box_width > 60) {
+      box_width = 60
+  }
 
   // add the #canvas-row divs in '#allrows'
   for (var y = 0; y < CANVAS_HEIGHT; y++) {

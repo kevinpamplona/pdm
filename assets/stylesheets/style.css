@@ -154,8 +154,6 @@ h1.title {
 }
 
 .canvas-droppable {
-  max-width: 60px;
-  max-height: 60px;
   border: 1px solid white;
   box-sizing: border-box;
   background: #555555;
