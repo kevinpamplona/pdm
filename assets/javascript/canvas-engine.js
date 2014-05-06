@@ -69,21 +69,15 @@ function init_canvas() {
   $('.canvas-droppable').click(function() {
     var placedClass = "placed-element-" + currentElement;
     var coordinates = $(this).data('coordinates');
+    $.each(canvas_directory, function(i){
+      if(canvas_directory[i].coordinates === coordinates)
+        canvas_directory.splice(i,1);
+    });
     if ($(this).hasClass(placedClass)) {
       $(this).removeClass(placedClass);
-      $.each(canvas_directory, function(i){
-        if(canvas_directory[i].coordinates === coordinates) {
-          canvas_directory.splice(i,1);
-        }
-      });
     } else {
       $(this).removeClass();
-      $.each(canvas_directory, function(i){
-        if(canvas_directory[i].coordinates === coordinates)
-          canvas_directory.splice(i,1);
-      });
-      $(this).addClass("canvas-droppable ui-droppable");
-      $(this).addClass(placedClass);
+      $(this).addClass("canvas-droppable ui-droppable " + placedClass);
       // create a canvas_node object and add to the canvas directory
       canvas_directory.push(new canvas_node(currentElement + '-type', $(this).data('coordinates')));
     }

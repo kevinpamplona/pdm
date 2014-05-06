@@ -19,9 +19,8 @@
 
     {% if logged_in %}
       <center>
-        <div class="signin" style="text-align:center">    
+        <div class="signin">    
           <a href="/game" class="btn btn-large btn-block btn-primary btn-space">You are logged in, <b><font color="#f1c40f">{{username}}</font></b>. Go to your dashboard.</a>
-          <br>
           <form action="{% url 'users:login' %}" method = "post">
             <button class="btn btn-large btn-block btn-danger" name="logout">Not <b><font color="#f1c40f">{{username}}</font></b>? Logout.</button>
           </form>
