@@ -6,11 +6,11 @@
 
 {% block primary %}
 
+<p class="pdm-headline">
 {% if logged_in %}
-    <p class="pdm-headline">Welcome, {{username}}!</p>
+    Welcome, {{username}}!</p>
 {% else %}
-<p class="pdm-headline-sad">sad pikachu is sad</p>
-    <br> <br>
+    sad pikachu is sad</p> <br/><br/>
     <center>
         <img src="../assets/images/pikachu.png">
         <br>
@@ -21,11 +21,10 @@
 {% endif %}
 
 {% if logged_in %}
-<center>
-    <div class="dashboard">
+<center class="dashboard">
     <ul class="nav nav-tabs nav-append-content">
-        <li class="tab-your active"><a href="#tab-your">Your Stages</a></li>
-        <li class="tab-recent"><a href="#tab-recent">Recently Created</a></li>
+        <li class="tab-your active"><a>Your Stages</a></li>
+        <li class="tab-recent"><a>Recently Created</a></li>
     </ul>
 
     <div class="tab-content">
@@ -67,7 +66,7 @@
                         {% for stage in recentstages %}
                             <tr>
                                 <td class="tb-rating">{{stage.rating}}</td>
-                                <td class="tb-name"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
+                                <td class="tb-name-recent"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
                                 <td class="tb-owner"><a href="/profile/?user={{stage.owner}}"><font color="#f1c40f">{{stage.owner}}</font></a></td>
                             </tr>
                         {% endfor %}
@@ -76,10 +75,9 @@
             </div>
         </div>
     </div>
-    </div>
 
     <div class="btn-new-stage">
-        <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">BUILD NEW STAGE</a>
+        <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">Build a New Stage</a>
     </div>
 
 </center>

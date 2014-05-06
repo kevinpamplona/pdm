@@ -100,8 +100,8 @@ data = jQuery.parseJSON('{{data}}');
     });
 
 function endGame(message) {
-    alert(message);
     $('#gameOver').show();
+    $('#gameOverMessage').html(message);
 }
 
 function restartStage() {
