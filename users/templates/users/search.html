@@ -15,18 +15,30 @@
           <h6><b>1 user named '{{query}}' found</b></h6> <br>
           <b>username:</b> {{username}} <br><br>
           <b>Found user has created {{user_stagecount}} stage(s)</b> <br><br>
+<div class="demo-content-wide">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th><span class="fui-heart heart"></span></th>
+                <th>Stage</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for stage in user_stages %}
-              <span class="stage-name">{{stage.name}}</span>
-              <span class="fui-play"></span>
-              <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
-              <br><br>
+                <tr>
+                    <td class="tb-rating">{{stage.rating}}</td>
+                    <td class="tb-name"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
+                </tr>
             {% endfor %}
-        </div>
+        </tbody>
+    </table>
+</div>        </div>
       {% else %}
-        0 users found
+        0 users named '{{query}}' found
       {% endif %}
     </div>
   </div>
+  <br>
   <div class="demo-row">
     <div class="demo-title">
       <h4>Stage Results:</h4>
@@ -34,16 +46,27 @@
     <div class="demo-content demo-content-article">
       {% if stages_exists = "true" %}
         <div class="search-results">
-          <h6><b>{{ stages_stagecount }} stage(s) named '{{query}}' found</b></h6> <br>
-          {% for stage in stages_stages %}
-            <span class="stage-name">{{stage.name}}</span>
-            <span class="fui-play"></span>
-            <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
-            &nbsp; &nbsp; &nbsp; 
-            <span class="fui-user"></span>
-            <a href="/profile/?user={{stage.owner}}">{{stage.owner}}</a>
-            <br>
-          {% endfor %}
+          <h6><b>{{ stages_stagecount }} stage(s) matching '{{query}}' found</b></h6> <br>
+<div class="demo-content-wide">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th><span class="fui-heart heart"></span></th>
+                <th>Stage</th>
+                <th><span class="fui-user"></span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stage in stages_stages %}
+                <tr>
+                    <td class="tb-rating">{{stage.rating}}</td>
+                    <td class="tb-name"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
+                    <th><a href="/profile/?user={{stage.owner}}">{{stage.owner}}</a></th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
         </div>
       {% else %}
         0 stages found

@@ -14,8 +14,7 @@
 </head>
 
 <body>
-
-    {% if logged_in %}
+    {% if user.is_authenticated %}
       <div class="navbar navbar-inverse">
           <div class="navbar-inner">
               <div class="container">
@@ -37,15 +36,17 @@
                     <ul class="nav pull-right">
                       <li class="">
                         <a href="/game">
-                          <span class="fui-home"></span><span class="hidden-desktop">{{username}}</span>
+                          <span class="fui-home"></span><span class="hidden-desktop">{{user.username}}</span>
                         </a>
                       </li>
                       <li>
+                        <a>
                         <form accept-charset="UTF-8" action="/login/" method="post">
-                          <button class="btn btn-lg btn-block btn-primary" type="submit" name="logout">
-                              <span class="fui-cross"></span> Logout
+                          <button class="btn-transparent" type="submit" name="logout">
+                              <span class="fui-cross"></span> <span class="hidden-desktop">Logout</span>
                           </button>
                         </form>
+                        </a>
                       </li>
                     </ul>
                   </div><!--/.nav-collapse -->

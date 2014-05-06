@@ -8,6 +8,25 @@ html, body {
   font-family: 'Lato', sans-serif;
 }
 
+.dashboard {
+  width: 400px;
+}
+
+.delete-stage {
+  width: 580px;
+}
+
+.tb-name {
+  width: 200px;
+}
+
+.tb-rating {
+  width: 30px;
+}
+
+.tb-owner {
+  width: 200px;
+}
 
 .btn-space {
   padding-bottom: 10px;
@@ -22,6 +41,34 @@ html, body {
   font-size: 0.8em;
 }
 
+#rating {
+  color: #FF0000;
+}
+
+.heart {
+  color: #FF0000;
+}
+
+.user {
+  color: #1abc9c;
+}
+
+.edit {
+  color: #662D00;
+}
+
+.trash {
+  color: #0D0401;
+}
+
+.edit-header {
+  color: #FFC90D;
+}
+
+.cross-header {
+  color: #A50CE8;
+}
+
 .search-results {
   border:2px solid;
   padding: 20px;
@@ -30,7 +77,40 @@ html, body {
 
 .pdm-headline {
   color: #1abc9c;
-  font-size: 100px !important;
+  font-size: 80px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 0px;
+  padding: 10px 0;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.pdm-headline-sad {
+  color: #1abc9c;
+  font-size: 70px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 0px;
+  padding: 10px 0;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.title-headline {
+  color: #662D00;
+  font-size: 55px !important;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 0px;
+  padding: 10px 0;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.user-headline {
+  color: #1abc9c;
+  font-size: 18px !important;
   font-weight: 600;
   line-height: 1.1;
   margin-bottom: 0px;
@@ -101,6 +181,10 @@ h1.title {
   background-color: sandybrown;
 }
 
+#elements-enemy-slot, #elements-current-enemy {
+  background-color: tomato;
+}
+
 #play-button {
   display: block;
   margin: 5px auto;
@@ -151,6 +235,7 @@ h1.title {
 
 .canvas-row {
   line-height: 0;
+  white-space: nowrap;
 }
 
 .canvas-droppable {
@@ -174,6 +259,10 @@ h1.title {
 
 .placed-element-block {
   background-color: sandybrown;
+}
+
+.placed-element-enemy {
+  background-color: tomato;
 }
 
 .canvas-first-col {
@@ -297,6 +386,7 @@ h1 { font-size: 1.2em; margin: .6em 0; }
   display:inline-block; 
   width:170px; 
   white-space: nowrap;
+  color: #1abc9c;
 }
 
 .signin {
@@ -370,8 +460,14 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 .btn-new-stage {
   width: 300px;
   margin: 0 auto;
-  position: relative;
   top: 400px;
+}
+
+.btn-pikachu {
+  width: 300px;
+  margin: 0 auto;
+  position: relative;
+  top: 20px;
 }
 
 .profile-content {
@@ -381,6 +477,7 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 }
 
 .saved-stages {
+  height: 320px;
   width: 370px;
   display: inline-block;
   vertical-align: top;
@@ -404,11 +501,49 @@ h1 { font-size: 1.2em; margin: .6em 0; }
 }
 
 .stages {
-  height:150px;
+  width:423px;
+  height:310px;
   overflow: auto;
 }
 
 div.navbar-inner, div.navbar-inner form {
   height: 55px !important;
   overflow: hidden;
+}
+
+#gameOver {
+  display:none;
+}
+
+.btn-transparent {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+}
+
+.btn-transparent-vote-up {
+  background: none;
+  border: none;
+  color: inherit;
+  /*font: inherit;*/
+  text-shadow: inherit;
+  font-size: 45px;
+  color: #1abc9c;
+}
+
+.btn-transparent-vote-down {
+  background: none;
+  border: none;
+  color: inherit;
+  /*font: inherit;*/
+  text-shadow: inherit;
+  font-size: 45px;
+  color: #FF0000;
+}
+
+.fui-replay:before, .fui-replay::before {
+  content: "\21BA ";
+  font-weight: bolder;
 }

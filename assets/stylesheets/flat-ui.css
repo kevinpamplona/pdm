@@ -776,6 +776,26 @@ a.muted:focus {
 .btn.btn-danger.active {
   background-color: #c44133;
 }
+
+
+
+.btn.btn-black {
+  background-color: #000000;
+}
+.btn.btn-black:hover,
+.btn.btn-black:focus,
+.btn-group:focus .btn.btn-black.dropdown-toggle {
+  background-color: #ec7063;
+}
+.btn.btn-black:active,
+.btn-group.open .btn.btn-black.dropdown-toggle,
+.btn.btn-black.active {
+  background-color: #c44133;
+}
+
+
+
+
 .btn.btn-success {
   background-color: #2ecc71;
 }
@@ -5348,6 +5368,8 @@ input.search-query {
   padding: 20px 20px 10px;
   position: relative;
   z-index: 1;
+  width: 450px;
+  height: 500px;
 }
 .nav-list {
   padding-left: 13px;
@@ -6341,7 +6363,8 @@ input.search-query {
 .mlm,
 .mhm,
 .mam {
-  margin-left: 10px;
+  margin-top: 25px;
+  margin-left: 20px;
 }
 .mll,
 .mhl,

@@ -1,52 +1,119 @@
 {% extends "base.html" %}
 
+{% block head %}
+    <script type="text/javascript" src="/assets/javascript/delete-stage.js"></script>
+{% endblock %}
+
 {% block primary %}
 
-<p class="pdm-headline">Welcome, {{username}}!</p>
-
-
-<div class="profile-content">
-    <div class="saved-stages alert alert-info">
-        <div>
-            <span class="stage-name">Default Stage</span>
-            <span class="fui-play"></span>
-            <a href="{% url 'game:play_game' %}">Play</a>
+{% if logged_in %}
+    <p class="pdm-headline">Welcome, {{username}}!</p>
+{% else %}
+<p class="pdm-headline-sad">sad pikachu is sad</p>
+    <br> <br>
+    <center>
+        <img src="../assets/images/pikachu.png">
+        <br>
+        <div class="btn-pikachu">
+        <a href="{% url 'users:login' %}" class="btn btn-huge btn-block btn-primary">LOG IN!</a>
         </div>
-        <div class="message">{{ message }}</div>
-        <div class="stages">
-        {% for stage in stages %}
-            <span class="stage-name">{{stage.name}}</span>
-            <span class="fui-play"></span>
-            <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
-            &nbsp; &nbsp; &nbsp; 
-            <span class="fui-new"></span>
-            <a href="{% url 'stage:editor' %}?stageid={{stage.pk}}">Edit</a>
-            <br>
-        {% endfor %}
+    </center>
+{% endif %}
+
+{% if logged_in %}
+<center>
+    <div class="dashboard">
+    <ul class="nav nav-tabs nav-append-content">
+        <li class="tab-your active"><a href="#tab-your">Your Stages</a></li>
+        <li class="tab-recent"><a href="#tab-recent">Recently Created</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane tab-your-content active" id="tab-your">
+          <div class="demo-content-wide">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th><span class="fui-heart heart"></span></th>
+                                <th>Name</th>
+                                <th><span class="fui-new edit-header"></span></th>
+                                <th><span class="fui-trash cross-header"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for stage in stages %}
+                                <tr>
+                                    <td class="tb-rating">{{stage.rating}}</td>
+                                    <td class="tb-name"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
+                                    <th><a href="{% url 'stage:editor' %}?stageid={{stage.pk}}"><span class="fui-new edit"></span></a></th>
+                                    <th><a href="javascript:delete_stage({{stage.pk}});"><span class="fui-trash trash"></span></th>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        <div class="tab-pane tab-recent-content" id="tab-recent">
+          <div class="demo-content-wide">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th><span class="fui-heart heart"></span></th>
+                            <th>Name</th>
+                            <th><span class="fui-user user"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stage in recentstages %}
+                            <tr>
+                                <td class="tb-rating">{{stage.rating}}</td>
+                                <td class="tb-name"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
+                                <td class="tb-owner"><a href="/profile/?user={{stage.owner}}"><font color="#f1c40f">{{stage.owner}}</font></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
-    <div class="recent-stages alert alert-info">
-        <div class="message">Recently Created Stages</div>
-            {% for stage in recentstages %}
-                <span class="stage-name">{{stage.name}}</span>
-                <span class="fui-play"></span>
-                <a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">Play</a>
-                &nbsp; &nbsp; &nbsp; 
-                <span class="fui-user"></span>
-                <a href="/profile/?user={{stage.owner}}">{{stage.owner}}</a>
-                <br>
-            {% endfor %}
-        </div>
     </div>
 
     <div class="btn-new-stage">
-        {% if logged_in %}
-            <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">BUILD NEW STAGE</a>
-        {% else %}
-            <a href="{% url 'users:login' %}" class="btn btn-huge btn-block btn-primary">LOG IN</a>
-        {% endif %}
-        </div>
+        <a href="/stage/editor" class="btn btn-huge btn-block btn-primary">BUILD NEW STAGE</a>
+    </div>
+
+</center>
+
+{% else %}
+{% endif %}
+
+
+<!-- {% if logged_in %}
+<div class="demo-content-wide">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th><span class="fui-heart heart"></span></th>
+                <th>Name</th>
+                <th><span class="fui-new edit-header"></span></th>
+                <th><span class="fui-cross cross-header"></span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stage in recentstages %}
+                <tr>
+                    <td class="tb-rating">{{stage.rating}}</td>
+                    <td class="tb-name"><a href="{% url 'game:play_game' %}?stageid={{stage.pk}}">{{stage.name}}</a></td>
+                    <th><a href="{% url 'stage:editor' %}?stageid={{stage.pk}}"><span class="fui-new edit"></span></a></th>
+                    <th><span class="fui-cross"></span></th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+{% else %}
+{% endif %} -->
 
 {% endblock %}
+
+
