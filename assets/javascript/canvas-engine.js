@@ -48,50 +48,22 @@ function init_canvas() {
   // Clear the canvas_directory
   canvas_directory = new Array();
 
-  var row_width = $("#allrows").width();
-  var box_width = row_width / CANVAS_WIDTH;
-  if (box_width > 60) {
-      box_width = 60
-  }
+  var box_width = 100 / CANVAS_WIDTH;
 
   // add the #canvas-row divs in '#allrows'
   for (var y = 0; y < CANVAS_HEIGHT; y++) {
-    // unique row id
-    var div_id = "row_" + y
-
-    // common #canvas-row class
-    var canvas_row_class = 'canvas-row';
-
-    // add #canvas-first-row to first row to help with positioning
-    if (y == 0) {
-      canvas_row_class = 'canvas-row canvas-first-row'
-    } 
 
     // add the div with the specified id and classes to #allrows
-    $("<div id='" + div_id + "' class='" + canvas_row_class + "'></div>").appendTo( '#allrows' );
+    $("<div id='row_" + y + "' class='canvas-row'></div>").appendTo( '#allrows' );
 
     // for each row, add the droppable elements 
     for (var x = 0; x < CANVAS_WIDTH; x++) {
-
-      // text to be in the tile
-      //var tile_text = "(" + x + " , " + y + ")";
-      var tile_text = "";
-
-      var canvas_col_class = 'canvas-droppable';
-      if (x == 0) {
-        canvas_col_class += ' canvas-first-col';
-      }
-
-      // add the droppable div with the specified text
-      $("<div class='" + canvas_col_class + "' style='width:" + box_width + "%;'>" + tile_text + "</div>").data( {'coordinates': [x, y]} ).appendTo('#' + div_id).droppable({
-        accept: '.elements',
-        hoverClass: 'hovered',
-      });
-
-      // Set height equal to width
-      $(".canvas-droppable").height($(".canvas-droppable").width());
+      $("<div class='canvas-droppable' style='width:" + box_width + "%;'></div>").data( {'coordinates': [x, y]} ).appendTo('#row_' + y);
     }
   }
+
+  // Set height equal to width
+  $(".canvas-droppable").height($(".canvas-droppable").width());
 
   // add click event to each div
   $('.canvas-droppable').click(function() {

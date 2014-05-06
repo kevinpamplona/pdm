@@ -265,14 +265,6 @@ h1.title {
   background-color: tomato;
 }
 
-.canvas-first-col {
-  border-left-width: 1px;
-}
-
-.canvas-first-row .canvas-droppable {
-  border-top-width: 1px;
-}
-
 .canvas-droppable.hovered {
   background: #aaa;
 }
